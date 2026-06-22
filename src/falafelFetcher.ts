@@ -1,21 +1,18 @@
 import { PlacesClient } from "@googlemaps/places";
-import { z } from "astro/zod";
 import fs from "fs";
 import path from "path";
 
-export const falafelPlaceSchema = z.object({
-    name: z.string().describe("Place name"),
-    address: z.string().describe("Short formatted place address"),
-    review: z.string().describe("Notes from saved list"),
-    lat: z.number().describe("Latitude"),
-    lng: z.number().describe("Longitude"),
-    dateAdded: z.date().describe("Date saved to list"),
-    dateModified: z.date().describe("Date review was last edited"),
-    uri: z.string().url().describe("URL to place in Google Maps"),
-    placeId: z.string().describe("Google Maps place identifier"),
-});
-
-export type FalafelPlace = z.infer<typeof falafelPlaceSchema>;
+export type FalafelPlace = {
+    name: string;
+    address: string;
+    review: string;
+    lat: number;
+    lng: number;
+    dateAdded: Date;
+    dateModified: Date;
+    uri: string;
+    placeId: string | undefined;
+};
 export type FalafelStore = Record<string, FalafelPlace>;
 
 const FALAFEL_DATA_DIR = path.join(process.cwd(), "src/data");
@@ -60,6 +57,7 @@ export default async function fetchFalafel() {
             continue;
         }
         
+        // query for url, address, placeId
         const textSearchResult = await placesClient.searchText({
             textQuery: entry.searchString,
             locationBias: {
@@ -153,9 +151,6 @@ const parseEntry = (entry: GetEntriesEntrySchema) => ({
     cacheKey: entry[9][0].toString(),
     dateAdded: unixTimestampToDate(entry[9][0]),
     dateModified: unixTimestampToDate(entry[10][0]),
-    // kgmid: entry[1][7],
-    // nameFormattedAddress: entry[1][2],
-    // formattedAddress: entry[1][4],
 });
 
 const unixTimestampToDate = (seconds: number) => new Date(seconds * 1000);
