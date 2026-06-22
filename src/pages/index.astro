@@ -1,5 +1,10 @@
 ---
+import falafel from "../data/falafel_list_entries.json";
+import metadata from "../data/falafel_list_metadata.json";
 
+const orderedFalafel = Object.values(falafel).sort(
+	(a, b) => new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime(),
+);
 ---
 
 <html lang="en">
@@ -9,9 +14,37 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Wrap Map</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>
+			<a
+				href={metadata.uri}
+				title={`View ${metadata.title} in Google Maps: ${metadata.uri}`}
+				target="_blank">falafel wraps</a
+			> ({orderedFalafel.length} of them)
+		</h1>
+		<p>{metadata.description}</p>
+		<ul>
+			{
+				orderedFalafel.map((f) => (
+					<li>
+						<strong>
+							<a
+								href={f.uri}
+								title={`View ${f.name} in Google Maps: ${f.uri}`}
+								target="_blank"
+							>
+								{f.name}
+							</a>
+						</strong>
+						&nbsp; <i>{f.address}</i>
+						{f.review.split("\n\n").map((p) => (
+							<p>{p}</p>
+						))}
+					</li>
+				))
+			}
+		</ul>
 	</body>
 </html>
