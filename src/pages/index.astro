@@ -1,10 +1,18 @@
 ---
-import falafel from "../data/falafel_list_entries.json";
-import metadata from "../data/falafel_list_metadata.json";
+import falafelList from "../data/falafel_list.json";
+import type { FalafelPlace } from "../falafelFetcher";
 
-const orderedFalafel = Object.values(falafel).sort(
-	(a, b) => new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime(),
-);
+const falafel = Object.values(falafelList.entries).sort(
+	(a, b) => getSortDate(b) - getSortDate(a),
+) as FalafelPlace[];
+
+function getSortDate(entry: FalafelPlace) {
+	const eatDate = new Date(entry.dateEaten ?? "").getTime();
+	if (!isNaN(eatDate)) {
+		return eatDate;
+	}
+	return new Date(entry.dateSaved).getTime();
+}
 ---
 
 <html lang="en">
@@ -17,20 +25,20 @@ const orderedFalafel = Object.values(falafel).sort(
 	<body>
 		<h1>
 			<a
-				href={metadata.uri}
-				title={`View ${metadata.title} in Google Maps: ${metadata.uri}`}
+				href={falafelList.googleMapsUri}
+				title={`View ${falafelList.title} in Google Maps: ${falafelList.googleMapsUri}`}
 				target="_blank">falafel wraps</a
-			> ({orderedFalafel.length} of them)
+			> ({falafelList.length} of them)
 		</h1>
-		<p>{metadata.description}</p>
+		<p>{falafelList.description}</p>
 		<ul>
 			{
-				orderedFalafel.map((f) => (
+				falafel.map((f) => (
 					<li>
 						<strong>
 							<a
-								href={f.uri}
-								title={`View ${f.name} in Google Maps: ${f.uri}`}
+								href={f.googleMapsUri}
+								title={`View ${f.name} in Google Maps: ${f.googleMapsUri}`}
 								target="_blank"
 							>
 								{f.name}

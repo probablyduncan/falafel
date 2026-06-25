@@ -2,22 +2,49 @@ import { PlacesClient } from "@googlemaps/places";
 import fs from "fs";
 import path from "path";
 
-export type FalafelPlace = {
-    name: string;
-    address: string;
-    review: string;
-    lat: number;
-    lng: number;
-    dateAdded: Date;
-    dateModified: Date;
-    uri: string;
-    placeId: string | undefined;
+export type FalafelStore = {
+    /** list title */
+    title: string;
+    /** list description */
+    description: string;
+    /** list icon */
+    icon: string;
+    /** link to list in google maps */
+    googleMapsUri: string;
+    /** number of entries */
+    length: number;
+    /** entries, keyed by `FalafelPlace.cacheKey` */
+    entries: Record<string, FalafelPlace>;
 };
-export type FalafelStore = Record<string, FalafelPlace>;
 
-const FALAFEL_DATA_DIR = path.join(process.cwd(), "src/data");
-const FALAFEL_ENTRIES_PATH = path.join(FALAFEL_DATA_DIR, "falafel_list_entries.json");
-const FALAFEL_METADATA_PATH = path.join(FALAFEL_DATA_DIR, "falafel_list_metadata.json");
+type EmptyString = "";
+
+export type FalafelPlace = {
+    /** name of falafel restaurant, as saved on list */
+    name: string;
+    /** written notes from list */
+    review: string;
+    /** place latitude from list */
+    lat: number;
+    /** place longitude from list */
+    lng: number;
+    /** google maps placeId of falafel restaurant */
+    placeId: string | EmptyString;
+    /** date review was last modified on list */
+    dateUpdated: string;
+    /** date added to list */
+    dateSaved: string;
+    /** optional, if set will be used instead of `dateAdded` */
+    dateEaten: string | EmptyString;
+    /** optional, will be displayed instead of `dateEaten` */
+    dateEatenText: string | EmptyString;
+    /** address returned by places api */
+    address: string | EmptyString;
+    /** link to place in google maps */
+    googleMapsUri: string | EmptyString;
+};
+
+const FALAFEL_STORE_PATH = path.join(process.cwd(), "src/data/falafel_list.json");
 
 export default async function fetchFalafel() {
 
@@ -27,111 +54,127 @@ export default async function fetchFalafel() {
         return;
     }
 
+    const fetchedMapJson = JSON.parse((await response.text()).replace(/^\)\]\}'/, "").trim()) as GetEntriesResponseSchema;
+    const fetchedMapList = parseResponse(fetchedMapJson);
+    console.info(`fetched list: ${fetchedMapList.title} (${fetchedMapList.length} entries) from ${fetchedMapList.uri}`);
+
+    const store: FalafelStore = fs.existsSync(FALAFEL_STORE_PATH) ? JSON.parse(fs.readFileSync(FALAFEL_STORE_PATH, "utf-8")) as FalafelStore : {
+        title: fetchedMapList.title,
+        description: fetchedMapList.description,
+        icon: fetchedMapList.icon,
+        googleMapsUri: fetchedMapList.uri,
+        length: 0,
+        entries: {},
+    };
+
+    store.length = fetchedMapList.entries.length;
+
+    const unmatchedEntryKeys = new Set(Object.keys(store.entries));
+
     const placesClient = new PlacesClient({
         apiKey: process.env.GOOGLE_MAPS_API_KEY,
     });
 
-    const raw = await response.text();
-    const json = JSON.parse(raw.replace(/^\)\]\}'/, "").trim()) as GetEntriesResponseSchema;
-    const list = parseResponse(json);
-    console.info(`fetched list: ${list.title} (${list.length} entries) from ${list.uri}`);
+    for (const fetchedListEntry of fetchedMapList.entries) {
 
-    fs.writeFileSync(FALAFEL_METADATA_PATH, JSON.stringify({
-        title: list.title,
-        description: list.description,
-        icon: list.icon,
-        uri: list.uri,
-    }, null, 2));
+        let entryToSave: FalafelPlace;
+        if (unmatchedEntryKeys.delete(fetchedListEntry.cacheKey)) {
+            // already set, just update
+            entryToSave = store.entries[fetchedListEntry.cacheKey];
 
-    const store: FalafelStore = fs.existsSync(FALAFEL_ENTRIES_PATH) ? JSON.parse(fs.readFileSync(FALAFEL_ENTRIES_PATH, "utf-8")) as FalafelStore : {};
-    const existingKeys = new Set<string>(Object.keys(store));
+            if (new Date(entryToSave.dateUpdated).getTime() !== fetchedListEntry.dateModified.getTime()) {
+                console.log(`\nupdated: ${fetchedListEntry.name}`);
+            }
 
-    for (const entry of list.entries) {
-
-        // if already fetched, will update data from list but won't refetch uri/address/etc
-        if (existingKeys.delete(entry.cacheKey)) {
-            console.info(`${entry.name} (${store[entry.cacheKey].address}) found in json, no need to fetch`)
-            store[entry.cacheKey].dateModified = entry.dateModified;
-            store[entry.cacheKey].name = entry.name;
-            store[entry.cacheKey].review = entry.notes;
-            continue;
+            entryToSave.name = fetchedListEntry.name;
+            entryToSave.review = fetchedListEntry.notes;
+            entryToSave.lat = fetchedListEntry.lat;
+            entryToSave.lng = fetchedListEntry.lng;
+            entryToSave.dateUpdated = fetchedListEntry.dateModified.toISOString();
         }
-        
-        // query for url, address, placeId
-        const textSearchResult = await placesClient.searchText({
-            textQuery: entry.searchString,
-            locationBias: {
-                circle: {
-                    center: {
-                        latitude: entry.lat,
-                        longitude: entry.lng,
+        else {
+            // create new entry
+            entryToSave = store.entries[fetchedListEntry.cacheKey] ??= {
+                name: fetchedListEntry.name,
+                review: fetchedListEntry.notes,
+                lat: fetchedListEntry.lat,
+                lng: fetchedListEntry.lng,
+                placeId: "",
+                dateUpdated: fetchedListEntry.dateModified.toISOString(),
+                dateSaved: fetchedListEntry.dateAdded.toISOString(),
+                dateEaten: "",
+                dateEatenText: "",
+                address: "",
+                googleMapsUri: "",
+            };
+        }
+
+        // if not already done, query for url/address/etc
+        if (!entryToSave.googleMapsUri) {
+            try {
+                const textSearchResult = await placesClient.searchText({
+                    textQuery: fetchedListEntry.searchString,
+                    locationBias: {
+                        circle: {
+                            center: {
+                                latitude: fetchedListEntry.lat,
+                                longitude: fetchedListEntry.lng,
+                            },
+                        }
                     },
+                    regionCode: "GB",
+                }, {
+                    maxResults: 5,
+                    otherArgs: {
+                        headers: {
+                            'X-Goog-FieldMask': "places.name,places.location,places.displayName,places.googleMapsUri,places.shortFormattedAddress,places.businessStatus",
+                        },
+                    },
+                });
+
+                // sort by distance from the saved place, so the closest match is first
+                const sortedSearchResults = textSearchResult[0].places?.map(p => ({
+                    ...p,
+                    distance: distance(p.location?.latitude ?? 1000, p.location?.longitude ?? 1000, fetchedListEntry.lat, fetchedListEntry.lng)
+                })).filter(p => p.distance < 0.001).sort((a, b) => a.distance - b.distance) ?? [];
+
+                const searchMatch = sortedSearchResults[0];
+                if (!searchMatch) {
+                    throw `\n !!! no matches found for search: ${fetchedListEntry.searchString}`;
                 }
-            },
-            regionCode: "GB",
-        }, {
-            maxResults: 5,
-            otherArgs: {
-                headers: {
-                    'X-Goog-FieldMask': "places.name,places.location,places.displayName,places.googleMapsUri,places.shortFormattedAddress,places.businessStatus",
-                },
-            },
-        });
 
-        const sortedMatches = textSearchResult[0].places?.sort((a, b) => {
-            // sort by distance from the saved place, so the closest match is first
-            const aDistance = distance([a.location?.latitude ?? 0, a.location?.longitude ?? 0], [entry.lat, entry.lng]);
-            const bDistance = distance([b.location?.latitude ?? 0, b.location?.longitude ?? 0], [entry.lat, entry.lng]);
-            return aDistance - bDistance;
-        }) ?? [];
+                const nameMatches = searchMatch.displayName?.text?.toLocaleLowerCase() === fetchedListEntry.name.toLocaleLowerCase();
 
-        const match = sortedMatches[0];
-        if (!match) {
-            console.error(`! no matches found for place: ${entry.searchString}`);
-            continue;
+                if (!nameMatches) {
+                    console.warn(`\n !!! the name saved on the list "${fetchedListEntry.name}" does not match the search result '${searchMatch.displayName?.text}"\n     using 1st match: ${searchMatch.googleMapsUri}, distance: ${searchMatch.distance}`);
+
+                    if (sortedSearchResults.length > 1) {
+                        console.warn(`\n  other matches:`);
+                        console.warn(sortedSearchResults.slice(1).map((p, i) => `      ${i + 2}. ${p.displayName?.text} (distance: ${p.distance}) (${p.googleMapsUri})`).join("\n"));
+                    }
+                }
+
+                entryToSave.googleMapsUri = searchMatch.googleMapsUri ?? "";
+                entryToSave.address = searchMatch.shortFormattedAddress ?? "";
+                entryToSave.placeId = searchMatch.name ?? "";
+            }
+            catch (err) {
+                console.error(err);
+            }
         }
 
-        if (sortedMatches.length > 1) {
-            console.warn(`- ${sortedMatches.length} matches found for place: ${entry.searchString}. Using closest match: ${match.displayName?.text} (${match.googleMapsUri})`);
-            console.warn(`  other matches: ${sortedMatches.slice(1).map(m => `${m.displayName?.text} (${m.googleMapsUri})`).join(", ")}`);
+        const missingFields = (["address", "googleMapsUri"] as const).filter(field => !entryToSave[field]);
+        if (missingFields.length) {
+            console.warn(`\n !!! ${entryToSave.name} is missing the following fields: "${missingFields.join(`", "`)}"`);
         }
-
-        store[entry.cacheKey] = {
-            name: entry.name,
-            review: entry.notes,
-
-            lat: entry.lat,
-            lng: entry.lng,
-
-            dateAdded: entry.dateAdded,
-            dateModified: entry.dateModified,
-
-            placeId: match.name ?? "",
-            uri: match.googleMapsUri ?? "",
-            address: match.shortFormattedAddress ?? "",
-        };
-
-        console.info(`successfully fetched ${entry.name} (${match.shortFormattedAddress})`);
     }
 
-    // remove any key from json no longer saved
-    // these keys will be the ones not found in entries
-    existingKeys.forEach(staleKey => {
-        console.warn(`   deleting stale ${staleKey}`);
-        delete store[staleKey];
-    });
-
-    fs.writeFileSync(FALAFEL_ENTRIES_PATH, JSON.stringify(store, null, 2));
+    // save to json
+    fs.writeFileSync(FALAFEL_STORE_PATH, JSON.stringify(store, null, 2));
 }
 
-function distance(c1: [number, number], c2: [number, number]) {
-    return Math.sqrt(Math.pow(c1[0] - c2[0], 2) + Math.pow(c1[1] - c2[1], 2));
-}
-
-
-
-
-
+const distance = (x1: number, y1: number, x2: number, y2: number) =>
+    Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 
 const parseResponse = (data: GetEntriesResponseSchema) => ({
     title: data[0][4],
@@ -143,12 +186,12 @@ const parseResponse = (data: GetEntriesResponseSchema) => ({
 });
 
 const parseEntry = (entry: GetEntriesEntrySchema) => ({
-    lat: entry[1][5][2],
-    lng: entry[1][5][3],
+    cacheKey: entry[9][0].toString(),
     name: entry[2],
     notes: entry[3],
+    lat: entry[1][5][2],
+    lng: entry[1][5][3],
     searchString: entry[1][2] ? entry[1][2] : entry[2],
-    cacheKey: entry[9][0].toString(),
     dateAdded: unixTimestampToDate(entry[9][0]),
     dateModified: unixTimestampToDate(entry[10][0]),
 });
@@ -229,3 +272,13 @@ type GetEntriesResponseSchema =
         unknown,
         unknown, // report list link
     ]
+
+
+
+
+
+// nosh
+// "address": "33 Minories, London EC3N 1DE","googleMapsUri": "https://maps.app.goo.gl/oAF7KdawMTQw1jjY8"
+
+// cafe falafel
+// "address": "Marrakesh 40000, Morocco","googleMapsUri": "https://maps.app.goo.gl/Ae5Kd6sMJfMfSxmF6"
