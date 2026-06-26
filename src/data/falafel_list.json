@@ -13,8 +13,8 @@
       "placeId": "places/ChIJUVe7SZUddkgRSsZfRE81rUg",
       "dateUpdated": "2026-02-19T11:37:29.000Z",
       "dateSaved": "2026-02-19T11:37:18.000Z",
-      "dateEaten": "",
-      "dateEatenText": "",
+      "dateEaten": "2023-03-08",
+      "dateEatenText": "long, long ago",
       "address": "Sabarella Ltd, 30 Wentworth St, London",
       "googleMapsUri": "https://maps.google.com/?cid=5236900556267570762&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -26,7 +26,7 @@
       "placeId": "places/ChIJMb5alt1T2UcRW6FT8EQ0yoQ",
       "dateUpdated": "2026-02-19T11:52:35.000Z",
       "dateSaved": "2026-02-19T11:45:54.000Z",
-      "dateEaten": "",
+      "dateEaten": "2023-09-04",
       "dateEatenText": "",
       "address": "9 Market St, Margate",
       "googleMapsUri": "https://maps.google.com/?cid=9568517828996473179&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -40,7 +40,7 @@
       "dateUpdated": "2026-02-19T13:41:13.000Z",
       "dateSaved": "2026-02-19T13:41:03.000Z",
       "dateEaten": "",
-      "dateEatenText": "",
+      "dateEatenText": "in the ancient past",
       "address": "330b Edgware Rd, London",
       "googleMapsUri": "https://maps.google.com/?cid=11752901207882640966&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -53,7 +53,7 @@
       "dateUpdated": "2026-02-19T13:41:36.000Z",
       "dateSaved": "2026-02-19T13:41:27.000Z",
       "dateEaten": "",
-      "dateEatenText": "",
+      "dateEatenText": "a long time gone",
       "address": "Byng Pl, London",
       "googleMapsUri": "https://maps.google.com/?cid=7989628748910728699&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -66,7 +66,7 @@
       "dateUpdated": "2026-02-19T13:42:10.000Z",
       "dateSaved": "2026-02-19T13:41:50.000Z",
       "dateEaten": "",
-      "dateEatenText": "",
+      "dateEatenText": "in distant memory",
       "address": "144 Kingsland High St, London",
       "googleMapsUri": "https://maps.google.com/?cid=5182253169483881421&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -79,7 +79,7 @@
       "dateUpdated": "2026-02-19T13:42:42.000Z",
       "dateSaved": "2026-02-19T13:42:31.000Z",
       "dateEaten": "",
-      "dateEatenText": "",
+      "dateEatenText": "nobody remembers",
       "address": "79b Parkway, London",
       "googleMapsUri": "https://maps.google.com/?cid=6443446810906322074&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -92,7 +92,7 @@
       "dateUpdated": "2026-03-03T11:57:37.000Z",
       "dateSaved": "2026-03-03T11:57:30.000Z",
       "dateEaten": "",
-      "dateEatenText": "",
+      "dateEatenText": "in ages long past",
       "address": "1 Camden Rd, London",
       "googleMapsUri": "https://maps.google.com/?cid=14191428069792859443&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -104,7 +104,7 @@
       "placeId": "places/ChIJifFYEgxddkgR5bocNP5RcVk",
       "dateUpdated": "2026-03-03T11:58:35.000Z",
       "dateSaved": "2026-03-03T11:58:30.000Z",
-      "dateEaten": "",
+      "dateEaten": "2024-08-04",
       "dateEatenText": "",
       "address": "105 High St, Chesham",
       "googleMapsUri": "https://maps.google.com/?cid=6445022693981731557&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -117,8 +117,8 @@
       "placeId": "places/ChIJT9VEyKA8a0gRC09LjPlTK6M",
       "dateUpdated": "2026-03-03T11:59:03.000Z",
       "dateSaved": "2026-03-03T11:58:58.000Z",
-      "dateEaten": "",
-      "dateEatenText": "",
+      "dateEaten": "2024-11-30",
+      "dateEatenText": "2019?",
       "address": "The Moor, Post Office, The Moor, Falmouth",
       "googleMapsUri": "https://maps.google.com/?cid=11757583583446519563&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -131,7 +131,7 @@
       "dateUpdated": "2026-03-03T11:59:19.000Z",
       "dateSaved": "2026-03-03T11:59:14.000Z",
       "dateEaten": "",
-      "dateEatenText": "",
+      "dateEatenText": "2023, sometime",
       "address": "Haverstock Hill, London",
       "googleMapsUri": "https://maps.google.com/?cid=18289571466119678459&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -144,7 +144,7 @@
       "dateUpdated": "2026-03-03T11:59:40.000Z",
       "dateSaved": "2026-03-03T11:59:32.000Z",
       "dateEaten": "",
-      "dateEatenText": "",
+      "dateEatenText": "2023",
       "address": "Brunswick House, 14 New Goulston St, London",
       "googleMapsUri": "https://maps.google.com/?cid=16198527127589869818&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -157,7 +157,7 @@
       "dateUpdated": "2026-03-03T12:00:05.000Z",
       "dateSaved": "2026-03-03T11:59:58.000Z",
       "dateEaten": "",
-      "dateEatenText": "",
+      "dateEatenText": "2024",
       "address": "38 Leadenhall Market, London",
       "googleMapsUri": "https://maps.google.com/?cid=15778614338925803413&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -170,7 +170,7 @@
       "dateUpdated": "2026-03-03T12:00:21.000Z",
       "dateSaved": "2026-03-03T12:00:17.000Z",
       "dateEaten": "",
-      "dateEatenText": "",
+      "dateEatenText": "2024, maybe?",
       "address": "Whitecross St, London",
       "googleMapsUri": "https://maps.google.com/?cid=7675999808859825445&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -182,7 +182,7 @@
       "placeId": "places/ChIJkQ1Cka8cdkgRdcX1NRF15Ew",
       "dateUpdated": "2026-03-03T12:00:40.000Z",
       "dateSaved": "2026-03-03T12:00:34.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-02-26",
       "dateEatenText": "",
       "address": "65-69 Paul St, London",
       "googleMapsUri": "https://maps.google.com/?cid=5540682158352745845&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -208,7 +208,7 @@
       "placeId": "places/ChIJERDn2l7xeUgRS2iaYwJZA-g",
       "dateUpdated": "2026-03-03T12:02:16.000Z",
       "dateSaved": "2026-03-03T12:02:13.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-03-16",
       "dateEatenText": "",
       "address": "98 St Peter's St, Derby",
       "googleMapsUri": "https://maps.google.com/?cid=16718304108525283403&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -312,7 +312,7 @@
       "placeId": "places/ChIJuafhZwBdeUgR1Wdv6NexKhE",
       "dateUpdated": "2026-03-03T12:04:45.000Z",
       "dateSaved": "2026-03-03T12:04:41.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-04-30",
       "dateEatenText": "",
       "address": "Calverley St, Leeds",
       "googleMapsUri": "https://maps.google.com/?cid=1236996588542322645&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -325,7 +325,7 @@
       "placeId": "places/ChIJm4dLBxxceUgRSKMFbuFRUsc",
       "dateUpdated": "2026-03-03T12:05:01.000Z",
       "dateSaved": "2026-03-03T12:04:57.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-05-01",
       "dateEatenText": "",
       "address": "Trinity Shopping Centre, 56 Albion St, Leeds",
       "googleMapsUri": "https://maps.google.com/?cid=14362632190293287752&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -364,7 +364,7 @@
       "placeId": "places/ChIJV63WzoZFiEgRAO0qk63sznY",
       "dateUpdated": "2026-03-03T12:06:14.000Z",
       "dateSaved": "2026-03-03T12:06:11.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-05-09",
       "dateEatenText": "",
       "address": "1 Ashley St, Glasgow",
       "googleMapsUri": "https://maps.google.com/?cid=8561040171920452864&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -377,7 +377,7 @@
       "placeId": "places/ChIJg_8VrXxFiEgRPQKGslvEepM",
       "dateUpdated": "2026-03-03T12:06:30.000Z",
       "dateSaved": "2026-03-03T12:06:27.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-05-09",
       "dateEatenText": "",
       "address": "194 Pitt St, Glasgow",
       "googleMapsUri": "https://maps.google.com/?cid=10627022168850301501&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -390,7 +390,7 @@
       "placeId": "places/ChIJIccaCTxHiEgRP6yyWwh3Hac",
       "dateUpdated": "2026-03-03T12:06:45.000Z",
       "dateSaved": "2026-03-03T12:06:42.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-05-12",
       "dateEatenText": "",
       "address": "324 Argyle St, Glasgow",
       "googleMapsUri": "https://maps.google.com/?cid=12041911856440454207&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -403,7 +403,7 @@
       "placeId": "places/ChIJ1WYWfKBGiEgRA5TQGaKRGcU",
       "dateUpdated": "2026-03-03T12:07:54.000Z",
       "dateSaved": "2026-03-03T12:07:13.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-05-10",
       "dateEatenText": "",
       "address": "48 North Frederick Street, Glasgow",
       "googleMapsUri": "https://maps.google.com/?cid=14202543025293399043&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -442,7 +442,7 @@
       "placeId": "places/ChIJWzf-naEDdkgRdPBv8Sl8DgE",
       "dateUpdated": "2026-03-03T12:09:31.000Z",
       "dateSaved": "2026-03-03T12:09:21.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-05-17",
       "dateEatenText": "",
       "address": "5 Parkstone Rd, London",
       "googleMapsUri": "https://maps.google.com/?cid=76134763298025588&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -481,7 +481,7 @@
       "placeId": "places/ChIJK_dRYpAbdkgRWk2p4vPfXro",
       "dateUpdated": "2026-03-03T12:10:23.000Z",
       "dateSaved": "2026-03-03T12:10:13.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-05-30",
       "dateEatenText": "",
       "address": "76 Haverstock Hill, London",
       "googleMapsUri": "https://maps.google.com/?cid=13429417377438190938&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -494,7 +494,7 @@
       "placeId": "places/ChIJvdeZHeQbdkgRIXw0MZTF228",
       "dateUpdated": "2026-03-03T12:11:52.000Z",
       "dateSaved": "2026-03-03T12:10:34.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-05-31",
       "dateEatenText": "",
       "address": "56 Maple St, London",
       "googleMapsUri": "https://maps.google.com/?cid=8060253198380989473&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -507,7 +507,7 @@
       "placeId": "places/ChIJwUpkej8ddkgRBhkwANmh14g",
       "dateUpdated": "2026-03-03T12:12:08.000Z",
       "dateSaved": "2026-03-03T12:12:05.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-06-08",
       "dateEatenText": "",
       "address": "367 Mentmore Terrace, London",
       "googleMapsUri": "https://maps.google.com/?cid=9860527862534117638&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -559,7 +559,7 @@
       "placeId": "places/ChIJjf2x9ySTbEgRxI228KxrT44",
       "dateUpdated": "2026-03-03T12:13:44.000Z",
       "dateSaved": "2026-03-03T12:13:41.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-06-15",
       "dateEatenText": "",
       "address": "Palace St, Plymouth",
       "googleMapsUri": "https://maps.google.com/?cid=10254533267062951364&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -573,7 +573,7 @@
       "dateUpdated": "2026-03-03T12:14:04.000Z",
       "dateSaved": "2026-03-03T12:13:55.000Z",
       "dateEaten": "",
-      "dateEatenText": "",
+      "dateEatenText": "a tuesday in june",
       "address": "Unit 9, 30 Fenchurch Street, 11 Rood Ln, London",
       "googleMapsUri": "https://maps.google.com/?cid=10349884236725544301&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -585,7 +585,7 @@
       "placeId": "places/ChIJJa46jjAdbUgRpB6C0z91FrI",
       "dateUpdated": "2026-03-03T12:14:21.000Z",
       "dateSaved": "2026-03-03T12:14:18.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-06-27",
       "dateEatenText": "",
       "address": "11 High St, Totnes",
       "googleMapsUri": "https://maps.google.com/?cid=12832573105230716580&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -624,7 +624,7 @@
       "placeId": "places/ChIJ6d1bkXWFdUgRGgV7RhzNaSc",
       "dateUpdated": "2026-03-03T12:15:11.000Z",
       "dateSaved": "2026-03-03T12:15:08.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-07-19",
       "dateEatenText": "",
       "address": "Brighton Railway Station, 1 Trafalgar Arches, Brighton and Hove, Brighton",
       "googleMapsUri": "https://maps.google.com/?cid=2840026561359054106&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -637,7 +637,7 @@
       "placeId": "places/ChIJPxPJCp0ddkgRvRQnpCXTaKM",
       "dateUpdated": "2026-03-03T12:15:28.000Z",
       "dateSaved": "2026-03-03T12:15:25.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-07-27",
       "dateEatenText": "",
       "address": "Mare St, London",
       "googleMapsUri": "https://maps.google.com/?cid=11774893384381437117&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -650,7 +650,7 @@
       "placeId": "places/ChIJPSD9iQotrhIRShhkFnLnJlc",
       "dateUpdated": "2026-03-03T12:15:44.000Z",
       "dateSaved": "2026-03-03T12:15:41.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-08-16",
       "dateEatenText": "",
       "address": "116 Rue de Verdun, Carcassonne",
       "googleMapsUri": "https://maps.google.com/?cid=6279961207602681930&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -663,8 +663,8 @@
       "placeId": "places/ChIJo6ubq6AZBYgRXEC_UQDLwA8",
       "dateUpdated": "2026-03-03T12:16:02.000Z",
       "dateSaved": "2026-03-03T12:15:59.000Z",
-      "dateEaten": "",
-      "dateEatenText": "",
+      "dateEaten": "2025-09-01",
+      "dateEatenText": "September, 2025",
       "address": "700 W Wisconsin Ave #A, Milwaukee",
       "googleMapsUri": "https://maps.google.com/?cid=1135130308329291868&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -676,7 +676,7 @@
       "placeId": "places/ChIJyZ2um3MFdkgRe4NiErYTHZ4",
       "dateUpdated": "2026-03-03T12:16:20.000Z",
       "dateSaved": "2026-03-03T12:16:17.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-10-06",
       "dateEatenText": "",
       "address": "Unit 2, 73 Waterloo Rd, London",
       "googleMapsUri": "https://maps.google.com/?cid=11393284305030644603&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -689,7 +689,7 @@
       "placeId": "places/ChIJR3MzBgAbdkgRHXgui82Cnao",
       "dateUpdated": "2026-03-03T12:16:34.000Z",
       "dateSaved": "2026-03-03T12:16:32.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-11-20",
       "dateEatenText": "",
       "address": "5 Warren St, London",
       "googleMapsUri": "https://maps.google.com/?cid=12294126377106307101&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -702,7 +702,7 @@
       "placeId": "places/ChIJk9-8UtUDdkgRwi3eo3yjQuE",
       "dateUpdated": "2026-03-03T12:17:33.000Z",
       "dateSaved": "2026-03-03T12:16:46.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-11-25",
       "dateEatenText": "",
       "address": "68 Queen Victoria St, London",
       "googleMapsUri": "https://maps.google.com/?cid=16231715762717208002&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -716,7 +716,7 @@
       "dateUpdated": "2026-03-03T12:18:00.000Z",
       "dateSaved": "2026-03-03T12:17:43.000Z",
       "dateEaten": "",
-      "dateEatenText": "",
+      "dateEatenText": "a dreary november morning",
       "address": "Kiosk Outside, 7 Tottenham Ct Rd, London",
       "googleMapsUri": "https://maps.google.com/?cid=12975217473871108917&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -728,7 +728,7 @@
       "placeId": "places/ChIJiZgpMd_vrw0RBLXvurMiJBM",
       "dateUpdated": "2026-03-03T12:18:34.000Z",
       "dateSaved": "2026-03-03T12:18:25.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-11-28",
       "dateEatenText": "",
       "address": "J2J5+R2C, Av. El Glaoui, Marrakech",
       "googleMapsUri": "https://maps.google.com/?cid=1379265541212976388&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -741,7 +741,7 @@
       "placeId": "",
       "dateUpdated": "2026-03-03T12:19:45.000Z",
       "dateSaved": "2026-03-03T12:19:40.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-11-28",
       "dateEatenText": "",
       "address": "Marrakesh 40000, Morocco",
       "googleMapsUri": "https://maps.app.goo.gl/Ae5Kd6sMJfMfSxmF6"
@@ -754,7 +754,7 @@
       "placeId": "places/ChIJy24UtZYddkgR9jMRVD3pb6c",
       "dateUpdated": "2026-03-03T12:20:06.000Z",
       "dateSaved": "2026-03-03T12:20:03.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-12-14",
       "dateEatenText": "",
       "address": "6, London",
       "googleMapsUri": "https://maps.google.com/?cid=12065118376361538550&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -767,8 +767,8 @@
       "placeId": "places/ChIJdzYvuuEFdkgRSRKUOuMmtHs",
       "dateUpdated": "2026-03-03T12:20:35.000Z",
       "dateSaved": "2026-03-03T12:20:19.000Z",
-      "dateEaten": "",
-      "dateEatenText": "",
+      "dateEaten": "2025-12-16",
+      "dateEatenText": "in December, 2025",
       "address": "Earlham St, Seven Dials, London",
       "googleMapsUri": "https://maps.google.com/?cid=8913792319855268425&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -780,7 +780,7 @@
       "placeId": "places/ChIJLRLXhBnRdUgRMBAwzEpwgjo",
       "dateUpdated": "2026-03-03T12:21:11.000Z",
       "dateSaved": "2026-03-03T12:20:59.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-12-18",
       "dateEatenText": "",
       "address": "9 Madrid Rd, Guildford",
       "googleMapsUri": "https://maps.google.com/?cid=4216055667727798320&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -793,7 +793,7 @@
       "placeId": "places/ChIJ3bmX0EMRBYgRoJMxRfhssiw",
       "dateUpdated": "2026-03-03T12:21:28.000Z",
       "dateSaved": "2026-03-03T12:21:25.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-12-27",
       "dateEatenText": "",
       "address": "2755 W Ramsey Ave, Greenfield",
       "googleMapsUri": "https://maps.google.com/?cid=3220756497091892128&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -806,7 +806,7 @@
       "placeId": "places/ChIJEVll-B_rBIgR5T5bGn2pq4k",
       "dateUpdated": "2026-03-03T12:21:42.000Z",
       "dateSaved": "2026-03-03T12:21:39.000Z",
-      "dateEaten": "",
+      "dateEaten": "2025-01-03",
       "dateEatenText": "",
       "address": "620 W Grand Ave, Port Washington",
       "googleMapsUri": "https://maps.google.com/?cid=9920208958991843045&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -819,8 +819,8 @@
       "placeId": "places/ChIJ5U6_BaAZBYgR_HPOlIvtf2o",
       "dateUpdated": "2026-03-03T12:22:00.000Z",
       "dateSaved": "2026-03-03T12:21:56.000Z",
-      "dateEaten": "",
-      "dateEatenText": "",
+      "dateEaten": "2026-01-05",
+      "dateEatenText": "in the early New Year",
       "address": "Milwaukee Public Market, 400 N Water St, Milwaukee",
       "googleMapsUri": "https://maps.google.com/?cid=7674113473815409660&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -832,7 +832,7 @@
       "placeId": "places/ChIJ441DSxe3yhQRiniUEZoVRxo",
       "dateUpdated": "2026-03-03T12:22:42.000Z",
       "dateSaved": "2026-03-03T12:22:14.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-01-14",
       "dateEatenText": "",
       "address": "Cihannüma Mahallesi. Serencebey Yokuşu, Fırat iş merkezi, No: 1/B, Beşiktaş",
       "googleMapsUri": "https://maps.google.com/?cid=1893505919796672650&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -845,7 +845,7 @@
       "placeId": "places/ChIJ35MZVj-5yhQR83U9E456-n4",
       "dateUpdated": "2026-03-03T12:23:03.000Z",
       "dateSaved": "2026-03-03T12:22:57.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-01-16",
       "dateEatenText": "",
       "address": "Caferağa, Moda Cd. No:53A, Kadıköy",
       "googleMapsUri": "https://maps.google.com/?cid=9149760343583323635&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -858,7 +858,7 @@
       "placeId": "places/ChIJpevDTm25yhQRM3VnOKK3sWs",
       "dateUpdated": "2026-03-03T12:23:22.000Z",
       "dateSaved": "2026-03-03T12:23:18.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-01-18",
       "dateEatenText": "",
       "address": "Osmanağa, Sakız Sk. No:22C, Kadıköy",
       "googleMapsUri": "https://maps.google.com/?cid=7760185540294964531&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -871,7 +871,7 @@
       "placeId": "places/ChIJO9MwR88ddkgRk-86fiUsUNk",
       "dateUpdated": "2026-03-03T12:23:57.000Z",
       "dateSaved": "2026-03-03T12:23:40.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-02-03",
       "dateEatenText": "",
       "address": "94 Old St, London",
       "googleMapsUri": "https://maps.google.com/?cid=15659064443910418323&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -884,7 +884,7 @@
       "placeId": "places/ChIJRx8j_P0ZdkgRL4b0neDQaRU",
       "dateUpdated": "2026-03-03T12:24:12.000Z",
       "dateSaved": "2026-03-03T12:24:09.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-02-13",
       "dateEatenText": "",
       "address": "3 Long Ln, London",
       "googleMapsUri": "https://maps.google.com/?cid=1542994010492405295&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -897,7 +897,7 @@
       "placeId": "places/ChIJLbYycn8DdkgR8n-pQ1wrCsY",
       "dateUpdated": "2026-03-03T12:24:29.000Z",
       "dateSaved": "2026-03-03T12:24:26.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-02-14",
       "dateEatenText": "",
       "address": "27 Camberwell Church St, London",
       "googleMapsUri": "https://maps.google.com/?cid=14270266044549005298&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -910,7 +910,7 @@
       "placeId": "places/ChIJn57vP1qeekgRYFjmWrHv4bQ",
       "dateUpdated": "2026-03-03T12:24:48.000Z",
       "dateSaved": "2026-03-03T12:24:44.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-02-17",
       "dateEatenText": "",
       "address": "4 Milk St, Shrewsbury",
       "googleMapsUri": "https://maps.google.com/?cid=13033962341600221280&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -1014,7 +1014,7 @@
       "placeId": "places/ChIJL5QZXQJu5kcRwsTfM6YEA3E",
       "dateUpdated": "2026-04-23T12:59:39.000Z",
       "dateSaved": "2026-04-23T12:42:29.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-04-23",
       "dateEatenText": "",
       "address": "34 Rue des Rosiers, Paris",
       "googleMapsUri": "https://maps.google.com/?cid=8143357663097373890&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -1027,7 +1027,7 @@
       "placeId": "places/ChIJL3BZAABz5kcRGrnS5FhhL6Y",
       "dateUpdated": "2026-04-26T16:57:37.000Z",
       "dateSaved": "2026-04-26T16:57:37.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-04-26",
       "dateEatenText": "",
       "address": "Bd Richard-Lenoir, Paris",
       "googleMapsUri": "https://maps.google.com/?cid=11974896968625469722&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -1040,7 +1040,7 @@
       "placeId": "places/ChIJQXme8AJu5kcRPiritFFSwn0",
       "dateUpdated": "2026-05-06T16:54:51.000Z",
       "dateSaved": "2026-04-26T18:00:12.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-04-24",
       "dateEatenText": "",
       "address": "54 Rue des Rosiers, Paris",
       "googleMapsUri": "https://maps.google.com/?cid=9061895911103408702&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -1053,7 +1053,7 @@
       "placeId": "places/ChIJlSHo7nZv5kcRSyZ9LR6m2Sk",
       "dateUpdated": "2026-05-06T16:52:17.000Z",
       "dateSaved": "2026-05-06T16:47:46.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-04-27",
       "dateEatenText": "",
       "address": "12 Rue Beaurepaire, Paris",
       "googleMapsUri": "https://maps.google.com/?cid=3015624074043663947&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -1066,7 +1066,7 @@
       "placeId": "places/ChIJN-w445Vv5kcRUZzUX6OTbjw",
       "dateUpdated": "2026-05-06T16:55:14.000Z",
       "dateSaved": "2026-05-06T16:52:27.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-04-27",
       "dateEatenText": "",
       "address": "72 Rue du Faubourg Saint-Denis, Paris",
       "googleMapsUri": "https://maps.google.com/?cid=4354580219610569809&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -1079,7 +1079,7 @@
       "placeId": "places/ChIJbSZJHdsddkgRxqI0tCGROqc",
       "dateUpdated": "2026-06-18T11:18:37.000Z",
       "dateSaved": "2026-06-18T11:18:05.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-06-06",
       "dateEatenText": "",
       "address": "297 Old St, London",
       "googleMapsUri": "https://maps.google.com/?cid=12050103326926480070&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -1092,7 +1092,7 @@
       "placeId": "places/ChIJ8cc3KzmOcUgRe1zk0Kf0xpI",
       "dateUpdated": "2026-06-18T11:26:59.000Z",
       "dateSaved": "2026-06-18T11:26:59.000Z",
-      "dateEaten": "",
+      "dateEaten": "2026-06-16",
       "dateEatenText": "",
       "address": "81 St Nicholas' Rd, St Paul's, Bristol",
       "googleMapsUri": "https://maps.google.com/?cid=10576409776527531131&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
