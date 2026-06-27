@@ -1,6 +1,7 @@
 import { PlacesClient } from "@googlemaps/places";
 import fs from "fs";
 import path from "path";
+import { getTimestamp } from "./dateHelpers";
 
 export type FalafelStore = {
     /** list title */
@@ -17,8 +18,6 @@ export type FalafelStore = {
     entries: Record<string, FalafelPlace>;
 };
 
-type EmptyString = "";
-
 export type FalafelPlace = {
     /** name of falafel restaurant, as saved on list */
     name: string;
@@ -29,19 +28,19 @@ export type FalafelPlace = {
     /** place longitude from list */
     lng: number;
     /** google maps placeId of falafel restaurant */
-    placeId: string | EmptyString;
+    placeId: string | null;
     /** date review was last modified on list */
     dateUpdated: string;
     /** date added to list */
     dateSaved: string;
     /** optional, if set will be used instead of `dateAdded` */
-    dateEaten: string | EmptyString;
+    dateEaten: string | null;
     /** optional, will be displayed instead of `dateEaten` */
-    dateEatenText: string | EmptyString;
+    dateEatenText: string | null;
     /** address returned by places api */
-    address: string | EmptyString;
+    address: string | null;
     /** link to place in google maps */
-    googleMapsUri: string | EmptyString;
+    googleMapsUri: string | null;
 };
 
 const FALAFEL_STORE_PATH = path.join(process.cwd(), "src/data/falafel_list.json");
@@ -82,7 +81,7 @@ export default async function fetchFalafel() {
             // already set, just update
             entryToSave = store.entries[fetchedListEntry.cacheKey];
 
-            if (new Date(entryToSave.dateUpdated).getTime() !== fetchedListEntry.dateModified.getTime()) {
+            if (getTimestamp(entryToSave.dateUpdated) !== fetchedListEntry.dateModified.getTime()) {
                 console.log(`\nupdated: ${fetchedListEntry.name}`);
             }
 
@@ -99,13 +98,13 @@ export default async function fetchFalafel() {
                 review: fetchedListEntry.notes,
                 lat: fetchedListEntry.lat,
                 lng: fetchedListEntry.lng,
-                placeId: "",
+                placeId: null,
                 dateUpdated: fetchedListEntry.dateModified.toISOString(),
                 dateSaved: fetchedListEntry.dateAdded.toISOString(),
-                dateEaten: "",
-                dateEatenText: "",
-                address: "",
-                googleMapsUri: "",
+                dateEaten: null,
+                dateEatenText: null,
+                address: null,
+                googleMapsUri: null,
             };
         }
 

@@ -1,3 +1,3 @@
-import fetchFalafel from "../src/falafelFetcher";
+import fetchFalafel from "../src/lib/falafelFetcher";
 
 fetchFalafel();

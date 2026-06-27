@@ -1,17 +1,37 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import falafelList from "../data/falafel_list.json";
-import type { FalafelPlace } from "../falafelFetcher";
+import type { FalafelPlace } from "../lib/falafelFetcher";
+import sortFalafel from "../lib/sortFalafel";
+import { validateFalafel } from "../lib/validateFalafel";
 
-const falafel = Object.values(falafelList.entries).sort(
-	(a, b) => getSortDate(b) - getSortDate(a),
-) as FalafelPlace[];
+const falafel = sortFalafel(Object.values(falafelList.entries));
+const errors = validateFalafel(falafel);
+if (errors.length) {
+	console.error(JSON.stringify(errors.map(e => ({ name: e.entry.name, errors: e.errors })), null, 2));
+}
 
-function getSortDate(entry: FalafelPlace) {
-	const eatDate = new Date(entry.dateEaten ?? "").getTime();
-	if (!isNaN(eatDate)) {
-		return eatDate;
+function getDisplayDate(p: FalafelPlace) {
+	if (p.dateEatenText) {
+		return p.dateEatenText;
 	}
-	return new Date(entry.dateSaved).getTime();
+
+	return new Intl.DateTimeFormat("en-US", {
+		year: "numeric",
+		day: "2-digit",
+		month: "short",
+	}).format(new Date(p.dateEaten ? p.dateEaten : p.dateSaved));
+}
+
+function getGoogleMapsLinkAttributes(
+	name: string,
+	uri: string,
+): HTMLAttributes<"a"> {
+	return {
+		href: uri,
+		title: `View ${name} in Google Maps: ${uri}`,
+		target: "_blank",
+	};
 }
 ---
 
@@ -25,10 +45,14 @@ function getSortDate(entry: FalafelPlace) {
 	<body>
 		<h1>
 			<a
-				href={falafelList.googleMapsUri}
-				title={`View ${falafelList.title} in Google Maps: ${falafelList.googleMapsUri}`}
-				target="_blank">falafel wraps</a
-			> ({falafelList.length} of them)
+				{...getGoogleMapsLinkAttributes(
+					falafelList.title,
+					falafelList.googleMapsUri,
+				)}
+			>
+				falafel wraps
+			</a>
+			{" "}({falafelList.length} of them)
 		</h1>
 		<p>{falafelList.description}</p>
 		<ul>
@@ -37,6 +61,10 @@ function getSortDate(entry: FalafelPlace) {
 					<li>
 						<strong>
 							<a
+								{...getGoogleMapsLinkAttributes(
+									f.name,
+									f.googleMapsUri,
+								)}
 								href={f.googleMapsUri}
 								title={`View ${f.name} in Google Maps: ${f.googleMapsUri}`}
 								target="_blank"
@@ -44,7 +72,10 @@ function getSortDate(entry: FalafelPlace) {
 								{f.name}
 							</a>
 						</strong>
-						&nbsp; <i>{f.address}</i>
+						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+						<i>{f.address}</i>
+						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+						<i>{getDisplayDate(f)}</i>
 						{f.review.split("\n\n").map((p) => (
 							<p>{p}</p>
 						))}
