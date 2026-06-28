@@ -1,27 +1,8 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import falafelList from "../data/falafel_list.json";
-import type { FalafelPlace } from "../lib/falafelFetcher";
-import sortFalafel from "../lib/sortFalafel";
-import { validateFalafel } from "../lib/validateFalafel";
-
-const falafel = sortFalafel(Object.values(falafelList.entries));
-const errors = validateFalafel(falafel);
-if (errors.length) {
-	console.error(JSON.stringify(errors.map(e => ({ name: e.entry.name, errors: e.errors })), null, 2));
-}
-
-function getDisplayDate(p: FalafelPlace) {
-	if (p.dateEatenText) {
-		return p.dateEatenText;
-	}
-
-	return new Intl.DateTimeFormat("en-US", {
-		year: "numeric",
-		day: "2-digit",
-		month: "short",
-	}).format(new Date(p.dateEaten ? p.dateEaten : p.dateSaved));
-}
+import { getDateEatenText } from "../lib/dateHelpers";
+import getFalafel from "../lib/falafelLoader";
+import truncateText from "../lib/truncateText";
 
 function getGoogleMapsLinkAttributes(
 	name: string,
@@ -33,6 +14,8 @@ function getGoogleMapsLinkAttributes(
 		target: "_blank",
 	};
 }
+
+const falafel = getFalafel();
 ---
 
 <html lang="en">
@@ -46,42 +29,50 @@ function getGoogleMapsLinkAttributes(
 		<h1>
 			<a
 				{...getGoogleMapsLinkAttributes(
-					falafelList.title,
-					falafelList.googleMapsUri,
+					falafel.title,
+					falafel.googleMapsUri,
 				)}
 			>
 				falafel wraps
 			</a>
-			{" "}({falafelList.length} of them)
+			{" "}({falafel.length} of them)
 		</h1>
-		<p>{falafelList.description}</p>
+		<p>{falafel.description}</p>
 		<ul>
 			{
-				falafel.map((f) => (
+				falafel.entryArr.map((entry) => (
 					<li>
-						<strong>
+						<h2>
+							<a href={`/wraps/${entry.cacheKey}`}>
+								{entry.name}
+							</a>
+						</h2>
+						<i>{entry.address}</i>
+						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+						<i>{getDateEatenText(entry)}</i>
+						<p>{truncateText(entry.review, 100)}</p>
+						<p>
 							<a
 								{...getGoogleMapsLinkAttributes(
-									f.name,
-									f.googleMapsUri,
+									entry.name,
+									entry.googleMapsUri ?? "",
 								)}
-								href={f.googleMapsUri}
-								title={`View ${f.name} in Google Maps: ${f.googleMapsUri}`}
+								href={entry.googleMapsUri}
+								title={`View ${entry.name} in Google Maps: ${entry.googleMapsUri}`}
 								target="_blank"
 							>
-								{f.name}
+								view in google maps
 							</a>
-						</strong>
-						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-						<i>{f.address}</i>
-						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-						<i>{getDisplayDate(f)}</i>
-						{f.review.split("\n\n").map((p) => (
-							<p>{p}</p>
-						))}
+						</p>
 					</li>
 				))
 			}
 		</ul>
 	</body>
 </html>
+
+<style>
+	@view-transition {
+		navigation: auto;
+	}
+</style>

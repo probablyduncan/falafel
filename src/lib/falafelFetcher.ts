@@ -19,6 +19,8 @@ export type FalafelStore = {
 };
 
 export type FalafelPlace = {
+    /** unique, unchanging string, probably derived from `dateSaved` */
+    cacheKey: string;
     /** name of falafel restaurant, as saved on list */
     name: string;
     /** written notes from list */
@@ -93,10 +95,12 @@ export default async function fetchFalafel() {
             entryToSave.lat = fetchedListEntry.lat;
             entryToSave.lng = fetchedListEntry.lng;
             entryToSave.dateUpdated = fetchedListEntry.dateModified.toISOString();
+            entryToSave.cacheKey = fetchedListEntry.cacheKey;
         }
         else {
             // create new entry
             entryToSave = store.entries[fetchedListEntry.cacheKey] ??= {
+                cacheKey: fetchedListEntry.cacheKey,
                 name: fetchedListEntry.name,
                 review: fetchedListEntry.notes,
                 lat: fetchedListEntry.lat,

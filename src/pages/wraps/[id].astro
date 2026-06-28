@@ -1,0 +1,74 @@
+---
+import { getDateEatenText } from "../../lib/dateHelpers";
+import getFalafel from "../../lib/falafelLoader";
+
+export function getStaticPaths() {
+    return Object.keys(getFalafel().entryMap).map((id) => ({ params: { id } }));
+}
+
+const { id } = Astro.params;
+const entry = getFalafel().entryMap[id];
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{entry.name} - Duncan’s Wrap Map</title>
+    </head>
+    <body>
+        <nav>
+            <a href="/">home</a>
+        </nav>
+        <main>
+            <header>
+                <div>
+                    <h1>
+                        {entry.name}
+                    </h1>
+                    <i>{entry.address}</i>
+                </div>
+                <i>first eaten:<br /><b>{getDateEatenText(entry)}</b></i>
+            </header>
+            <div style={`view-transition-name: review-${entry.review};`}>
+                {entry.review.split("\n\n").map((p) => <p>{p}</p>)}
+            </div>
+        </main>
+    </body>
+</html>
+
+<style>
+    @view-transition {
+        navigation: auto;
+    }
+
+    body {
+        margin: 0;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: 1fr auto 1fr;
+        min-height: 100svh;
+        max-width: 100svw;
+    }
+
+    nav {
+        padding: 12px;
+    }
+
+    main {
+        grid-column: 2;
+        grid-row: 2;
+        margin: 0 auto;
+        max-width: 90ch;
+    }
+
+    header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: end;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 2px dotted black;
+    }
+</style>
