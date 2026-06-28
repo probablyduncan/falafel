@@ -3,7 +3,7 @@
   "description": "All of the falafel wraps I have loved. Each is rated on a scale of one (bad) to five (good).",
   "icon": "🧆",
   "googleMapsUri": "https://www.google.com/maps/placelists/list/44mcllfeROZvxnmw4BonXg",
-  "length": 85,
+  "length": 86,
   "entries": {
     "1771501038": {
       "name": "Falafel King",
@@ -1086,11 +1086,11 @@
     },
     "1781782019": {
       "name": "Baba Ganoush Kitchen - Jerusalem Falafel",
-      "review": "World’s best falafel? They might be right. The chef is deaf and the dog has a gall stone and the wrap was as long as my arm (almost). The guy on the radio was talking about class warfare and everything smelled so good and I carried my wrap like I may one day carry my baby to the nearby park, to the shady, dew-licked grass, and I let out a sigh and wiggled my toes and commenced the gymnastic endeavour of eating it. Five stars.",
+      "review": "World’s best falafel? It might be true. The chef is deaf and the dog has a gall stone and the wrap was as long as my arm (almost). The guy on the radio was talking about class warfare and everything smelled so good and I carried my wrap like I may one day carry my baby to the nearby park, to the shady, dew-licked grass, and I let out a sigh and wiggled my toes and commenced the gymnastic endeavour of eating it. Five stars.",
       "lat": 51.4630742,
       "lng": -2.5792026999999997,
       "placeId": "places/ChIJ8cc3KzmOcUgRe1zk0Kf0xpI",
-      "dateUpdated": "2026-06-18T11:26:59.000Z",
+      "dateUpdated": "2026-06-28T12:16:54.000Z",
       "dateSaved": "2026-06-18T11:26:59.000Z",
       "dateEaten": "2026-06-16",
       "dateEatenText": null,
@@ -1109,6 +1109,19 @@
       "dateEatenText": null,
       "address": "Ridley Rd, London",
       "googleMapsUri": "https://maps.google.com/?cid=10674705611718114758&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+    },
+    "1782647812": {
+      "name": "Kitchen of Anatolia",
+      "review": "There was a fried egg in my wrap. An egg is a treat for a weary boy like me. I shlepped through the heat of the high sun to Dame Emily Park, and I ate my falafel there, in sycamore shade, as the dogs chased their balls and the church bells rang. Five stars.",
+      "lat": 51.4520797,
+      "lng": -2.5847959,
+      "placeId": "places/ChIJd8vNDHCOcUgR2NdbZltKk9k",
+      "dateUpdated": "2026-06-28T12:04:02.000Z",
+      "dateSaved": "2026-06-28T11:56:52.000Z",
+      "dateEaten": "2025-06-18",
+      "dateEatenText": null,
+      "address": "Hilton garden inn car park, Temple back junction,by, Temple Way, Bristol",
+      "googleMapsUri": "https://maps.google.com/?cid=15677956484226602968&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     }
   }
 }

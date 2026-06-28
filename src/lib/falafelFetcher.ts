@@ -66,8 +66,6 @@ export default async function fetchFalafel() {
         entries: {},
     };
 
-    store.length = fetchedMapList.entries.length;
-
     const unmatchedEntryKeys = new Set(Object.keys(store.entries));
 
     const placesClient = new PlacesClient({
@@ -75,6 +73,11 @@ export default async function fetchFalafel() {
     });
 
     for (const fetchedListEntry of fetchedMapList.entries) {
+
+        if (!fetchedListEntry.notes?.trim()) {
+            // no review, don't include
+            continue;
+        }
 
         let entryToSave: FalafelPlace;
         if (unmatchedEntryKeys.delete(fetchedListEntry.cacheKey)) {
@@ -169,6 +172,7 @@ export default async function fetchFalafel() {
     }
 
     // save to json
+    store.length = Object.keys(store.entries).length;
     fs.writeFileSync(FALAFEL_STORE_PATH, JSON.stringify(store, null, 2));
 }
 
