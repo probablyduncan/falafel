@@ -49,7 +49,7 @@ jobs:
       - name: test vars
         shell: bash
         working-directory: .
-        run: tsx ./scripts/testVars.ts
+        run: npx tsx ./scripts/testVars.ts
 
   build:
     runs-on: ubuntu-latest
