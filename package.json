@@ -7,11 +7,17 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "falafel": "tsx --env-file=.env scripts/fetchFalafel.ts"
+    "updatePublication": "tsx --env-file=.env src/lib/standardSitePublisher.ts",
+    "falafel": "tsx --env-file=.env scripts/fetchFalafel.ts",
+    "update-lexicons": "pnpm exec lex install --update --save",
+    "postinstall": "pnpm exec lex install --ci",
+    "prebuild": "pnpm exec lex build"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
     "@googlemaps/places": "^2.5.0",
+    "@atproto/lex-password-session": "^0.1.4",
+    "@atproto/lex": "^0.1.7",
     "astro": "^7.0.2"
   },
   "devDependencies": {
