@@ -26,6 +26,8 @@ jobs:
       GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
       GOOGLE_MAPS_LIST_PB: ${{ secrets.GOOGLE_MAPS_LIST_PB }}
     steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v6
       - name: Check lockfiles
         shell: "bash"
         working-directory: ${{ inputs.path }}
