@@ -2,6 +2,7 @@
   "name": "falafel",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@10.13.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -22,13 +23,5 @@
     "@atproto/lex": "^0.1.7",
     "@atproto/lex-password-session": "^0.1.4",
     "tsx": "^4.22.4"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "core-js",
-      "esbuild",
-      "protobufjs",
-      "sharp"
-    ]
   }
 }
