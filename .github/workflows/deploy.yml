@@ -14,27 +14,23 @@ permissions:
   id-token: write
 
 jobs:
-  falafel:
-    # permissions:
-    #   contents: write
-    runs-on: ubuntu-latest
-    steps:
-      - name: test vars
-        run: tsx scripts/testVars.ts
-        env:
-          ATPROTO_SERVICE: ${{ secrets.ATPROTO_SERVICE }}
-          ATPROTO_APP_PASSWORD: ${{ secrets.ATPROTO_APP_PASSWORD }}
 
   build:
     runs-on: ubuntu-latest
     env:
       PUBLIC_ATPROTO_DID: ${{ vars.PUBLIC_ATPROTO_DID }}
       PUBLIC_ATPROTO_PUBLICATION_RKEY: ${{ vars.PUBLIC_ATPROTO_PUBLICATION_RKEY }}
+      ATPROTO_SERVICE: ${{ secrets.ATPROTO_SERVICE }}
+      ATPROTO_APP_PASSWORD: ${{ secrets.ATPROTO_APP_PASSWORD }}
+      GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+      GOOGLE_MAPS_LIST_PB: ${{ secrets.GOOGLE_MAPS_LIST_PB }}
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v6
       - name: Install, build, and upload your site
         uses: withastro/action@v6
+      - name: check vars
+        run: tsx scripts/testVars.ts
 
   deploy:
     needs: build
