@@ -17,14 +17,14 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ATPROTO_DID: ${{ secrets.ATPROTO_DID }}
+      ATPROTO_PUBLICATION_RKEY: ${{ secrets.ATPROTO_PUBLICATION_RKEY }}
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v6
       - name: Install, build, and upload your site
         uses: withastro/action@v6
-        env:
-          ATPROTO_DID: ${{ secrets.ATPROTO_DID }}
-          ATPROTO_PUBLICATION_RKEY: ${{ secrets.ATPROTO_PUBLICATION_RKEY }}
 
   deploy:
     needs: build
