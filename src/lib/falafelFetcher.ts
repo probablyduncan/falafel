@@ -65,6 +65,7 @@ export default async function fetchFalafel() {
 
     const fetchedMapJson = JSON.parse((await response.text()).replace(/^\)\]\}'/, "").trim()) as GetEntriesResponseSchema;
     const fetchedMapList = parseResponse(fetchedMapJson);
+    console.log(`fetched ${fetchedMapList.entries.length} from google maps`);
 
     const store: FalafelStore = fs.existsSync(FALAFEL_STORE_PATH) ? JSON.parse(fs.readFileSync(FALAFEL_STORE_PATH, "utf-8")) as FalafelStore : {
         title: fetchedMapList.title,
