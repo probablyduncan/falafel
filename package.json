@@ -10,9 +10,7 @@
     "updatePublicationRecord": "tsx --env-file=.env src/lib/standardSitePublisher.ts",
     "deleteDocumentRecords": "tsx --env-file=.env src/lib/atprotoDocumentDebugHelper.ts",
     "falafel": "tsx --env-file=.env scripts/fetchFalafel.ts",
-    "update-lexicons": "pnpm exec lex install --update --save",
-    "postinstall": "pnpm exec lex install --ci",
-    "prebuild": "pnpm exec lex build && tsx scripts/fetchFalafel.ts"
+    "update-lexicons": "pnpm exec lex install --update --save"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
