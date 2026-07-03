@@ -17,6 +17,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
     env:
       ATPROTO_DID: ${{ secrets.ATPROTO_DID }}
       ATPROTO_PUBLICATION_RKEY: ${{ secrets.ATPROTO_PUBLICATION_RKEY }}
