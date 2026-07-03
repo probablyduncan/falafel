@@ -45,6 +45,11 @@ jobs:
         shell: bash
         working-directory: .
         run: pnpm install
+      
+      - name: Build lexicons
+        shell: bash
+        working-directory: .
+        run: pnpm exec lex build
 
       - name: test vars
         shell: bash
