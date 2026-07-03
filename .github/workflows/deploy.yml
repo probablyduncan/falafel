@@ -14,8 +14,6 @@ permissions:
   id-token: write
 
 jobs:
-
-
   falafel:
     runs-on: ubuntu-latest
     env:
@@ -25,88 +23,34 @@ jobs:
       ATPROTO_APP_PASSWORD: ${{ secrets.ATPROTO_APP_PASSWORD }}
       GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
       GOOGLE_MAPS_LIST_PB: ${{ secrets.GOOGLE_MAPS_LIST_PB }}
+
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v6
-      - name: Check lockfiles
-        shell: "bash"
-        working-directory: ${{ inputs.path }}
-        env:
-          INPUT_PM: ${{ inputs.package-manager }}
-        run: |
-          len=`echo $INPUT_PM | wc -c`
-          if [ $len -gt 1 ]; then
-            PACKAGE_MANAGER=$(echo "$INPUT_PM" | grep -o '^[^@]*')
-            VERSION=$(echo "$INPUT_PM" | { grep -o '@.*' || true; } | sed 's/^@//')
-            # Set default VERSION if not provided
-            if [ -z "$VERSION" ]; then
-                if [ "$PACKAGE_MANAGER" = "deno" ]; then
-                    # The denoland/setup-deno action equivalent of "latest"
-                    VERSION="vx.x.x"
-                else
-                    VERSION="latest"
-                fi
-            fi
-            echo "PACKAGE_MANAGER=$PACKAGE_MANAGER" >> $GITHUB_ENV
-          elif [ $(find "." -maxdepth 1 -name "pnpm-lock.yaml") ]; then
-              echo "PACKAGE_MANAGER=pnpm" >> $GITHUB_ENV
-              echo "LOCKFILE=pnpm-lock.yaml" >> $GITHUB_ENV
-              # If packageManager field is not present, use latest version.
-              if ! jq -e '.packageManager' package.json > /dev/null 2>&1; then
-                  VERSION="latest"
-                  # Annotate this action run to let users know we’re using the default.
-                  echo "::warning title=Could not detect PNPM version::No \`packageManager\` field found in \`package.json\`. Using latest PNPM version instead. We recommend specifying \`pnpm@VERSION\` explicitly using the \`packageManager\` field in your \`package.json\`."
-              fi
-          elif [ $(find "." -maxdepth 1 -name "yarn.lock") ]; then
-              echo "PACKAGE_MANAGER=yarn" >> $GITHUB_ENV
-              echo "LOCKFILE=yarn.lock" >> $GITHUB_ENV
-          elif [ $(find "." -maxdepth 1 -name "package-lock.json") ]; then
-              VERSION="latest"
-              echo "PACKAGE_MANAGER=npm" >> $GITHUB_ENV
-              echo "LOCKFILE=package-lock.json" >> $GITHUB_ENV
-          elif [ $(find "." -maxdepth 1 -name "bun.lock") ]; then
-              VERSION="latest"
-              echo "PACKAGE_MANAGER=bun" >> $GITHUB_ENV
-              echo "LOCKFILE=bun.lock" >> $GITHUB_ENV
-          elif [ $(find "." -maxdepth 1 -name "bun.lockb") ]; then
-              VERSION="latest"
-              echo "PACKAGE_MANAGER=bun" >> $GITHUB_ENV
-              echo "LOCKFILE=bun.lockb" >> $GITHUB_ENV
-          elif [ -f "deno.json" ] || [ -f "deno.jsonc" ] || [ -f "deno.lock" ]; then
-              VERSION="vx.x.x"
-              echo "PACKAGE_MANAGER=deno" >> $GITHUB_ENV
-              echo "LOCKFILE=deno.lock" >> $GITHUB_ENV
-          else
-              echo "No lockfile found.
-          Please specify your preferred \"package-manager\" in the action configuration."
-              exit 1
-          fi
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Setup PNPM
-        if: ${{ env.PACKAGE_MANAGER == 'pnpm' }}
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
         with:
-          version: ${{ env.VERSION }}
-          package_json_file: "${{ inputs.path }}/package.json"
+          version: 10.13.1
+          package_json_file: "./package.json"
 
       - name: Setup Node
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
-        if: ${{ env.PACKAGE_MANAGER != 'bun' && env.PACKAGE_MANAGER != 'deno' }}
         with:
-          node-version: ${{ inputs.node-version }}
-          cache: ${{ env.PACKAGE_MANAGER }}
-          cache-dependency-path: "${{ inputs.path }}/${{ env.LOCKFILE }}"
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: "./pnpm-lock.yaml"
 
-      - name: Install
+      - name: Install pnpm
         shell: bash
-        working-directory: ${{ inputs.path }}
-        run: $PACKAGE_MANAGER install
+        working-directory: .
+        run: pnpm install
 
-      - name: run file
-        run: npx tsx scripts/testVars.ts
-  
-  
+      - name: test vars
+        shell: bash
+        working-directory: .
+        run: tsx ./scripts/testVars.ts
+
   build:
     runs-on: ubuntu-latest
     env:
@@ -117,8 +61,6 @@ jobs:
         uses: actions/checkout@v6
       - name: Install, build, and upload your site
         uses: withastro/action@v6
-
-
 
   deploy:
     needs: build
