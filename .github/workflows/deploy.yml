@@ -16,6 +16,8 @@ permissions:
 jobs:
   falafel:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       PUBLIC_ATPROTO_DID: ${{ vars.PUBLIC_ATPROTO_DID }}
       PUBLIC_ATPROTO_PUBLICATION_RKEY: ${{ vars.PUBLIC_ATPROTO_PUBLICATION_RKEY }}
@@ -55,6 +57,11 @@ jobs:
         shell: bash
         working-directory: .
         run: npx tsx ./scripts/testVars.ts
+      
+      - name: commit pub.txt
+        shell: bash
+        working-directory: .
+        run: git add pub.txt && git commit -m "beep boop updated pub.txt" && git push
 
   build:
     runs-on: ubuntu-latest

@@ -1,6 +1,8 @@
 import { Client } from "@atproto/lex";
 import { PasswordSession } from "@atproto/lex-password-session";
 import * as site from "../src/lexicons/site.ts";
+import fs from "fs";
+import path from "path";
 
 async function run() {
 
@@ -17,6 +19,8 @@ async function run() {
     });
 
     console.log("pub name", pub.value.name);
+
+    fs.writeFileSync(path.join(process.cwd(), "pub.txt"), "pub name: " + pub.value.name + "\nupdated at: " + new Date().toISOString(), { encoding: "utf-8" });
 }
 
 run();
