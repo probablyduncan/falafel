@@ -24,6 +24,10 @@ const falafel = getFalafel();
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Wrap Map</title>
+		<link
+			rel="site.standard.publication"
+			href={`at://${import.meta.env.ATPROTO_DID}/site.standard.document/${import.meta.env.ATPROTO_PUBLICATION_RKEY}`}
+		/>
 	</head>
 	<body>
 		<h1>
