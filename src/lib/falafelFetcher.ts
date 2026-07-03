@@ -49,7 +49,7 @@ const FALAFEL_STORE_PATH = path.join(process.cwd(), "src/data/falafel_list.json"
 
 export default async function fetchFalafel() {
 
-    const response = await fetch("https://www.google.com/maps/preview/entitylist/getlist?pb=!1m4!1s44mcllfeROZvxnmw4BonXg!2e1!3m1!1e1!2e2!3e2!4i500!6m3!1sQviWabnRMYGnhbIPoN7ygAM!15i204459!28e2!16b1");
+    const response = await fetch("https://www.google.com/maps/preview/entitylist/getlist?pb=" + process.env.GOOGLE_MAPS_LIST_PB);
     if (!response.ok) {
         console.error(`Failed to fetch google maps saved places: ${response.status} ${response.statusText}`);
         return;
