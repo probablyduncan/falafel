@@ -55,6 +55,8 @@ const FALAFEL_STORE_PATH = path.join(process.cwd(), "src/data/falafel_list.json"
 
 export default async function fetchFalafel() {
 
+    console.log("fetching falafel!");
+
     const response = await fetch("https://www.google.com/maps/preview/entitylist/getlist?pb=" + process.env.GOOGLE_MAPS_LIST_PB);
     if (!response.ok) {
         console.error(`Failed to fetch google maps saved places: ${response.status} ${response.statusText}`);
