@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
   # schedule:
   #   - cron: 0 0 * * *
@@ -14,16 +14,23 @@ permissions:
   id-token: write
 
 jobs:
+  falafel:
+    # permissions:
+    #   contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: test vars
+        run: tsx scripts/testVars.ts
+        env:
+          ATPROTO_SERVICE: ${{ secrets.ATPROTO_SERVICE }}
+          ATPROTO_APP_PASSWORD: ${{ secrets.ATPROTO_APP_PASSWORD }}
+
   build:
     runs-on: ubuntu-latest
     env:
       PUBLIC_ATPROTO_DID: ${{ vars.PUBLIC_ATPROTO_DID }}
       PUBLIC_ATPROTO_PUBLICATION_RKEY: ${{ vars.PUBLIC_ATPROTO_PUBLICATION_RKEY }}
     steps:
-      - name: Print from env
-        run: echo "$PUBLIC_ATPROTO_DID and $PUBLIC_ATPROTO_PUBLICATION_RKEY"
-      - name: Print from vars directly
-        run: echo "${{ vars.PUBLIC_ATPROTO_DID }} and ${{ vars.PUBLIC_ATPROTO_PUBLICATION_RKEY }}"
       - name: Checkout your repository using git
         uses: actions/checkout@v6
       - name: Install, build, and upload your site
