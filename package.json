@@ -12,7 +12,7 @@
     "falafel": "tsx --env-file=.env scripts/fetchFalafel.ts",
     "update-lexicons": "pnpm exec lex install --update --save",
     "postinstall": "pnpm exec lex install --ci",
-    "prebuild": "pnpm exec lex build && pnpm falafel"
+    "prebuild": "pnpm exec lex build && tsx scripts/fetchFalafel.ts"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
