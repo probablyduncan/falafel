@@ -19,8 +19,14 @@ async function run() {
     });
 
     console.log("pub name", pub.value.name);
+    if (Math.random() > 0.5) {
+        console.log("updating file!!");
+        fs.writeFileSync(path.join(process.cwd(), "pub.txt"), "pub name: " + pub.value.name + "\nupdated at: " + new Date().toISOString(), { encoding: "utf-8" });
+    }
+    else {
+        console.log("not updating file!!");
+    }
 
-    fs.writeFileSync(path.join(process.cwd(), "pub.txt"), "pub name: " + pub.value.name + "\nupdated at: " + new Date().toISOString(), { encoding: "utf-8" });
 }
 
 run();

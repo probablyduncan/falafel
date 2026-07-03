@@ -58,17 +58,21 @@ jobs:
         working-directory: .
         run: npx tsx ./scripts/testVars.ts
       
-      - name: commit pub.txt
+      - name: commit changes
         shell: bash
         working-directory: .
         run: |
-          git config --global user.name '🤖 Duncan'
-          git config --global user.email 'probablyduncan@users.noreply.github.com'
-          git add pub.txt
-          git commit -am "beep boop updated pub.txt"
-          git push
+          if [ `git status --porcelain=1 | wc -l` -ne 0 ]; then
+            echo "committing updated falafel store"
+            git config --global user.name '🤖 Duncan'
+            git config --global user.email 'probablyduncan@users.noreply.github.com'
+            git add .
+            git commit -am "🤖 updated falafel"
+            git push
+          fi
 
   build:
+    needs: falafel
     runs-on: ubuntu-latest
     env:
       PUBLIC_ATPROTO_DID: ${{ vars.PUBLIC_ATPROTO_DID }}
