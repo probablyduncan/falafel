@@ -20,6 +20,8 @@ jobs:
       ATPROTO_DID: ${{ secrets.ATPROTO_DID }}
       ATPROTO_PUBLICATION_RKEY: ${{ secrets.ATPROTO_PUBLICATION_RKEY }}
     steps:
+      - name: Print DID
+        run: echo "vars - $ATPROTO_DID - $ATPROTO_PUBLICATION_RKEY"
       - name: Checkout your repository using git
         uses: actions/checkout@v6
       - name: Install, build, and upload your site
