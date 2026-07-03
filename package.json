@@ -12,7 +12,8 @@
     "deleteDocumentRecords": "tsx --env-file=.env src/lib/atprotoDocumentDebugHelper.ts",
     "falafel": "tsx --env-file=.env scripts/fetchFalafel.ts",
     "update-lexicons": "pnpm exec lex install --update --save",
-    "postinstall": "pnpm exec lex install --ci"
+    "postinstall": "pnpm exec lex install --ci",
+    "prebuild": "rm -rf ./src/lexicons && pnpm exec lex build"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
