@@ -1,7 +1,11 @@
 import { PlacesClient } from "@googlemaps/places";
 import fs from "fs";
 import path from "path";
-import { getTimestamp } from "./dateHelpers";
+import { getDateEatenText, getTimestamp } from "./dateHelpers";
+import { getAtprotoClient, getDuncanContributor, getPublicationUri, rkeyFromUri } from "./atprotoHelpers";
+import * as site from "../lexicons/site.ts";
+import type { DatetimeString } from '@atproto/lex';
+import truncateText from "./truncateText.ts";
 
 export type FalafelStore = {
     /** list title */
@@ -21,6 +25,8 @@ export type FalafelStore = {
 export type FalafelPlace = {
     /** unique, unchanging string, probably derived from `dateSaved` */
     cacheKey: string;
+    /** atproto record identifier (rkey) */
+    atprotoKey: string | null;
     /** name of falafel restaurant, as saved on list */
     name: string;
     /** written notes from list */
@@ -57,7 +63,6 @@ export default async function fetchFalafel() {
 
     const fetchedMapJson = JSON.parse((await response.text()).replace(/^\)\]\}'/, "").trim()) as GetEntriesResponseSchema;
     const fetchedMapList = parseResponse(fetchedMapJson);
-    console.info(`fetched list: ${fetchedMapList.title} (${fetchedMapList.length} entries) from ${fetchedMapList.uri}`);
 
     const store: FalafelStore = fs.existsSync(FALAFEL_STORE_PATH) ? JSON.parse(fs.readFileSync(FALAFEL_STORE_PATH, "utf-8")) as FalafelStore : {
         title: fetchedMapList.title,
@@ -74,16 +79,19 @@ export default async function fetchFalafel() {
         apiKey: process.env.GOOGLE_MAPS_API_KEY,
     });
 
+    const atprotoClient = await getAtprotoClient();
+
     for (const fetchedListEntry of fetchedMapList.entries) {
 
+        // no review, don't include
         if (!fetchedListEntry.notes?.trim()) {
-            // no review, don't include
             continue;
         }
 
         let entryToSave: FalafelPlace;
+        
+        // already set, just update
         if (unmatchedEntryKeys.delete(fetchedListEntry.cacheKey)) {
-            // already set, just update
             entryToSave = store.entries[fetchedListEntry.cacheKey];
 
             if (getTimestamp(entryToSave.dateUpdated) !== fetchedListEntry.dateModified.getTime()) {
@@ -97,10 +105,11 @@ export default async function fetchFalafel() {
             entryToSave.dateUpdated = fetchedListEntry.dateModified.toISOString();
             entryToSave.cacheKey = fetchedListEntry.cacheKey;
         }
+        // create new entry
         else {
-            // create new entry
             entryToSave = store.entries[fetchedListEntry.cacheKey] ??= {
                 cacheKey: fetchedListEntry.cacheKey,
+                atprotoKey: null,
                 name: fetchedListEntry.name,
                 review: fetchedListEntry.notes,
                 lat: fetchedListEntry.lat,
@@ -169,15 +178,84 @@ export default async function fetchFalafel() {
             }
         }
 
-        const missingFields = (["address", "googleMapsUri"] as const).filter(field => !entryToSave[field]);
+        // atproto doc fields to update whether or not record already exists
+        const atprotoDocumentUpdateObject = {
+            title: entryToSave.name,
+            textContent: entryToSave.review,
+            description: "A falafel wrap review, which begins as follows:  " + truncateText(entryToSave.review, 30),
+            updatedAt: entryToSave.dateUpdated as DatetimeString,
+            lat: entryToSave.lat.toFixed(4),
+            lng: entryToSave.lng.toFixed(4),
+            googleMapsUri: entryToSave.googleMapsUri,
+            dateEaten: getDateEatenText(entryToSave),
+        }
+
+        // try fetch existing atproto doc
+        let existingAtprotoDocument: site.standard.document.Main | null = null;
+        if (entryToSave.atprotoKey) {
+            try {
+                const getResult = await atprotoClient.get(site.standard.document, {
+                    rkey: entryToSave.atprotoKey,
+                });
+
+                existingAtprotoDocument = getResult.value;
+            }
+            catch { }
+        }
+
+        // if atproto doc exists, update it
+        if (existingAtprotoDocument) {
+            await atprotoClient.put(site.standard.document, {
+                ...existingAtprotoDocument,
+                ...atprotoDocumentUpdateObject,
+            }, {
+                rkey: entryToSave.atprotoKey!,
+            });
+        }
+        // otherwise, create it
+        else {
+            const saveResult = await atprotoClient.create(site.standard.document, {
+                site: getPublicationUri(),
+                path: `/wraps/${entryToSave.cacheKey}`,
+                contributors: [getDuncanContributor()],
+                publishedAt: entryToSave.dateSaved as DatetimeString,
+                tags: ["falafel", "review", "food-review", "falafel-review"],
+                ...atprotoDocumentUpdateObject,
+            });
+
+            entryToSave.atprotoKey = rkeyFromUri(saveResult.uri);
+        }
+
+        // flag missing fields
+        const missingFields = (["address", "googleMapsUri", "atprotoKey", "lat", "lng"] as (keyof FalafelPlace)[]).filter(field => !entryToSave[field]);
         if (missingFields.length) {
             console.warn(`\n !!! ${entryToSave.name} is missing the following fields: "${missingFields.join(`", "`)}"`);
         }
     }
 
+    // clear out expired places from json store
+    for (const unmatchedKey of [...unmatchedEntryKeys]) {
+
+        const unmatchedEntry = store.entries[unmatchedKey];
+        if (!unmatchedEntry) {
+            continue;
+        }
+
+        if (unmatchedEntry.atprotoKey) {
+            try {
+                await atprotoClient.delete(site.standard.document, { rkey: unmatchedEntry.atprotoKey });
+            }
+            catch {}
+        }
+
+        delete store.entries[unmatchedKey];
+    }
+
     // save to json
     store.length = Object.keys(store.entries).length;
     fs.writeFileSync(FALAFEL_STORE_PATH, JSON.stringify(store, null, 2));
+
+    console.info(`updated ${fetchedMapList.title} (${fetchedMapList.length} entries, ${store.length} with reviews)`);
 }
 
 const distance = (x1: number, y1: number, x2: number, y2: number) =>

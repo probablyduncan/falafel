@@ -16,6 +16,14 @@ const entry = getFalafel().entryMap[id];
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{entry.name} - Duncan’s Wrap Map</title>
+        {
+            entry.atprotoKey && (
+                <link
+                    rel="site.standard.document"
+                    href={`at://${import.meta.env.ATPROTO_DID}/site.standard.document/${entry.atprotoKey}`}
+                />
+            )
+        }
     </head>
     <body>
         <nav>

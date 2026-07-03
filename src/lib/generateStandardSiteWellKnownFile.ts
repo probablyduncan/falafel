@@ -1,6 +1,7 @@
 import type { AstroIntegration } from "astro";
 import fs from "fs";
 import path from "path";
+import { getPublicationUri } from "./atprotoHelpers";
 
 /**
  * Generates a `site.standard.publication` file in the `.well-known` directory of the build output.
@@ -12,15 +13,13 @@ export default function generateStandardSiteWellKnownFile(): AstroIntegration {
         hooks: {
             "astro:build:done": async ({ dir, logger }) => {
 
-                const namespace = "site.standard.publication";
-                const location = new URL(".well-known/" + namespace, dir);
-                const contents = `at://${process.env.ATPROTO_DID}/${namespace}/${process.env.ATPROTO_PUBLICATION_RKEY}`;
+                const filepath = new URL(".well-known/site.standard.publication", dir).pathname;
 
-                if (!fs.existsSync(path.dirname(location.pathname))) {
-                    fs.mkdirSync(path.dirname(location.pathname), { recursive: true });
+                if (!fs.existsSync(path.dirname(filepath))) {
+                    fs.mkdirSync(path.dirname(filepath), { recursive: true });
                 }
 
-                fs.writeFileSync(location.pathname, contents, "utf-8");
+                fs.writeFileSync(filepath, getPublicationUri(), "utf-8");
 
                 logger.info(`generated standard.site /.well-known/ endpoint`);
             },
