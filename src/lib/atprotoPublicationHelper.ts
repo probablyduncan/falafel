@@ -8,7 +8,7 @@ async function updatePublication() {
         const client = await getAtprotoClient();
 
         const getResult = await client.get(site.standard.publication, {
-            rkey: process.env.ATPROTO_PUBLICATION_RKEY ?? "",
+            rkey: process.env.PUBLIC_ATPROTO_PUBLICATION_RKEY ?? "",
         });
 
         await client.put(site.standard.publication, {
@@ -47,7 +47,7 @@ async function updatePublication() {
                 showInDiscover: true,
             },
         }, {
-            rkey: process.env.ATPROTO_PUBLICATION_RKEY ?? "",
+            rkey: process.env.PUBLIC_ATPROTO_PUBLICATION_RKEY ?? "",
         });
     }
     catch (err) {

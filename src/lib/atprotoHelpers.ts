@@ -9,7 +9,7 @@ export async function getAtprotoClient() {
         try {
             const session = await PasswordSession.login({
                 service: process.env.ATPROTO_SERVICE ?? "",
-                identifier: process.env.ATPROTO_DID ?? "",
+                identifier: process.env.PUBLIC_ATPROTO_DID ?? "",
                 password: process.env.ATPROTO_APP_PASSWORD ?? "",
             });
 
@@ -32,13 +32,13 @@ export function rkeyFromUri(uri: UriString) {
 }
 
 export function getPublicationUri(): UriString {
-    return `at://${process.env.ATPROTO_DID}/site.standard.publication/${process.env.ATPROTO_PUBLICATION_RKEY}`;
+    return `at://${process.env.PUBLIC_ATPROTO_DID}/site.standard.publication/${process.env.PUBLIC_ATPROTO_PUBLICATION_RKEY}`;
 }
 
 let _duncanContributor: site.standard.document.Contributor;
 export function getDuncanContributor(): site.standard.document.Contributor {
     return _duncanContributor ??= site.standard.document.contributor.$build({
-        did: process.env.ATPROTO_DID as DidString,
+        did: process.env.PUBLIC_ATPROTO_DID as DidString,
         displayName: "duncan",
         role: "author/eater",
     });

@@ -20,7 +20,7 @@ const entry = getFalafel().entryMap[id];
             entry.atprotoKey && (
                 <link
                     rel="site.standard.document"
-                    href={`at://${import.meta.env.ATPROTO_DID}/site.standard.document/${entry.atprotoKey}`}
+                    href={`at://${import.meta.env.PUBLIC_ATPROTO_DID}/site.standard.document/${entry.atprotoKey}`}
                 />
             )
         }
