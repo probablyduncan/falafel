@@ -1,0 +1,73 @@
+name: Fetch falafel and deploy
+
+on:
+  # daily at midnight
+  schedule:
+    - cron: "0 0 * * *"
+  # allow manual run
+  workflow_dispatch:
+
+# Allow the deploy job to publish to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Share the Pages concurrency group with the push deploy so they don't race
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # This job commits the refreshed falafel store back to the repo
+    permissions:
+      contents: write
+    env:
+      PUBLIC_ATPROTO_DID: ${{ vars.PUBLIC_ATPROTO_DID }}
+      PUBLIC_ATPROTO_PUBLICATION_RKEY: ${{ vars.PUBLIC_ATPROTO_PUBLICATION_RKEY }}
+      ATPROTO_SERVICE: ${{ secrets.ATPROTO_SERVICE }}
+      ATPROTO_APP_PASSWORD: ${{ secrets.ATPROTO_APP_PASSWORD }}
+      GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+      GOOGLE_MAPS_LIST_PB: ${{ secrets.GOOGLE_MAPS_LIST_PB }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      # fetchFalafel imports the generated lexicons, so build them first
+      - name: Build lexicons
+        run: pnpm exec lex build
+
+      - name: Fetch falafel
+        run: npx tsx ./scripts/fetchFalafel.ts
+
+      - name: Commit changes
+        run: |
+          if [ `git status --porcelain=1 | wc -l` -ne 0 ]; then
+            echo "committing updated falafel store!"
+            git config --global user.name '🤖 Duncan'
+            git config --global user.email 'probablyduncan@users.noreply.github.com'
+            git add .
+            git commit -am "🤖 updated falafel"
+            git push
+          else
+            echo "no changes to commit!"
+          fi
+
+      - name: Build and upload
+        uses: ./.github/actions/build-upload
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

@@ -1,89 +1,38 @@
 name: Deploy to GitHub Pages
 
 on:
+  # when main is updated
   push:
     branches: [main]
+  # allow manual run
   workflow_dispatch:
-  # schedule:
-  #   - cron: 0 0 * * *
 
-# Allow this job to clone the repo and create a page deployment
+# Allow the deploy job to publish to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Only one Pages deployment at a time; let running deploys finish
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
-  falafel:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    env:
-      PUBLIC_ATPROTO_DID: ${{ vars.PUBLIC_ATPROTO_DID }}
-      PUBLIC_ATPROTO_PUBLICATION_RKEY: ${{ vars.PUBLIC_ATPROTO_PUBLICATION_RKEY }}
-      ATPROTO_SERVICE: ${{ secrets.ATPROTO_SERVICE }}
-      ATPROTO_APP_PASSWORD: ${{ secrets.ATPROTO_APP_PASSWORD }}
-      GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
-      GOOGLE_MAPS_LIST_PB: ${{ secrets.GOOGLE_MAPS_LIST_PB }}
-
-    steps:
-      - name: checkout repo
-        uses: actions/checkout@v6
-
-      - name: setup pnpm
-        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
-        with:
-          version: 10.13.1
-          package_json_file: "./package.json"
-
-      - name: setup node
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
-        with:
-          node-version: 24
-          cache: pnpm
-          cache-dependency-path: "./pnpm-lock.yaml"
-
-      - name: install pnpm
-        shell: bash
-        working-directory: .
-        run: pnpm install
-      
-      - name: build lexicons
-        shell: bash
-        working-directory: .
-        run: pnpm exec lex build
-
-      - name: fetch falafel
-        shell: bash
-        working-directory: .
-        run: npx tsx ./scripts/fetchFalafel.ts
-      
-      - name: commit changes
-        shell: bash
-        working-directory: .
-        run: |
-          if [ `git status --porcelain=1 | wc -l` -ne 0 ]; then
-            echo "committing updated falafel store!"
-            git config --global user.name '🤖 Duncan'
-            git config --global user.email 'probablyduncan@users.noreply.github.com'
-            git add .
-            git commit -am "🤖 updated falafel"
-            git push
-          else
-            echo "no changes to commit!"
-          fi
-
   build:
-    needs: falafel
     runs-on: ubuntu-latest
     env:
       PUBLIC_ATPROTO_DID: ${{ vars.PUBLIC_ATPROTO_DID }}
       PUBLIC_ATPROTO_PUBLICATION_RKEY: ${{ vars.PUBLIC_ATPROTO_PUBLICATION_RKEY }}
     steps:
-      - name: Checkout your repository using git
+      - name: Checkout
         uses: actions/checkout@v6
-      - name: Install, build, and upload your site
-        uses: withastro/action@v6
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build and upload
+        uses: ./.github/actions/build-upload
 
   deploy:
     needs: build
