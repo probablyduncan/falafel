@@ -51,23 +51,19 @@ const falafel = getFalafel();
 								{entry.name}
 							</a>
 						</h2>
-						<i>{entry.address}</i>
-						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-						<i>{getDateEatenText(entry)}</i>
-						<p>{truncateText(entry.review, 100)}</p>
-						<p>
+						{entry.address && (
 							<a
 								{...getGoogleMapsLinkAttributes(
 									entry.name,
 									entry.googleMapsUri ?? "",
 								)}
-								href={entry.googleMapsUri}
-								title={`View ${entry.name} in Google Maps: ${entry.googleMapsUri}`}
-								target="_blank"
 							>
-								view in google maps
+								<i>{truncateText(entry.address, 70)}</i>
 							</a>
-						</p>
+						)}
+						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+						<i>{getDateEatenText(entry)}</i>
+						<p>{truncateText(entry.review, 100)}</p>
 					</li>
 				))
 			}
