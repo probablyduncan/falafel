@@ -3,76 +3,157 @@ import type { HTMLAttributes } from "astro/types";
 import { getDateEatenText } from "../lib/dateHelpers";
 import getFalafel from "../lib/falafelLoader";
 import truncateText from "../lib/truncateText";
+import "../global.css";
 
 function getGoogleMapsLinkAttributes(
-	name: string,
-	uri: string,
+    name: string,
+    uri: string,
 ): HTMLAttributes<"a"> {
-	return {
-		href: uri,
-		title: `View ${name} in Google Maps: ${uri}`,
-		target: "_blank",
-	};
+    return {
+        href: uri,
+        title: `View ${name} in Google Maps: ${uri}`,
+        target: "_blank",
+    };
 }
 
 const falafel = getFalafel();
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Wrap Map</title>
-		<link
-			rel="site.standard.publication"
-			href={`at://${import.meta.env.PUBLIC_ATPROTO_DID}/site.standard.document/${import.meta.env.PUBLIC_ATPROTO_PUBLICATION_RKEY}`}
-		/>
-	</head>
-	<body>
-		<h1>
-			<a
-				{...getGoogleMapsLinkAttributes(
-					falafel.title,
-					falafel.googleMapsUri,
-				)}
-			>
-				falafel wraps
-			</a>
-			{" "}({falafel.length} of them)
-		</h1>
-		<p>{falafel.description}</p>
-		<ul>
-			{
-				falafel.entryArr.map((entry) => (
-					<li>
-						<h2>
-							<a href={`/wraps/${entry.cacheKey}`}>
-								{entry.name}
-							</a>
-						</h2>
-						{entry.address && (
-							<a
-								{...getGoogleMapsLinkAttributes(
-									entry.name,
-									entry.googleMapsUri ?? "",
-								)}
-							>
-								<i>{truncateText(entry.address, 70)}</i>
-							</a>
-						)}
-						&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-						<i>{getDateEatenText(entry)}</i>
-						<p>{truncateText(entry.review, 100)}</p>
-					</li>
-				))
-			}
-		</ul>
-	</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+
+        <title>Wrap Map (falafel.fyi)</title>
+
+        <link
+            rel="site.standard.publication"
+            href={`at://${import.meta.env.PUBLIC_ATPROTO_DID}/site.standard.document/${import.meta.env.PUBLIC_ATPROTO_PUBLICATION_RKEY}`}
+        />
+    </head>
+    <body>
+        <header>
+            <h1>
+                <img src="android-chrome-512x512.png" />
+                {" "}falafel wraps ({falafel.length} of them)
+            </h1>
+            <p>
+                {falafel.description}
+                {" "}See the map{" "}
+                <a
+                    {...getGoogleMapsLinkAttributes(
+                        falafel.title,
+                        falafel.googleMapsUri,
+                    )}
+                >
+                    here
+                </a>
+                .
+            </p>
+        </header>
+        <main>
+            <ul>
+                {
+                    falafel.entryArr.map((entry) => (
+                        <li>
+                            <div class="header">
+                                <div>
+                                    <h2>{entry.name}</h2>
+                                    {entry.address && (
+                                        <i>
+                                            <a
+                                                {...getGoogleMapsLinkAttributes(
+                                                    entry.name,
+                                                    entry.googleMapsUri ?? "",
+                                                )}
+                                            >
+                                                {truncateText(
+                                                    entry.address,
+                                                    50,
+                                                )}
+                                            </a>
+                                        </i>
+                                    )}
+                                </div>
+                                <i>
+                                    first eaten:
+                                    <>
+                                        <br />
+                                        <b>{getDateEatenText(entry)}</b>
+                                    </>
+                                </i>
+                            </div>
+                            <div class="body">
+                                <span>{truncateText(entry.review, 100)}</span>
+                                <span>
+                                    <a href={`/wraps/${entry.cacheKey}`}>
+                                        more
+                                    </a>
+                                </span>
+                            </div>
+                        </li>
+                    ))
+                }
+            </ul>
+        </main>
+    </body>
 </html>
 
 <style>
-	@view-transition {
-		navigation: auto;
-	}
+    @view-transition {
+        navigation: auto;
+    }
+
+    h1 img {
+        width: 1em;
+        margin-bottom: -0.1em;
+    }
+
+    ul {
+        list-style: none;
+        padding: unset;
+    }
+
+    li {
+        max-width: 90ch;
+        margin-top: 50px;
+    }
+
+    .header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: end;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 2px dotted black;
+    }
+
+    h2 {
+        margin: unset;
+    }
+
+    .body {
+        display: flex;
+        justify-content: space-between;
+    }
 </style>

@@ -1,4 +1,4 @@
-name: Fetch falafel and deploy
+name: falafel
 
 on:
   # daily at midnight
