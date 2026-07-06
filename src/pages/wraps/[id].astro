@@ -1,7 +1,7 @@
 ---
 import { getDateEatenText } from "../../lib/dateHelpers";
 import getFalafel from "../../lib/falafelLoader";
-import "../../global.css";
+import "../../styles/global.css";
 
 export function getStaticPaths() {
     return Object.keys(getFalafel().entryMap).map((id) => ({ params: { id } }));

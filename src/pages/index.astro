@@ -3,7 +3,8 @@ import type { HTMLAttributes } from "astro/types";
 import { getDateEatenText } from "../lib/dateHelpers";
 import getFalafel from "../lib/falafelLoader";
 import truncateText from "../lib/truncateText";
-import "../global.css";
+import "../styles/global.css";
+import "../styles/squircle.css";
 
 function getGoogleMapsLinkAttributes(
     name: string,
@@ -54,7 +55,7 @@ const falafel = getFalafel();
     <body>
         <header>
             <h1>
-                <img src="android-chrome-512x512.png" />
+                <img src="falafel.gif" class="squircle" alt="falafel.gif" draggable="false" />
                 {" "}falafel wraps ({falafel.length} of them)
             </h1>
             <p>
@@ -125,8 +126,10 @@ const falafel = getFalafel();
     }
 
     h1 img {
-        width: 1em;
-        margin-bottom: -0.1em;
+        display: inline;
+        --size: 1.5;
+        width: calc(1em * var(--size));
+        margin-bottom: calc((var(--size) - 0.8) * -0.5em);
     }
 
     ul {
