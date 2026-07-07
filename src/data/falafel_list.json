@@ -3,7 +3,7 @@
   "description": "All of the falafel wraps I have loved. Each is rated on a scale of one (bad) to five (good).",
   "icon": "🧆",
   "googleMapsUri": "https://www.google.com/maps/placelists/list/44mcllfeROZvxnmw4BonXg",
-  "length": 86,
+  "length": 87,
   "entries": {
     "1771501038": {
       "cacheKey": "1771501038",
@@ -1294,6 +1294,21 @@
       "dateEatenText": null,
       "address": "Hilton garden inn car park, Temple back junction,by, Temple Way, Bristol",
       "googleMapsUri": "https://maps.google.com/?cid=15677956484226602968&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+    },
+    "1782648581": {
+      "cacheKey": "1782648581",
+      "atprotoKey": "3mpzjmbuemc2j",
+      "name": "Falafel King",
+      "review": "As the sun was starting to set, on that warm summer Thursday, I dropped my bag at the guesthouse, put on my running shoes, and started towards the river. As I started off, I had one thought in my mind: Greco, a falafel shop that closed at 11. I hadn't had dinner, and my plan was to run for a while down the Avon, cross the suspension bridge at Clifton, and fly down the hill to my post-run prize, my Levantine feast.\n\nThe run was a good one. Earlier that day, I'd been told stories about thieves who would lie in wait in the shadows of the bridges and trees, and string steel cables across the path to clothesline cyclists and take their bikes. This was a decade ago or longer, I was told, but the mind is made for thinking, and the eyes are made for gazing into the corners of the night.\n\nI ran fast. I ran propelled by shadows and by the visage of Greco, of the object of my salivation, that falafel salvation. I ran through the starlit woods, watched by foxes, and over the suspension bridge, watched by the gulls, and down through Clifton, watched by the students. Greco in my mind, Greco in my mind, with each footfall there was Greco in my mind. And then it was Greco in front of me, warm and lit and full of people and the door was—\n\nThe door was shut and the security gate was halfway down. The man inside caught my eye, shook his head. The clock on the wall said 11:05.\n\nI went across the road to Falafel King, then, with a mind full of guillotines. Sometimes, anticipation is better than the real thing. Five stars.",
+      "lat": 51.4520549,
+      "lng": -2.5972101,
+      "placeId": "places/ChIJeYGZS9aNcUgR3qUFlBC5Yj0",
+      "dateUpdated": "2026-07-06T20:41:13.000Z",
+      "dateSaved": "2026-06-28T12:09:41.000Z",
+      "dateEaten": null,
+      "dateEatenText": null,
+      "address": "Narrow Quay, Bristol",
+      "googleMapsUri": "https://maps.google.com/?cid=4423301264885261790&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     }
   }
 }
