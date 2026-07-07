@@ -54,22 +54,18 @@ const falafel = getFalafel();
     </head>
     <body>
         <header>
-            <h1>
-                <img src="falafel.gif" class="squircle" alt="falafel.gif" draggable="false" />
-                {" "}falafel wraps ({falafel.length} of them)
-            </h1>
+            <a
+                role="heading"
+                aria-level="1"
+                {...getGoogleMapsLinkAttributes(
+                    falafel.title,
+                    falafel.googleMapsUri,
+                )}
+            >
+                falafel wraps ({falafel.length} of them)
+            </a>
             <p>
                 {falafel.description}
-                {" "}See the map{" "}
-                <a
-                    {...getGoogleMapsLinkAttributes(
-                        falafel.title,
-                        falafel.googleMapsUri,
-                    )}
-                >
-                    here
-                </a>
-                .
             </p>
         </header>
         <main>
@@ -77,51 +73,72 @@ const falafel = getFalafel();
                 {
                     falafel.entryArr.map((entry) => {
                         const truncatedReview = truncateText(entry.review, 80);
-                        const wordsLeftOver = (truncatedReview === entry.review ? "" : entry.review.substring(truncatedReview.length - 3)).split(/[— \n\-]/).filter(Boolean).length;
-                        return <li>
-                            <div class="header">
-                                <div>
-                                    <h2>{entry.name}</h2>
-                                    {entry.address && (
-                                        <i>
-                                            <a
-                                                {...getGoogleMapsLinkAttributes(
-                                                    entry.name,
-                                                    entry.googleMapsUri ?? "",
-                                                )}
-                                            >
-                                                {truncateText(
-                                                    entry.address,
-                                                    50,
-                                                )}
-                                            </a>
-                                        </i>
-                                    )}
+                        const wordsLeftOver = (
+                            truncatedReview === entry.review
+                                ? ""
+                                : entry.review.substring(
+                                      truncatedReview.length - 3,
+                                  )
+                        )
+                            .split(/[— \n\-]/)
+                            .filter(Boolean).length;
+                        return (
+                            <li>
+                                <div class="header">
+                                    <div>
+                                        <h2>{entry.name}</h2>
+                                        {entry.address && (
+                                            <i>
+                                                <a
+                                                    {...getGoogleMapsLinkAttributes(
+                                                        entry.name,
+                                                        entry.googleMapsUri ??
+                                                            "",
+                                                    )}
+                                                >
+                                                    {truncateText(
+                                                        entry.address,
+                                                        50,
+                                                    )}
+                                                </a>
+                                            </i>
+                                        )}
+                                    </div>
+                                    <i class="date">
+                                        <span>first eaten</span>
+                                        <br />
+                                        <b>
+                                            {getDateEatenText(
+                                                entry,
+                                            ).toLowerCase()}
+                                        </b>
+                                    </i>
                                 </div>
-                                <i class="date">
-                                    <span>first eaten</span>
-                                    <br />
-                                    <b>{getDateEatenText(entry).toLowerCase()}</b>
-                                </i>
-                            </div>
-                            <p>{truncatedReview}</p>
-                            <p style="text-align: right;">
-                                <a href={`/wraps/${entry.cacheKey}`}>
-                                    {
-                                        wordsLeftOver
-                                            ? <>see {wordsLeftOver} more word{wordsLeftOver > 1 ? "s" : ""} on the subject</>
-                                            : <>see more</>
-                                    }
-                                </a>
-                            </p>
-                        </li>;
+                                <p>{truncatedReview}</p>
+                                <p style="text-align: right;">
+                                    <a href={`/wraps/${entry.cacheKey}`}>
+                                        {wordsLeftOver ? (
+                                            <>
+                                                see {wordsLeftOver} more word
+                                                {wordsLeftOver > 1
+                                                    ? "s"
+                                                    : ""}{" "}
+                                                on the subject
+                                            </>
+                                        ) : (
+                                            <>see more</>
+                                        )}
+                                    </a>
+                                </p>
+                            </li>
+                        );
                     })
                 }
             </ul>
         </main>
-        <div style="position: fixed; bottom: 1rem; right: 1rem; width: 200px; aspect-ratio: 1;">
-            <img src="falafel.gif" class="squircle" style="width: 100%; display: block;" alt="falafel.gif">
-        </div>
+        <figure class="squircle" title="round and round and round we go">
+            <img src="falafel.gif" draggable="false" alt="falafel.gif" />
+        </figure>
     </body>
 </html>
 
@@ -130,11 +147,60 @@ const falafel = getFalafel();
         navigation: auto;
     }
 
-    h1 img {
-        display: inline;
-        --size: 1.5;
-        width: calc(1em * var(--size));
-        margin-bottom: calc((var(--size) - 0.8) * -0.5em);
+    header {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
+
+    a[role="heading"][aria-level="1"] {
+        margin: 1em 0;
+        font-size: 2em;
+        font-weight: bold;
+        color: white;
+        pointer-events: auto;
+        background-color: #ff4b4b;
+        background-color: #6fbc57;
+        font-family: arial;
+        padding: 0.1em 0.3em 0.2em 0.3em;
+        text-align: center;
+        display: inline-block;
+
+        text-decoration: unset;
+        cursor: default;
+
+        transform: rotate(-2deg) translateX(0px);
+        font-style: italic;
+        transition: transform 0.2s steps(3);
+
+        &:hover {
+            transform: rotate(0deg) translateX(4px);
+            animation: flip-up 0.2s linear forwards;
+        }
+    }
+
+    @keyframes flip-up {
+        0% {
+            cursor: sw-resize;
+        }
+
+        33.33% {
+            cursor: w-resize;
+        }
+
+        66.67% {
+            cursor: n-resize;
+        }
+
+        100% {
+            cursor: ne-resize;
+        }
+    }
+
+    main {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
     }
 
     ul {
@@ -162,5 +228,101 @@ const falafel = getFalafel();
 
     h2 {
         margin: unset;
+    }
+
+    figure {
+        position: fixed;
+        user-select: none;
+        top: 50%;
+        left: 50%;
+        width: 200px;
+        aspect-ratio: 1;
+        z-index: 100;
+        transform: translate(-50%, -50%);
+        margin: unset;
+
+        img {
+            width: 100%;
+            display: block;
+        }
+
+        transition: opacity 0.25s steps(3);
+        opacity: 1;
+        &:hover {
+            animation: cursor-default-blink 1s infinite;
+            opacity: 0.8;
+            /* cursor: crosshair; */
+        }
+    }
+
+    a:hover {
+        animation: cursor-pointer-blink 1s infinite;
+    }
+
+    @keyframes cursor-default-blink {
+        0% {
+            cursor: none;
+        }
+
+        33.33% {
+            cursor: none;
+        }
+
+        100% {
+            cursor: default;
+        }
+    }
+
+    @keyframes cursor-pointer-blink {
+        0% {
+            cursor: pointer;
+        }
+
+        33.33% {
+            cursor: pointer;
+        }
+
+        100% {
+            cursor: none;
+        }
+    }
+
+    /* 8 frames at 12 fps means this should take 0.6666s */
+    @keyframes cursor-spin {
+        0% {
+            cursor: ne-resize;
+        }
+
+        12.5% {
+            cursor: e-resize;
+        }
+
+        25% {
+            cursor: se-resize;
+        }
+
+        37.5% {
+            cursor: s-resize;
+        }
+
+        50% {
+            cursor: sw-resize;
+        }
+
+        62.5% {
+            cursor: w-resize;
+        }
+
+        75% {
+            cursor: nw-resize;
+        }
+
+        87.5% {
+            cursor: n-resize;
+        }
+
+        100% {
+            cursor: ne-resize;
+        }
     }
 </style>
