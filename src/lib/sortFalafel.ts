@@ -34,7 +34,8 @@ export default function sortFalafel<T extends FalafelPlaceSortDto>(entries: T[])
     preMigrationBucket.sort((a, b) => getTimestamp(b.dateSaved) - getTimestamp(a.dateSaved));
 
     // sort post-migration by (eat date ?? save date)
-    postMigrationBucket.sort((a, b) => getTimestamp(b.dateEaten ?? b.dateSaved) - getTimestamp(a.dateEaten ?? a.dateSaved));
+    // if both have the same eat date (for example both on 18-06-2026), sort by save date desc
+    postMigrationBucket.sort((a, b) => b.dateEaten !== a.dateEaten ? getTimestamp(b.dateEaten ?? b.dateSaved) - getTimestamp(a.dateEaten ?? a.dateSaved) : getTimestamp(b.dateSaved) - getTimestamp(a.dateSaved));
 
     // insert backdated into already-sorted pre-migration:
     for (const entry of postMigrationBackdatedBucket) {
