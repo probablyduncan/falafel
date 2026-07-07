@@ -75,8 +75,10 @@ const falafel = getFalafel();
         <main>
             <ul>
                 {
-                    falafel.entryArr.map((entry) => (
-                        <li>
+                    falafel.entryArr.map((entry) => {
+                        const truncatedReview = truncateText(entry.review, 80);
+                        const wordsLeftOver = (truncatedReview === entry.review ? "" : entry.review.substring(truncatedReview.length - 3)).split(/[— \n\-]/).filter(Boolean).length;
+                        return <li>
                             <div class="header">
                                 <div>
                                     <h2>{entry.name}</h2>
@@ -97,26 +99,29 @@ const falafel = getFalafel();
                                     )}
                                 </div>
                                 <i class="date">
-                                    first eaten:
-                                    <>
-                                        <br />
-                                        <b>{getDateEatenText(entry)}</b>
-                                    </>
+                                    <span>first eaten</span>
+                                    <br />
+                                    <b>{getDateEatenText(entry).toLowerCase()}</b>
                                 </i>
                             </div>
-                            <div class="body">
-                                <span>{truncateText(entry.review, 100)}</span>
-                                <span>
-                                    <a href={`/wraps/${entry.cacheKey}`}>
-                                        more
-                                    </a>
-                                </span>
-                            </div>
-                        </li>
-                    ))
+                            <p>{truncatedReview}</p>
+                            <p style="text-align: right;">
+                                <a href={`/wraps/${entry.cacheKey}`}>
+                                    {
+                                        wordsLeftOver
+                                            ? <>see {wordsLeftOver} more word{wordsLeftOver > 1 ? "s" : ""} on the subject</>
+                                            : <>see more</>
+                                    }
+                                </a>
+                            </p>
+                        </li>;
+                    })
                 }
             </ul>
         </main>
+        <div style="position: fixed; bottom: 1rem; right: 1rem; width: 200px; aspect-ratio: 1;">
+            <img src="falafel.gif" class="squircle" style="width: 100%; display: block;" alt="falafel.gif">
+        </div>
     </body>
 </html>
 
@@ -157,10 +162,5 @@ const falafel = getFalafel();
 
     h2 {
         margin: unset;
-    }
-
-    .body {
-        display: flex;
-        justify-content: space-between;
     }
 </style>
