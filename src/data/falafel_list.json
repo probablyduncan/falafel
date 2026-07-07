@@ -16,7 +16,7 @@
       "dateUpdated": "2026-02-19T11:37:29.000Z",
       "dateSaved": "2026-02-19T11:37:18.000Z",
       "dateEaten": "2023-03-08",
-      "dateEatenText": "long, long ago",
+      "dateEatenText": "in the echelons of history",
       "address": "Sabarella Ltd, 30 Wentworth St, London",
       "googleMapsUri": "https://maps.google.com/?cid=5236900556267570762&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -31,7 +31,7 @@
       "dateUpdated": "2026-02-19T11:52:35.000Z",
       "dateSaved": "2026-02-19T11:45:54.000Z",
       "dateEaten": "2023-09-04",
-      "dateEatenText": null,
+      "dateEatenText": "in a time long past",
       "address": "9 Market St, Margate",
       "googleMapsUri": "https://maps.google.com/?cid=9568517828996473179&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -46,7 +46,7 @@
       "dateUpdated": "2026-02-19T13:41:13.000Z",
       "dateSaved": "2026-02-19T13:41:03.000Z",
       "dateEaten": null,
-      "dateEatenText": "in the ancient past",
+      "dateEatenText": "in ancient memory",
       "address": "330b Edgware Rd, London",
       "googleMapsUri": "https://maps.google.com/?cid=11752901207882640966&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -76,7 +76,7 @@
       "dateUpdated": "2026-02-19T13:42:10.000Z",
       "dateSaved": "2026-02-19T13:41:50.000Z",
       "dateEaten": null,
-      "dateEatenText": "in distant memory",
+      "dateEatenText": "in distant prehistory",
       "address": "144 Kingsland High St, London",
       "googleMapsUri": "https://maps.google.com/?cid=5182253169483881421&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -91,7 +91,7 @@
       "dateUpdated": "2026-02-19T13:42:42.000Z",
       "dateSaved": "2026-02-19T13:42:31.000Z",
       "dateEaten": null,
-      "dateEatenText": "nobody remembers",
+      "dateEatenText": "before the advent of writing",
       "address": "79b Parkway, London",
       "googleMapsUri": "https://maps.google.com/?cid=6443446810906322074&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -136,7 +136,7 @@
       "dateUpdated": "2026-03-03T11:59:03.000Z",
       "dateSaved": "2026-03-03T11:58:58.000Z",
       "dateEaten": "2024-11-30",
-      "dateEatenText": "2019?",
+      "dateEatenText": "long before recorded time",
       "address": "The Moor, Post Office, The Moor, Falmouth",
       "googleMapsUri": "https://maps.google.com/?cid=11757583583446519563&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -151,7 +151,7 @@
       "dateUpdated": "2026-03-03T11:59:19.000Z",
       "dateSaved": "2026-03-03T11:59:14.000Z",
       "dateEaten": null,
-      "dateEatenText": "2023, sometime",
+      "dateEatenText": "2023, perhaps",
       "address": "Haverstock Hill, London",
       "googleMapsUri": "https://maps.google.com/?cid=18289571466119678459&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -301,7 +301,7 @@
       "dateUpdated": "2026-03-03T12:03:37.000Z",
       "dateSaved": "2026-03-03T12:03:34.000Z",
       "dateEaten": null,
-      "dateEatenText": null,
+      "dateEatenText": "a lunchtime in spring",
       "address": "New Shepherds Bush Market, Units T4/T5, Uxbridge Rd, London",
       "googleMapsUri": "https://maps.google.com/?cid=475000017810593791&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -390,7 +390,7 @@
       "placeId": "places/ChIJG9mfwisbdkgRnChk-ihA4Bw",
       "dateUpdated": "2026-03-03T12:05:25.000Z",
       "dateSaved": "2026-03-03T12:05:15.000Z",
-      "dateEaten": null,
+      "dateEaten": "2025-03-06",
       "dateEatenText": null,
       "address": "Phillips House, Goodge Pl, London",
       "googleMapsUri": "https://maps.google.com/?cid=2080733572588906652&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -406,7 +406,7 @@
       "dateUpdated": "2026-03-03T12:05:47.000Z",
       "dateSaved": "2026-03-03T12:05:44.000Z",
       "dateEaten": null,
-      "dateEatenText": null,
+      "dateEatenText": "within the working week",
       "address": "33 Minories, London EC3N 1DE",
       "googleMapsUri": "https://maps.app.goo.gl/oAF7KdawMTQw1jjY8"
     },
@@ -481,7 +481,7 @@
       "dateUpdated": "2026-03-03T12:08:49.000Z",
       "dateSaved": "2026-03-03T12:08:08.000Z",
       "dateEaten": null,
-      "dateEatenText": null,
+      "dateEatenText": "in the raucous dark of night",
       "address": "2 Camden Rd, London",
       "googleMapsUri": "https://maps.google.com/?cid=11891657655430872836&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -495,7 +495,7 @@
       "placeId": "places/ChIJIfUO7TcFdkgRXxzm0GzhXp0",
       "dateUpdated": "2026-03-03T12:09:05.000Z",
       "dateSaved": "2026-03-03T12:09:00.000Z",
-      "dateEaten": null,
+      "dateEaten": "2025-05-15",
       "dateEatenText": null,
       "address": "9 Upper Tooting Rd, London",
       "googleMapsUri": "https://maps.google.com/?cid=11339748769242946655&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -526,7 +526,7 @@
       "dateUpdated": "2026-03-03T12:09:47.000Z",
       "dateSaved": "2026-03-03T12:09:43.000Z",
       "dateEaten": null,
-      "dateEatenText": null,
+      "dateEatenText": "an evening in may",
       "address": "285-287 Kentish Town Rd, London",
       "googleMapsUri": "https://maps.google.com/?cid=464540589696983744&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -540,7 +540,7 @@
       "placeId": "places/ChIJCct3r-kRdkgRoclls2SWR3I",
       "dateUpdated": "2026-03-03T12:10:01.000Z",
       "dateSaved": "2026-03-03T12:09:58.000Z",
-      "dateEaten": null,
+      "dateEaten": "2025-05-24",
       "dateEatenText": null,
       "address": "7 Standard Rd, London",
       "googleMapsUri": "https://maps.google.com/?cid=8234715802920929697&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
@@ -601,7 +601,7 @@
       "dateUpdated": "2026-03-03T12:12:58.000Z",
       "dateSaved": "2026-03-03T12:12:23.000Z",
       "dateEaten": null,
-      "dateEatenText": null,
+      "dateEatenText": "a rainy plymouth afternoon",
       "address": "69 New George St, Plymouth",
       "googleMapsUri": "https://maps.google.com/?cid=14018937887776924553&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -616,7 +616,7 @@
       "dateUpdated": "2026-03-03T12:13:08.000Z",
       "dateSaved": "2026-03-03T12:13:05.000Z",
       "dateEaten": null,
-      "dateEatenText": null,
+      "dateEatenText": "a morning in june",
       "address": "Ivor Court, Taunton Pl, London",
       "googleMapsUri": "https://maps.google.com/?cid=2653129099188641952&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -631,7 +631,7 @@
       "dateUpdated": "2026-03-03T12:13:24.000Z",
       "dateSaved": "2026-03-03T12:13:21.000Z",
       "dateEaten": null,
-      "dateEatenText": null,
+      "dateEatenText": "the distant past",
       "address": "Church St, London",
       "googleMapsUri": "https://maps.google.com/?cid=12683409767675794313&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
@@ -1305,7 +1305,7 @@
       "placeId": "places/ChIJeYGZS9aNcUgR3qUFlBC5Yj0",
       "dateUpdated": "2026-07-06T20:41:13.000Z",
       "dateSaved": "2026-06-28T12:09:41.000Z",
-      "dateEaten": null,
+      "dateEaten": "2026-06-18",
       "dateEatenText": null,
       "address": "Narrow Quay, Bristol",
       "googleMapsUri": "https://maps.google.com/?cid=4423301264885261790&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
