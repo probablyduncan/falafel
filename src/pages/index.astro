@@ -185,7 +185,7 @@ const falafel = getFalafel();
         }
 
         33.33% {
-            cursor: w-resize;
+            cursor: nw-resize;
         }
 
         66.67% {
@@ -235,7 +235,6 @@ const falafel = getFalafel();
         user-select: none;
         top: 50%;
         left: 50%;
-        width: 200px;
         aspect-ratio: 1;
         z-index: 100;
         transform: translate(-50%, -50%);
@@ -247,10 +246,10 @@ const falafel = getFalafel();
         }
 
         transition: opacity 0.25s steps(3);
-        opacity: 1;
+        opacity: 0.8;
         &:hover {
             animation: cursor-default-blink 1s infinite;
-            opacity: 0.8;
+            opacity: 0.65;
             /* cursor: crosshair; */
         }
     }
