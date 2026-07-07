@@ -59,7 +59,7 @@ const entry = getFalafel().entryMap[id];
                     </h1>
                     <i>{entry.address}</i>
                 </div>
-                <i>first eaten:<br /><b>{getDateEatenText(entry)}</b></i>
+                <i class="date">first eaten:<br /><b>{getDateEatenText(entry)}</b></i>
             </header>
             <div style={`view-transition-name: review-${entry.review};`}>
                 {entry.review.split("\n\n").map((p) => <p>{p}</p>)}
@@ -103,5 +103,9 @@ const entry = getFalafel().entryMap[id];
 
     h1 {
         margin: unset;
+    }
+
+    .date {
+        text-align: right;
     }
 </style>
