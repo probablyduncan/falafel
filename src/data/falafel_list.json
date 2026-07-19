@@ -3,7 +3,7 @@
   "description": "All of the falafel wraps I have loved. Each is rated on a scale of one (bad) to five (good).",
   "icon": "🧆",
   "googleMapsUri": "https://www.google.com/maps/placelists/list/44mcllfeROZvxnmw4BonXg",
-  "length": 87,
+  "length": 90,
   "entries": {
     "1771501038": {
       "cacheKey": "1771501038",
@@ -1309,6 +1309,51 @@
       "dateEatenText": null,
       "address": "Narrow Quay, Bristol",
       "googleMapsUri": "https://maps.google.com/?cid=4423301264885261790&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+    },
+    "1784370151": {
+      "cacheKey": "1784370151",
+      "atprotoKey": "3mqxo2fkdra2f",
+      "name": "Edinburgh Street Food",
+      "review": "I was very cold on a Thursday after dark and falafel is a warming food. I wouldn’t call it great, but I would call it warming! Five stars.",
+      "lat": 55.955875,
+      "lng": -3.186083,
+      "placeId": "places/ChIJp9DCk-XHh0gRLRA5GXj9MII",
+      "dateUpdated": "2026-07-18T11:03:08.000Z",
+      "dateSaved": "2026-07-18T10:22:31.000Z",
+      "dateEaten": null,
+      "dateEatenText": null,
+      "address": "Omni, Leith St, Edinburgh",
+      "googleMapsUri": "https://maps.google.com/?cid=9381276716073816109&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+    },
+    "1784372417": {
+      "cacheKey": "1784372417",
+      "atprotoKey": "3mqxo2fu2h32m",
+      "name": "Miro's on the Prom",
+      "review": "I suppose a Scottish beach cafe has different standards for falafel. On those standards, it was pretty good. I’m not writing home about Scottish beach cafe falafel, but I do have to put it on my wrap map. Five stars.",
+      "lat": 55.955021099999996,
+      "lng": -3.1109443999999997,
+      "placeId": "places/ChIJ3R0GnLG5h0gRACJAwm22_jg",
+      "dateUpdated": "2026-07-18T11:00:17.000Z",
+      "dateSaved": "2026-07-18T11:00:17.000Z",
+      "dateEaten": null,
+      "dateEatenText": null,
+      "address": "25-25a Promenade, Edinburgh",
+      "googleMapsUri": "https://maps.google.com/?cid=4106920492735144448&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+    },
+    "1784419361": {
+      "cacheKey": "1784419361",
+      "atprotoKey": "3mqxo2fapec2x",
+      "name": "Palmyra Pizza",
+      "review": "The decor of the place suggests the falafel is really good. The latitude suggests it is not. I think perhaps there are cities with good falafel, and cities without. As a man with a wrap map, I feel an obligation to eat falafel wherever I am. Anything for the map, after all. But sometimes the falafel tastes like couscous and the chilli sauce tastes like ketchup. A learning experience. Five stars.",
+      "lat": 55.946314099999995,
+      "lng": -3.1851266999999996,
+      "placeId": "places/ChIJ7UfUPYTHh0gRIckUcuY0do8",
+      "dateUpdated": "2026-07-19T00:07:05.000Z",
+      "dateSaved": "2026-07-19T00:02:41.000Z",
+      "dateEaten": null,
+      "dateEatenText": null,
+      "address": "22 Nicolson St, Edinburgh",
+      "googleMapsUri": "https://maps.google.com/?cid=10337508159036639521&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     }
   }
 }
