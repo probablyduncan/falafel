@@ -72,16 +72,8 @@ const falafel = getFalafel();
             <ul>
                 {
                     falafel.entryArr.map((entry) => {
-                        const truncatedReview = truncateText(entry.review, 80);
-                        const wordsLeftOver = (
-                            truncatedReview === entry.review
-                                ? ""
-                                : entry.review.substring(
-                                      truncatedReview.length - 3,
-                                  )
-                        )
-                            .split(/[— \n\-]/)
-                            .filter(Boolean).length;
+                        const truncatedReview = truncateText(entry.review, 55);
+
                         return (
                             <li>
                                 <div class="header">
@@ -114,35 +106,70 @@ const falafel = getFalafel();
                                         </b>
                                     </i>
                                 </div>
-                                <p>{truncatedReview}</p>
-                                <p style="text-align: right;">
-                                    <a href={`/wraps/${entry.cacheKey}`}>
-                                        {wordsLeftOver ? (
-                                            <>
-                                                see {wordsLeftOver} more word
-                                                {wordsLeftOver > 1
-                                                    ? "s"
-                                                    : ""}{" "}
-                                                on the subject
-                                            </>
-                                        ) : (
-                                            <>see more</>
-                                        )}
-                                    </a>
-                                </p>
+                                {truncatedReview.length ===
+                                entry.review.length ? (
+                                    entry.review
+                                        .split("\n")
+                                        .filter(Boolean)
+                                        .map((p) => <p>{p}</p>)
+                                ) : (
+                                    <details>
+                                        <summary title="expand review...">
+                                            {truncatedReview}
+                                        </summary>
+                                        {entry.review
+                                            .split("\n")
+                                            .filter(Boolean)
+                                            .map((p) => (
+                                                <p>{p}</p>
+                                            ))}
+                                    </details>
+                                )}
                             </li>
                         );
                     })
                 }
             </ul>
         </main>
-        <figure class="squircle" title="round and round and round we go">
-            <img src="falafel.gif" draggable="false" alt="falafel.gif" />
-        </figure>
+        <!-- <figure class="squircle">
+            <img src="close.gif" draggable="false" alt="falafel.gif" />
+        </figure> -->
+        <div class="ball"></div>
     </body>
 </html>
 
 <style>
+    ul {
+        width: 55ch;
+        max-width: 100%;
+    }
+
+    details:open summary {
+        display: none;
+    }
+
+    details > summary,
+    details p:first-of-type {
+        margin-top: unset;
+    }
+
+    details summary::marker {
+        color: #222222;
+        transition: color 0.2s;
+    }
+
+    details summary:hover::marker {
+        color: #6fbc57;
+    }
+
+    details summary {
+        cursor: pointer;
+    }
+
+    details p {
+        line-height: 1.4;
+    }
+
     @view-transition {
         navigation: auto;
     }
@@ -161,7 +188,6 @@ const falafel = getFalafel();
         pointer-events: auto;
         background-color: #ff4b4b;
         background-color: #6fbc57;
-        font-family: arial;
         padding: 0.1em 0.3em 0.2em 0.3em;
         text-align: center;
         display: inline-block;
@@ -173,7 +199,8 @@ const falafel = getFalafel();
         font-style: italic;
         transition: transform 0.2s steps(3);
 
-        &:hover {
+        &:hover,
+        &:focus-visible {
             transform: rotate(0deg) translateX(4px);
             animation: flip-up 0.2s linear forwards;
         }
@@ -233,12 +260,15 @@ const falafel = getFalafel();
     figure {
         position: fixed;
         user-select: none;
+        pointer-events: none;
         top: 50%;
         left: 50%;
         aspect-ratio: 1;
         z-index: 100;
-        transform: translate(-50%, -50%);
         margin: unset;
+
+        width: 256px;
+        max-width: 90%;
 
         img {
             width: 100%;
@@ -247,11 +277,8 @@ const falafel = getFalafel();
 
         transition: opacity 0.25s steps(3);
         opacity: 0.8;
-        &:hover {
-            animation: cursor-default-blink 1s infinite;
-            opacity: 0.65;
-            /* cursor: crosshair; */
-        }
+
+        animation: float 4s ease-in-out infinite alternate;
     }
 
     a:hover {
@@ -269,6 +296,20 @@ const falafel = getFalafel();
 
         100% {
             cursor: default;
+        }
+    }
+
+    @keyframes float {
+        0% {
+            transform: translate(-50%, calc(-50% + 4px));
+        }
+
+        50% {
+            transform: translate(-50%, calc(-50% - 4px));
+        }
+
+        100% {
+            transform: translate(-50%, calc(-50% + 4px));
         }
     }
 
@@ -322,6 +363,56 @@ const falafel = getFalafel();
 
         100% {
             cursor: ne-resize;
+        }
+    }
+
+    .ball {
+        --size: 128px;
+        --duration-y: 10s;
+        --duration-x: calc(var(--duration-y) * 100dvw / 100dvh);
+
+        pointer-events: none;
+        user-select: none;
+        width: var(--size);
+        height: var(--size);
+        background: url("/close.webp");
+        filter: blur(1px);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        position: fixed;
+
+        animation:
+            x var(--duration-x) linear infinite alternate,
+            y var(--duration-y) linear infinite alternate,
+            fade-in 0.5s ease-in both;
+    }
+
+    @keyframes x {
+        from {
+            left: 0;
+        }
+        to {
+            left: calc(100% - var(--size));
+        }
+    }
+
+    @keyframes y {
+        from {
+            top: 0;
+        }
+        to {
+            top: calc(100% - var(--size));
+        }
+    }
+
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 0.8;
         }
     }
 </style>
