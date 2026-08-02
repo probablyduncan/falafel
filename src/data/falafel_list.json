@@ -3,7 +3,7 @@
   "description": "All of the falafel wraps I have loved. Each is rated on a scale of one (bad) to five (good).",
   "icon": "🧆",
   "googleMapsUri": "https://www.google.com/maps/placelists/list/44mcllfeROZvxnmw4BonXg",
-  "length": 90,
+  "length": 94,
   "entries": {
     "1771501038": {
       "cacheKey": "1771501038",
@@ -1310,6 +1310,51 @@
       "address": "Narrow Quay, Bristol",
       "googleMapsUri": "https://maps.google.com/?cid=4423301264885261790&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
+    "1782648588": {
+      "cacheKey": "1782648588",
+      "atprotoKey": "3ms2utbkjbj2g",
+      "name": "Eat a Pitta",
+      "review": "This is the place that everyone recommends when you say you’re looking for falafel in Bristol. It’s the kind of place that people refer to as an institution. And it deserves it. Some falafel wraps are only good in the dark of night, when you’re littered with hunger or swamped in alcohol, but this falafel is good all hours of the day. Eat a pitta? Anytime. Five stars.",
+      "lat": 51.4543222,
+      "lng": -2.5929374,
+      "placeId": "places/ChIJCxu6LXiOcUgRKAJOBSw9Ql0",
+      "dateUpdated": "2026-08-01T20:39:52.000Z",
+      "dateSaved": "2026-06-28T12:09:48.000Z",
+      "dateEaten": null,
+      "dateEatenText": null,
+      "address": "St Nicholas Market, Vox Cottage, All Saints Ln, Bristol",
+      "googleMapsUri": "https://maps.google.com/?cid=6720000853267055144&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+    },
+    "1782648605": {
+      "cacheKey": "1782648605",
+      "atprotoKey": "3ms2utbsgci2i",
+      "name": "4Lebanese Grill",
+      "review": "Look, it was a bad night, but the falafel you had beforehand was really good. You have to leave your bias at the door when you’re reviewing falafel. Five stars.",
+      "lat": 51.5495271,
+      "lng": -0.108461,
+      "placeId": "places/ChIJuf3-T7QbdkgR2_xCd-vpzyQ",
+      "dateUpdated": "2026-08-01T20:37:35.000Z",
+      "dateSaved": "2026-06-28T12:10:05.000Z",
+      "dateEaten": null,
+      "dateEatenText": null,
+      "address": "153 Holloway Rd, London",
+      "googleMapsUri": "https://maps.google.com/?cid=2652595903071976667&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+    },
+    "1783729444": {
+      "cacheKey": "1783729444",
+      "atprotoKey": "3ms2utc27da2i",
+      "name": "Kennington Lane Kebab",
+      "review": "This is a good place to go when you’re on your way back from an ill-fated comedy night, where you laughed more out of relief than out of joy. Comedy is tension and release, and you mostly just felt tension. You don’t know why the host kept saying that thing about his sister, why one comedian started with “I have an Indian wife” and one spoke entirely about porn stars, but you do know, as you shoot off on your bicycle, that you could do with dinner. Yum! Five stars.",
+      "lat": 51.4860178,
+      "lng": -0.1211004,
+      "placeId": "places/ChIJCYcB-EUFdkgR9lS5khR-krU",
+      "dateUpdated": "2026-08-01T20:36:14.000Z",
+      "dateSaved": "2026-07-11T00:24:04.000Z",
+      "dateEaten": null,
+      "dateEatenText": null,
+      "address": "383 Kennington Ln, London",
+      "googleMapsUri": "https://maps.google.com/?cid=13083658494290777334&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+    },
     "1784370151": {
       "cacheKey": "1784370151",
       "atprotoKey": "3mqxo2fkdra2f",
@@ -1354,6 +1399,21 @@
       "dateEatenText": null,
       "address": "22 Nicolson St, Edinburgh",
       "googleMapsUri": "https://maps.google.com/?cid=10337508159036639521&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+    },
+    "1785616212": {
+      "cacheKey": "1785616212",
+      "atprotoKey": "3ms2utcdux62n",
+      "name": "Damascus Bride",
+      "review": "Damascus Bride? Wish I was the groom! Maybe then I’d marry in to a family of falafel, and learn to forge a wrap so layered and loved, a wrap which moves as one, through the darkness, at the end of a weary day, onto my plate. Five stars.",
+      "lat": 51.5225231,
+      "lng": -0.17391859999999998,
+      "placeId": "places/ChIJVZNgN28bdkgR1GdSJxafWEg",
+      "dateUpdated": "2026-08-01T20:30:12.000Z",
+      "dateSaved": "2026-08-01T20:30:12.000Z",
+      "dateEaten": null,
+      "dateEatenText": null,
+      "address": "367-369 Edgware Rd, London",
+      "googleMapsUri": "https://maps.google.com/?cid=5213091486179157972&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     }
   }
 }
