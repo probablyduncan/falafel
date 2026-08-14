@@ -3,7 +3,7 @@
   "description": "All of the falafel wraps I have loved. Each is rated on a scale of one (bad) to five (good).",
   "icon": "🧆",
   "googleMapsUri": "https://www.google.com/maps/placelists/list/44mcllfeROZvxnmw4BonXg",
-  "length": 94,
+  "length": 95,
   "entries": {
     "1771501038": {
       "cacheKey": "1771501038",
@@ -1414,6 +1414,21 @@
       "dateEatenText": null,
       "address": "367-369 Edgware Rd, London",
       "googleMapsUri": "https://maps.google.com/?cid=5213091486179157972&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+    },
+    "1786556652": {
+      "cacheKey": "1786556652",
+      "atprotoKey": "3msyxvx5oco2t",
+      "name": "Kippatu Ltd",
+      "review": "Suddenly, you notice. When did the birds stop singing? When did all the squirrels come down from the trees? Something is coming. You can feel it in the air.\n\nThe breeze has been cut. The shadows are tilting, fogged and muddy, crescent penumbras scattered on the pavement like the toenails of gods. The sky is getting darker. You look up, and are gripped by primordial fear. The world is falling dark. The endless night is here. There is a shadow across the sun. You take one last bite of your wrap, a scrumptious thing from Kippatu Ltd, and raise your eclipse glasses, and you see it. Cosmic falafel, as wide as the moon, backlit by stellar corona, blotting out the sun. The sky is dark; no stars. The falafel in your hand, though, is a comfort to your reptilian anxiety, warm and lovely. The sun will come again, and so will you. Five stars.",
+      "lat": 51.485967699999996,
+      "lng": 0.0136618,
+      "placeId": "places/ChIJ5d1D4jqo2EcR99X-CuUlgQ8",
+      "dateUpdated": "2026-08-13T15:27:30.000Z",
+      "dateSaved": "2026-08-12T17:44:12.000Z",
+      "dateEaten": null,
+      "dateEatenText": null,
+      "address": "44 Woolwich Rd, London",
+      "googleMapsUri": "https://maps.google.com/?cid=1117215848226805239&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     }
   }
 }
