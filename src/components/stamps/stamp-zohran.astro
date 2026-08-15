@@ -1,0 +1,23 @@
+---
+import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+
+interface Props extends StampProps {}
+---
+
+<img style={getStampStyle(Astro.props)} src="zohran.png" draggable="false" />
+
+<style>
+    img {
+        width: 256px;
+        max-width: 40vw;
+        image-rendering: pixelated;
+        
+        --zy: #ffa900;
+        --zb: #2719d2;
+        --zr: #e71a00;
+
+        box-shadow:
+            -4px 4px 0 var(--zy),
+            -2px 2px 0 var(--zb);
+    }
+</style>

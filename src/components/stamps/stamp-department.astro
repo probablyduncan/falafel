@@ -1,0 +1,48 @@
+---
+import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+
+interface Props extends StampProps {}
+---
+
+<div style={getStampStyle(Astro.props)}>
+    <span>FALAFEL</span>
+    <span>, department of</span>
+</div>
+
+<style>
+    div {
+        font-family: var(--junicode);
+        font-style: italic;
+        font-size: 1rem;
+        font-weight: 500;
+        color: white;
+        background-color: indigo;
+        padding: 0.6em 0.5em 0.5em;
+        line-height: 1;
+        border: 0.1em solid #fff;
+        box-shadow:
+            0.05em 0.05em #fff,
+            0.1em 0.1em #fff,
+            0.15em 0.15em #fff,
+            inset 0 0 0.1em #fff;
+
+        span {
+            display: block;
+        }
+
+        span:first-child {
+            font-size: 2em;
+            font-variation-settings:
+                "wght" 300,
+                "wdth" 80,
+                "ENLA" 1;
+        }
+
+        span:last-child {
+            font-variation-settings:
+                "wght" 300,
+                "wdth" 110,
+                "ENLA" 30;
+        }
+    }
+</style>

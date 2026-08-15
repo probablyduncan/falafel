@@ -1,0 +1,28 @@
+---
+import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+
+interface Props extends StampProps {}
+---
+
+<div style={getStampStyle(Astro.props)} class="kyroh">
+    BEHOLDER<br/>
+    FALAFEL <span class="alts">e</span>
+</div>
+
+<style>
+    div {
+        color: white;
+        background-color: #FAC96A;
+        padding: 0.5em;
+        /* border: 0.1em solid white; */
+        box-shadow: 0.1em 0.1em 0 #a0834a, -0.1em 0.1em 0 white, -0.1em -0.1em 0 white, 0.1em -0.1em 0 white;
+        text-shadow: 0.1em 0.1em 0 #a0834a;
+        line-height: 1;
+
+        span {
+            display: inline-block;
+            transform: translateY(0.05em);
+            /* text-shadow: 0 0; */
+        }
+    }
+</style>

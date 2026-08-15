@@ -1,0 +1,18 @@
+---
+import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+
+interface Props extends StampProps {}
+---
+
+<img
+    style={getStampStyle(Astro.props)}
+    src="close/0064.png"
+    draggable="false"
+/>
+
+<style>
+    img {
+        width: 64px;
+        image-rendering: pixelated;
+    }
+</style>

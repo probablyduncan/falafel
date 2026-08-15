@@ -1,0 +1,18 @@
+---
+import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+
+interface Props extends StampProps {}
+---
+
+<img style={getStampStyle(Astro.props)} src="tornado.png" draggable="false" />
+
+<style>
+    img {
+        width: 128px;
+        max-width: 40vw;
+        image-rendering: pixelated;
+
+        box-shadow: -4px 4px 0 black;
+        filter: blur(0.2px);
+    }
+</style>

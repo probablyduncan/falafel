@@ -1,0 +1,28 @@
+---
+import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+
+interface Props extends StampProps {}
+---
+
+<div style={getStampStyle(Astro.props)}>
+    WITCH&mdash;
+    <br/>
+    KING OF
+    <br/>
+    FALAFEL
+</div>
+
+<style>
+    div {
+        color: #230D0B;
+        background-color: #1E9D5C;
+        font-weight: 800;
+        line-height: 1.2;
+        text-align: justify;
+        text-align-last: justify;
+        padding: 0.5em 1.5ch;
+        font-size: 1.2rem;
+        box-shadow: 0.1em 0.1em currentColor;
+        text-shadow: 0.02em 0.02em 0.02em #0004;
+    }
+</style>

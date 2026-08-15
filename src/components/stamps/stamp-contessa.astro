@@ -1,0 +1,17 @@
+---
+import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+
+interface Props extends StampProps {}
+---
+
+<img style={getStampStyle(Astro.props)} src="contessa.png" draggable="false" />
+
+<style>
+    img {
+        width: 256px;
+        max-width: 50vw;
+        image-rendering: pixelated;
+
+        box-shadow: -4px 4px 0 black;
+    }
+</style>

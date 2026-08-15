@@ -1,0 +1,496 @@
+---
+import { toShortDateString } from "../lib/dateHelpers";
+import getFalafel from "../lib/falafelLoader";
+import { getStampComponents } from "../lib/stampHelpers";
+import StampComicEverything from "./stamps/stamp-comic-everything.astro";
+import StampContessa from "./stamps/stamp-contessa.astro";
+import StampFalafelCzar from "./stamps/stamp-falafel-czar.astro";
+import StampFalafelIcon from "./stamps/stamp-falafel-icon.astro";
+import StampFalafelKing from "./stamps/stamp-falafel-king.astro";
+import StampLordOfFalafel from "./stamps/stamp-lord-of-falafel.astro";
+import StampTornadoFalafel from "./stamps/stamp-tornado-falafel.astro";
+import StampX from "./stamps/stamp-x.astro";
+import StampDepartment from "./stamps/stamp-department.astro";
+import StampSaintFalafel from "./stamps/stamp-saint-falafel.astro";
+import StampBeholderFalafel from "./stamps/stamp-beholder-falafel.astro";
+
+const falafel = getFalafel();
+const lastUpdated = toShortDateString(
+    falafel.entryArr.reduce((latest, entry) => {
+        const dateUpdated = new Date(entry.dateUpdated);
+        return dateUpdated > latest ? dateUpdated : latest;
+    }, new Date(0)),
+).toLowerCase();
+
+const stamps = getStampComponents();
+---
+
+<header id="hero">
+    <nav id="top-bar">
+        <span>
+            <a
+                target="_blank"
+                href={falafel.googleMapsUri}
+                title={falafel.googleMapsUri}>see the <span>google map</span></a
+            >
+        </span>
+        <span>
+            <a href="#" title="you are already here!">wrap/map</a>
+        </span>
+        <span>
+            <a
+                href="https://duncanpetrie.com"
+                title="https://duncanpetrie.com"
+                target="_blank">was made by <span>duncan</span></a
+            >
+        </span>
+    </nav>
+    <nav id="bottom-bar"><span>last updated {lastUpdated}</span></nav>
+    <h1 class="kyroh">
+        <div>welcome to</div>
+        planet falafel
+    </h1>
+    <img id="planet-falafel" src="planet-falafel.gif" draggable="false" />
+    <div id="stamp-templates">
+        {stamps.map((Stamp) => <Stamp />)}
+    </div>
+    <div id="stamps">
+        <StampX top={80} left={90} rotate={-12} />
+        <StampX top={20} left={10} rotate={-8} />
+        <StampFalafelKing top="20" left="30" rotate="-10" />
+        <StampFalafelIcon top="30" left="80" />
+        <StampFalafelIcon top="80" left="10" />
+        <StampFalafelIcon top="-1" left="30" />
+        <StampFalafelIcon top="95" left="98" />
+        <StampTornadoFalafel top="70" left="70" rotate="-6" />
+        <StampContessa top={75} left={30} rotate={18} />
+        <StampLordOfFalafel top={20} left={70} rotate={8} />
+        <StampDepartment top={70} left={-2} />
+    </div>
+</header>
+
+<style>
+    #hero {
+        width: 100%;
+        height: 100lvh;
+
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: clip;
+
+        background: radial-gradient(closest-side, #442a2d, #210c0c);
+    }
+
+    #top-bar,
+    #bottom-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+
+        font-family: var(--sans);
+        font-weight: 600;
+        font-style: italic;
+        line-height: 1;
+
+        user-select: none;
+        -webkit-user-select: none;
+
+        a:hover span,
+        a:not(:has(span)):hover {
+            text-decoration: underline;
+        }
+    }
+
+    #top-bar {
+        top: 0;
+        z-index: 1;
+        color: var(--color-white);
+        background-color: var(--color-black);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        padding: 0.4em 0.5em 0.5em;
+
+        :first-child {
+            position: relative;
+            a:hover::after {
+                content: " 🗺";
+                font-style: normal;
+            }
+        }
+
+        :nth-child(2) {
+            position: relative;
+            a:hover::before {
+                content: "🖈";
+                font-style: normal;
+                position: absolute;
+                left: -1.2em;
+                top: 0.1em;
+            }
+
+            a:hover::after {
+                content: "🏶";
+                font-style: normal;
+                position: absolute;
+                right: -1.2em;
+                top: 0.05em;
+            }
+        }
+
+        :last-child {
+            position: relative;
+            text-align: right;
+            a:hover::before {
+                content: "🗲 ";
+                font-style: normal;
+            }
+        }
+    }
+
+    #bottom-bar {
+        bottom: 0;
+        z-index: 3;
+        color: var(--color-white);
+        background-color: var(--color-green);
+        padding: 0.4em 0;
+        filter: drop-shadow(0 8px 12px var(--color-green));
+        display: flex;
+        justify-content: center;
+    }
+
+    h1 {
+        /* transform: scale(0.9, 1.2); */
+        color: var(--color-yellow);
+        font-family: var(--kyroh);
+        font-weight: normal;
+        font-size: min(64px, 8vw);
+        text-align: center;
+        margin: unset;
+        text-shadow: 0 0 10px var(--color-yellow);
+        filter: blur(1px);
+        line-height: 1;
+
+        &,
+        & * {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        div {
+            font-size: 0.3em;
+        }
+    }
+
+    #planet-falafel {
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        width: 75vw;
+        max-width: 512px;
+        animation: float 2s ease-in-out infinite alternate;
+        user-select: none;
+        -webkit-user-select: none;
+        pointer-events: none;
+        transition: opacity 0.5s;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translate(-50%, calc(50% - 5px));
+        }
+        100% {
+            transform: translate(-50%, calc(50% + 5px));
+        }
+    }
+
+    #hero:has(h1:hover) #planet-falafel {
+        opacity: 0.5;
+    }
+
+    /* :where() forces lower specificity than stamp component styles */
+    :where(#stamps) > :global(*) {
+        /* initial position */
+        --yi: 50%;
+        --xi: 50%;
+        --ri: 0deg;
+
+        /* grab transform position */
+        --dx: 0px;
+        --dy: 0px;
+        --dr: 0deg;
+
+        /* scale */
+        --s: 1;
+
+        position: absolute;
+        top: var(--yi);
+        left: var(--xi);
+        z-index: 2;
+
+        white-space: pre;
+
+        transform: translate(calc(var(--dx) - 50%), calc(var(--dy) - 50%))
+            rotate(calc(var(--dr) + var(--ri))) scale(var(--s));
+
+        user-select: none;
+        -webkit-user-select: none;
+
+        cursor: grab;
+    }
+
+    #stamps > :global(.active) {
+        --s: 1.05;
+    }
+
+    #hero:has(#stamps > :global(.active)),
+    #stamps > :global(.active) {
+        cursor: grabbing;
+    }
+
+    #stamp-templates {
+        display: none;
+        visibility: hidden;
+    }
+</style>
+
+<script>
+    // so here's the behavior I want
+    // there will already be some stamps placed on page load
+    // there is a little tooltip that prompts you to click to stick or whatever
+    // when you mousedown, it springs in a random stamp (random scale, rotation as well)
+    // you can still move your mouse around and it drags it around (maybe this can be fun?)
+    // when you mouseup, it places it
+
+    // if you mouse over an existing stamp, you can grab it and drag it around
+
+    // you can drag falafel into a mouth?
+    // and it eats it up?
+
+    function initStamps() {
+        const heroContainer = document.getElementById("hero")!;
+        const templates = document.querySelectorAll("#stamp-templates > :is(div, img)");
+        const stampContainer = document.getElementById("stamps")!;
+
+        if (!heroContainer || !stampContainer || !templates?.length) {
+            return;
+        }
+
+        interface Transform {
+            x: number;
+            y: number;
+            r: number;
+        }
+
+        interface StampState {
+            currentTransform: Transform;
+            targetTransform: Transform;
+            isAnimating: boolean;
+        }
+
+        const stamps: Record<string, StampState> = {};
+        for (let i = 0; i < stampContainer.children.length; i++) {
+            const stamp = stampContainer.children[i] as HTMLElement;
+            if (stamp) {
+                addStampToState(stamp);
+            }
+        }
+
+        function addStampToState(element: HTMLElement) {
+            if (!element.id) {
+                element.id = `stamp-${Object.keys(stamps).length}`;
+            }
+            stamps[element.id] = {
+                currentTransform: { x: 0, y: 0, r: 0 },
+                targetTransform: { x: 0, y: 0, r: 0 },
+                isAnimating: false,
+            };
+        }
+
+        function moveToFront(el: Node) {
+            // this is complicated because if we just do el.parentElement.appendChild(el),
+            // moving the el to the end of the parent, it cancels :active styles
+            let nextSibling = el.nextSibling;
+            while (nextSibling) {
+                const siblingToMove = nextSibling;
+                nextSibling = nextSibling.nextSibling;
+                el.parentElement!.insertBefore(siblingToMove, el);
+            }
+        }
+
+        let lastTemplateIndex = -1;
+        function getRandomStamp() {
+            let nextTemplateIndex;
+            do {
+                nextTemplateIndex = Math.floor(
+                    Math.random() * templates.length,
+                );
+            } while (nextTemplateIndex === lastTemplateIndex);
+            lastTemplateIndex = nextTemplateIndex;
+            return templates[nextTemplateIndex].cloneNode(
+                true,
+            ) as HTMLElement;
+        }
+
+        function createNewStamp(e: { clientX: number; clientY: number }) {
+            const stamp = getRandomStamp();
+
+            const rotationRandomComponent = Math.random() * 0.5 - 0.15;
+            const vectorFromCenter = [
+                e.clientX - heroContainer.clientWidth / 2,
+                e.clientY - heroContainer.clientHeight / 2,
+            ];
+            const tilt = Math.sign(vectorFromCenter[0] * -vectorFromCenter[1]);
+            stamp.style.setProperty(
+                "--ri",
+                `${tilt * rotationRandomComponent}rad`,
+            );
+
+            // const angleToCenter =
+            //     Math.atan2(vectorFromCenter[1], -vectorFromCenter[0]) + Math.PI;
+            // const circleTiltAmount = Math.abs(Math.cos(angleToCenter));
+            // const xCenterLerp =
+            //     1 -
+            //     Math.abs((vectorFromCenter[0] / heroContainer.clientWidth) * 2);
+            // stamp.style.setProperty(
+            //     "--r",
+            //     `${(circleTiltAmount * xCenterLerp + rotationRandomComponent) * tilt}rad`,
+            // );
+
+            stamp.style.setProperty(
+                "--xi",
+                `${(100 * (e.clientX + window.scrollX)) / heroContainer.clientWidth}%`,
+            );
+            stamp.style.setProperty(
+                "--yi",
+                `${(100 * (e.clientY + window.scrollY)) / heroContainer.clientHeight}%`,
+            );
+
+            stampContainer.appendChild(stamp);
+            addStampToState(stamp);
+            return stamp;
+        }
+
+        heroContainer.addEventListener("mousedown", (eDown) => {
+            if (eDown.button !== 0) {
+                return;
+            }
+
+            const target = eDown.target as HTMLElement;
+            let stamp = target.closest("#stamps > *") as HTMLElement;
+
+            // don't spawn on text/clickable elements
+            if (
+                !stamp &&
+                target.closest("a, button, span:not(:has(*)), #bottom-bar")
+            ) {
+                return;
+            }
+
+            // for cancelling listeners and raf
+            const abortController = new AbortController();
+
+            // get or create stamp
+            if (stamp) {
+                moveToFront(stamp);
+            } else {
+                // don't spawn on refocus clicks
+                if (!document.hasFocus()) {
+                    return;
+                }
+                stamp = createNewStamp(eDown);
+            }
+            const state = stamps[stamp.id];
+
+            // prevent dragging, etc
+            eDown.preventDefault();
+
+            // state things
+            const lastScroll = [window.scrollX, window.scrollY];
+            const dragStart = [
+                eDown.clientX + window.scrollX - state.currentTransform.x,
+                eDown.clientY + window.scrollY - state.currentTransform.y,
+            ];
+
+            document.addEventListener(
+                "mousemove",
+                (eMove) => {
+                    state.targetTransform.x =
+                        eMove.clientX + window.scrollX - dragStart[0];
+                    state.targetTransform.y =
+                        eMove.clientY + window.scrollY - dragStart[1];
+                },
+                {
+                    signal: abortController.signal,
+                },
+            );
+
+            document.addEventListener(
+                "scroll",
+                () => {
+                    state.targetTransform.x += window.scrollX - lastScroll[0];
+                    state.targetTransform.y += window.scrollY - lastScroll[1];
+                    lastScroll[0] = window.scrollX;
+                    lastScroll[1] = window.scrollY;
+                },
+                {
+                    signal: abortController.signal,
+                },
+            );
+
+            let prevFrameTimestamp = 0;
+            function getDelta(timestamp: DOMHighResTimeStamp) {
+                const delta =
+                    timestamp -
+                    (prevFrameTimestamp ? prevFrameTimestamp : timestamp);
+                prevFrameTimestamp = timestamp;
+                return delta;
+            }
+
+            function animateMove(timestamp: DOMHighResTimeStamp) {
+                const lerp = Math.min(1, getDelta(timestamp) * 0.0245);
+                state.currentTransform.x +=
+                    (state.targetTransform.x - state.currentTransform.x) * lerp;
+                state.currentTransform.y +=
+                    (state.targetTransform.y - state.currentTransform.y) * lerp;
+
+                stamp.style.setProperty(
+                    "--dx",
+                    `${state.currentTransform.x.toFixed(5)}px`,
+                );
+                stamp.style.setProperty(
+                    "--dy",
+                    `${state.currentTransform.y.toFixed(5)}px`,
+                );
+
+                if (
+                    state.isAnimating ||
+                    Math.abs(
+                        state.targetTransform.x - state.currentTransform.x,
+                    ) > 1 ||
+                    Math.abs(
+                        state.targetTransform.y - state.currentTransform.y,
+                    ) > 1
+                ) {
+                    requestAnimationFrame(animateMove);
+                }
+            }
+
+            document.addEventListener("mouseup", () => {
+                abortController.abort();
+                stamp.classList.remove("active");
+                prevFrameTimestamp = 0;
+                state.isAnimating = false;
+            });
+
+            stamp.classList.add("active");
+            state.isAnimating = true;
+            Object.assign(state.targetTransform, state.currentTransform);
+            requestAnimationFrame(animateMove);
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", initStamps);
+</script>

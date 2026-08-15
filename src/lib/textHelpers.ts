@@ -1,4 +1,4 @@
-export default function truncateText(fullText: string, maxLength: number) {
+export function truncateText(fullText: string, maxLength: number) {
 
     const trimmedText = fullText.trim();
 
@@ -9,3 +9,8 @@ export default function truncateText(fullText: string, maxLength: number) {
 
     return trimmedText.substring(0, maxLength).trimEnd().replace(/[^(a-zA-Z0-9)]*[a-zA-Z0-9]*$/, "...");
 }
+
+export function countWords(text: string) {
+    return text?.trim().split("\n").flatMap(p => p.split("—")).flatMap(p => p.split("-")).flatMap(p => p.split(" ")).filter(Boolean).length ?? 0;
+}
+

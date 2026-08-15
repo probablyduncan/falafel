@@ -1,0 +1,91 @@
+---
+import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+
+interface Props extends StampProps {}
+---
+
+<div data-rainbow style={getStampStyle(Astro.props)}>
+    <!-- Grill and Grill
+    <br />
+    Kebab/Pizza
+    <br />
+    Breakfast
+    <br />
+    Falafel -->
+
+    <span class="green">G</span><span class="green">r</span><span class="blue">i</span><span class="orange">l</span><span class="orange">l</span><span> </span><span class="orange">a</span><span class="red">n</span><span class="orange">d</span><span class="green"> </span><span class="blue">G</span><span class="purple">r</span><span class="black">i</span><span class="orange">l</span><span class="green">l</span><br /><span class="black">K</span><span class="red">e</span><span class="green">b</span><span class="green">a</span><span class="black">b</span><span class="red">/</span><span class="blue">P</span><span class="orange">i</span><span class="green">z</span><span class="orange">z</span><span class="purple">a</span><br /><span class="black">B</span><span class="blue">r</span><span class="green">e</span><span class="green">a</span><span class="orange">k</span><span class="purple">f</span><span class="purple">a</span><span class="purple">s</span><span class="purple">t</span><br /><span class="orange">F</span><span class="purple">a</span><span class="blue">l</span><span class="black">a</span><span class="orange">f</span><span class="red">e</span><span class="blue">l</span>
+</div>
+
+<style>
+    div {
+        font-family: var(--comic);
+        text-align: center;
+        background: linear-gradient(to bottom right, #dfdbd0, #b7af9c);
+        padding: 8px 12px 12px 10px;
+        border: 4px solid white;
+        border-bottom-width: 8px;
+        border-right-width: 8px;
+        box-shadow: inset 0 0 4px white;
+
+        .red {
+            color: #c3463a;
+        }
+
+        .blue {
+            color: #677fab;
+        }
+
+        .orange {
+            color: #d27739;
+        }
+
+        .purple {
+            color: #775172;
+        }
+
+        .green {
+            color: #8f8a44;
+        }
+
+        .black {
+            color: #3e393a;
+        }
+    }
+</style>
+
+<!-- <script>
+    function initRainbow() {
+        const colors = ["red", "blue", "orange", "purple", "green", "black"];
+
+        document.querySelectorAll("[data-rainbow]").forEach(styleChildren);
+
+        function styleChildren(parent: Element) {
+            const newChildren: Element[] = [];
+            for (let i = 0; i < parent.childNodes.length; i++) {
+                const child = parent.childNodes[i];
+                switch (child.nodeType) {
+                    case Node.ELEMENT_NODE:
+                        newChildren.push(styleChildren(child as Element));
+                        break;
+                    case Node.TEXT_NODE:
+                        child.textContent?.split("").forEach((char) => {
+                            const span = document.createElement("span");
+                            span.classList.add(
+                                colors[
+                                    Math.floor(Math.random() * colors.length)
+                                ],
+                            );
+                            span.innerText = char;
+                            newChildren.push(span);
+                        });
+                        break;
+                }
+            }
+            parent.innerHTML = "";
+            parent.append(...newChildren);
+            return parent;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", initRainbow);
+</script> -->

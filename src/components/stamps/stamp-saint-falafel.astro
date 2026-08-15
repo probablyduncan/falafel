@@ -1,0 +1,24 @@
+---
+import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+
+interface Props extends StampProps {}
+---
+
+<div style={getStampStyle(Astro.props)}>
+    SAINT <sup>✝︎</sup>
+    <br/>
+    FALAFEL
+</div>
+
+<style>
+    div {
+        color: #3C3C3C;
+        background-color: #EEF3BC;
+        font-weight: 800;
+        line-height: 1.2;
+        text-align: justify;
+        text-align-last: justify;
+        padding: 0.1em 0.5em;
+        font-size: 1.5rem;
+    }
+</style>

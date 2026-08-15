@@ -1,9 +1,207 @@
 :root {
-    color: #210C0C;
-    background-color: #fafaff;
+    --color-black: #000;
+    --color-white: #fff;
+    --color-red: #ff4b4b;
+    --color-blue: #2026ca;
+    --color-blue: rgb(90, 90, 227);
+    --color-green: #1E9D5C;
+    --color-green: #549b4b;
+    --color-yellow: #FAC96A;
+    --color-brat: #8CCF00;
+
+    color: var(--color-black);
+    background-color: var(--color-white);
+
+    --serif: "Times New Roman", Times, serif;
+    /* --sans: "Arial", sans-serif; */
+    --sans: "Atkinson Hyperlegible Soft", "Arial", "Helvetica", sans-serif;
+    --kyroh: "Kyroh", var(--sans);
+    --junicode: "Junicode", var(--serif);
+    --comic: "Comic Sans MS", "Comic Sans", cursive;
+
+    font-family: var(--sans);
+
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+body {
+    margin: unset;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 a {
-    color: #F15A50;
-    color: #ff4b4b
+    color: unset;
+    text-decoration: unset;
+}
+
+.kyroh {
+    font-family: var(--kyroh);
+}
+
+.kyroh.alts, .kyroh .alts {
+    font-feature-settings: 'ss01';
+}
+
+.junicode {
+    font-family: var(--junicode);
+}
+
+.comic {
+    font-family: var(--comic);
+}
+
+@font-face {
+    font-family: "Kyroh";
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url("fonts/ILLEGAL-Kyroh-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Kyroh";
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+    src: url("fonts/ILLEGAL-Kyroh-Medium.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Kyroh";
+    font-weight: bolder;
+    font-style: normal;
+    font-display: swap;
+    src: url("fonts/ILLEGAL-Kyroh-Bold.woff2") format("woff2");
+}
+
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-ExtraLight.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-ExtraLightItalic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-Light.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-LightItalic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-RegularItalic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-Medium.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-MediumItalic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-SemiBoldItalic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-Bold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-BoldItalic.woff2")format("woff2");
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-ExtraBold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible Soft";
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+    src: url("fonts/AtkinsonHyperlegibleSoft-ExtraBoldItalic.woff2")format("woff2");
+}
+
+@font-face {
+    font-family: "Junicode";
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url("fonts/JunicodeVF-Roman.woff2");
+}
+
+@font-face {
+    font-family: "Junicode";
+    font-style: italic;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url("fonts/JunicodeVF-Italic.woff2");
 }

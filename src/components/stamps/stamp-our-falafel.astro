@@ -1,0 +1,25 @@
+---
+import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+
+interface Props extends StampProps {}
+---
+
+<div style={getStampStyle(Astro.props)}>
+    our ☭
+    <br />
+    falafel
+</div>
+
+<style>
+    div {
+        color: #fafaff;
+        background-color: rgb(234, 47, 47);
+        font-family: monospace;
+        line-height: 1.2;
+        text-align-last: justify;
+        padding: 0.4em 1.5ch 0.2em 0.8ch;
+        font-size: 1rem;
+        box-shadow: 2px 2px 0 currentColor;
+        filter: blur(0.5px);
+    }
+</style>

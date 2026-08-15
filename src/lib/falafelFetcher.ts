@@ -5,7 +5,7 @@ import { getDateEatenText, getTimestamp } from "./dateHelpers";
 import { getAtprotoClient, getDuncanContributor, getPublicationUri, rkeyFromUri } from "./atprotoHelpers";
 import * as site from "../lexicons/site.ts";
 import type { DatetimeString } from '@atproto/lex';
-import truncateText from "./truncateText.ts";
+import { truncateText } from "./textHelpers.ts";
 
 export type FalafelStore = {
     /** list title */

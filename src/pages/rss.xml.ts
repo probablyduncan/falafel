@@ -1,5 +1,5 @@
 import rss from '@astrojs/rss';
-import truncateText from '../lib/truncateText';
+import { truncateText } from '../lib/textHelpers';
 import getFalafel from '../lib/falafelLoader';
 
 export function GET(context: any) {

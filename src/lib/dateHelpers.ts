@@ -8,20 +8,37 @@ export function getDateEatenText(p: Pick<FalafelPlace, "dateEatenText" | "dateEa
         return p.dateEatenText;
     }
 
-    const dateEaten = new Date(p.dateEaten);
+    const dateEaten = new Date(p.dateEaten ?? "");
     if (dateEaten?.getTime()) {
-        return getFormattedDate(dateEaten);
+        return toShortDateString(dateEaten);
     }
 
     const dateSaved = new Date(p.dateSaved);
     if (dateSaved.getTime() > MIGRATION_CUTOFF_TIME) {
-        return getFormattedDate(dateSaved);
+        return toShortDateString(dateSaved);
     }
     
     return fallback;
 }
 
-function getFormattedDate(date: Date | undefined): string {
+/**
+ * "September 26, 2026"
+ */
+export function toLongDateString(date: Date | undefined): string {
+    if (!date) {
+        return "";
+    }
+    return new Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        day: "2-digit",
+        month: "long",
+    }).format(date);
+}
+
+/**
+ * "Sep 26, 2026"
+ */
+export function toShortDateString(date: Date | undefined): string {
     if (!date) {
         return "";
     }
