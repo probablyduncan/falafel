@@ -320,7 +320,11 @@ const stamps = getStampComponents();
             }
         }
 
-        function addStampToState(element: HTMLElement, x: number = 0, y: number = 0) {
+        function addStampToState(
+            element: HTMLElement,
+            x: number = 0,
+            y: number = 0,
+        ) {
             if (!element.id) {
                 element.id = `stamp-${Object.keys(stamps).length}`;
             }
@@ -491,12 +495,16 @@ const stamps = getStampComponents();
                 }
             }
 
-            document.addEventListener("mouseup", () => {
-                abortController.abort();
-                stamp.classList.remove("active");
-                prevFrameTimestamp = 0;
-                state.isAnimating = false;
-            });
+            document.addEventListener(
+                "mouseup",
+                () => {
+                    abortController.abort();
+                    stamp.classList.remove("active");
+                    prevFrameTimestamp = 0;
+                    state.isAnimating = false;
+                },
+                { once: true },
+            );
 
             stamp.classList.add("active");
             state.isAnimating = true;
