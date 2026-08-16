@@ -6,7 +6,7 @@ interface Props extends StampProps {}
 
 <img
     style={getStampStyle(Astro.props)}
-    src="close/0064.png"
+    src={`favicon-frames/a32-${Math.floor(Math.random() * 6 + 1)}.png`}
     draggable="false"
 />
 
@@ -14,5 +14,6 @@ interface Props extends StampProps {}
     img {
         width: 64px;
         image-rendering: pixelated;
+        filter: drop-shadow(2px 6px 6px #0005);
     }
 </style>
