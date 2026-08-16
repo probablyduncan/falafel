@@ -1,15 +1,11 @@
 ---
 import { toShortDateString } from "../lib/dateHelpers";
 import getFalafel from "../lib/falafelLoader";
-import { getStampComponents } from "../lib/stampHelpers";
-import StampComicEverything from "./stamps/stamp-comic-everything.astro";
+import { getStampComponents, getStampStyle } from "../lib/stampHelpers";
 import StampContessa from "./stamps/stamp-contessa.astro";
-import StampFalafelCzar from "./stamps/stamp-falafel-czar.astro";
 import StampFalafelIcon from "./stamps/stamp-falafel-icon.astro";
-import StampFalafelKing from "./stamps/stamp-falafel-king.astro";
 import StampLordOfFalafel from "./stamps/stamp-lord-of-falafel.astro";
 import StampTornadoFalafel from "./stamps/stamp-tornado-falafel.astro";
-import StampX from "./stamps/stamp-x.astro";
 import StampDepartment from "./stamps/stamp-department.astro";
 import StampSaintFalafel from "./stamps/stamp-saint-falafel.astro";
 import StampBeholderFalafel from "./stamps/stamp-beholder-falafel.astro";
@@ -29,43 +25,167 @@ const stamps = getStampComponents();
     <nav id="top-bar">
         <span>
             <a
+                href="https://duncanpetrie.com"
+                title="https://duncanpetrie.com"
                 target="_blank"
-                href={falafel.googleMapsUri}
-                title={falafel.googleMapsUri}>see the <span>google map</span></a
             >
+                <!-- <span>by </span> -->
+                <em>duncan</em>
+                <span> made this</span>
+            </a>
         </span>
         <span>
-            <a href="#" title="you are already here!">wrap/map</a>
+            <a href="#falafel" title="you are already here!">wrap/map</a>
         </span>
         <span>
             <a
-                href="https://duncanpetrie.com"
-                title="https://duncanpetrie.com"
-                target="_blank">was made by <span>duncan</span></a
+                target="_blank"
+                href={falafel.googleMapsUri}
+                title={falafel.googleMapsUri}
             >
+                <span>updated </span>
+                <em>{lastUpdated}</em>
+            </a>
         </span>
     </nav>
-    <nav id="bottom-bar"><span>last updated {lastUpdated}</span></nav>
+    <nav id="bottom-bar">~ ~ ~</nav>
     <div id="title">
         <div>welcome to</div>
         <h1>planet falafel</h1>
     </div>
     <img id="planet-falafel" src="planet-falafel.gif" draggable="false" />
     <div id="stamp-templates">
-        {stamps.map((Stamp) => <Stamp />)}
+        {stamps.map((stamp) => <stamp.component name={stamp.name} />)}
     </div>
     <div id="stamps">
-        <StampX top={80} left={90} rotate={-12} />
-        <StampX top={20} left={10} rotate={-8} />
-        <StampFalafelKing top={0} left={0} rotate="-10" />
-        <StampFalafelIcon top={0} left={0} />
-        <StampFalafelIcon top={0} left={0} />
-        <StampFalafelIcon top="-1" left="30" />
-        <StampFalafelIcon top="95" left="98" />
+        <div
+            class="kyroh"
+            style={getStampStyle(
+                { left: -100, top: -50 },
+                "font-size: 96px; color: var(--color-red); text-shadow: -2px -2px 20px var(--color-red); filter: blur(1px); opacity: 0.8;",
+            )}
+        >
+            •*°
+        </div>
+        <div
+            class="kyroh"
+            style={getStampStyle(
+                { left: 55, top: -135, rotate: -120 },
+                "font-size: 64px; color: var(--color-red); text-shadow: -2px -2px 20px var(--color-red); filter: blur(1px); opacity: 0.8;",
+            )}
+        >
+            •*°
+        </div>
+        <div
+            class="kyroh alts"
+            style={getStampStyle(
+                { left: -135, top: 50 },
+                "font-size: 72px; color: var(--color-red); text-shadow: -2px -2px 20px var(--color-red); filter: blur(1px); opacity: 0.8;",
+            )}
+        >
+            b
+        </div>
+        <div
+            class="kyroh alts"
+            style={getStampStyle(
+                { left: 105, top: 20 },
+                "font-size: 64px; color: var(--color-red); text-shadow: -2px -2px 20px var(--color-red); filter: blur(1px); opacity: 0.8;",
+            )}
+        >
+            *
+        </div>
+        <div
+            class="kyroh alts"
+            style={getStampStyle(
+                { left: 75, top: -18 },
+                "font-size: 64px; color: var(--color-yellow); text-shadow: -2px -2px 20px var(--color-yellow); filter: blur(1px); opacity: 0.8;",
+            )}
+        >
+            w
+        </div>
+        <div
+            class="kyroh alts"
+            style={getStampStyle(
+                { left: -85, top: 65 },
+                "font-size: 64px; color: var(--color-yellow); text-shadow: -2px -2px 20px var(--color-yellow); filter: blur(1px); opacity: 0.8;",
+            )}
+        >
+            s
+        </div>
+        <div
+            class="kyroh alts"
+            style={getStampStyle(
+                { left: -20, top: -65, rotate: -12 },
+                "font-size: 64px; filter: blur(1px); opacity: 0.8;",
+            )}
+        >
+            🌬
+        </div>
+        <div
+            class="kyroh alts"
+            style={getStampStyle(
+                { left: 18, top: 62 },
+                "font-size: 24px; text-shadow: -2px -2px 20px var(--color-green); filter: blur(1px); opacity: 0.8;",
+            )}
+        >
+            🌪
+        </div>
+        <div
+            class="kyroh alts"
+            style={getStampStyle(
+                { left: 80, top: -62 },
+                "font-size: 24px; text-shadow: -2px -2px 20px var(--color-green); filter: blur(1px); opacity: 0.8;",
+            )}
+        >
+            🕊
+        </div>
+        <div
+            class="kyroh alts"
+            style={getStampStyle(
+                { left: -66, top: -41 },
+                "font-size: 48px; color: var(--color-yellow); text-shadow: -2px -2px 20px var(--color-yellow); filter: blur(1px); opacity: 0.8;",
+            )}
+        >
+            ⸙
+        </div>
+        <div
+            class="kyroh alts"
+            style={getStampStyle(
+                { left: 90, top: 60, rotate: -20 },
+                "font-size: 48px; color: var(--color-yellow); text-shadow: -2px -2px 20px var(--color-yellow); filter: blur(1px); opacity: 0.8;",
+            )}
+        >
+            ♔
+        </div>
+        <div
+            class="kyroh alts"
+            style={getStampStyle(
+                { left: 100, top: -35, rotate: 20 },
+                "font-size: 32px; color: var(--color-green); text-shadow: -2px -2px 20px var(--color-green); filter: blur(1px); opacity: 0.8;",
+            )}
+        >
+            ⸙
+        </div>
+        <div
+            class="kyroh"
+            style={getStampStyle(
+                { left: 120, top: -75, rotate: -12 },
+                "font-size: 48px; color: var(--color-red); text-shadow: -2px -2px 20px var(--color-red); filter: blur(1px); opacity: 0.8;",
+            )}
+        >
+            x
+        </div>=
+        <StampFalafelIcon top={20} left={-100} />
+        <StampFalafelIcon top={-100} left={30} />
+        <StampFalafelIcon top={130} left={-40} />
+        <StampFalafelIcon top={-5} left={120} />
         <StampTornadoFalafel top="48" left="51" rotate="-6" />
-        <StampContessa top={65} left={-55} rotate={18} />
+        <StampContessa top={50} left={-40} rotate={18} />
         <StampLordOfFalafel top={-200} left={300} rotate={8} />
-        <StampDepartment top={-50} left={-80} rotate={-10} />
+        <StampDepartment top={-30} left={-75} rotate={-10} />
+        <StampSaintFalafel top={-55} left={45} rotate={12} />
+        <StampLordOfFalafel top={-130} left={-30} rotate={8} />
+        <StampBeholderFalafel top={120} left={30} rotate={-5} />
     </div>
 </header>
 
@@ -110,9 +230,16 @@ const stamps = getStampComponents();
         user-select: none;
         -webkit-user-select: none;
 
-        a:hover span,
-        a:not(:has(span)):hover {
+        a:hover em,
+        a:not(:has(em)):hover {
             text-decoration: underline;
+        }
+
+        a :not(em) {
+            opacity: 0.5;
+            @media (max-width: 480px) {
+                display: none;
+            }
         }
     }
 
@@ -126,40 +253,8 @@ const stamps = getStampComponents();
         padding: 0.4em 0.5em 0.5em;
         position: fixed;
 
-        :first-child {
-            position: relative;
-            a:hover::after {
-                content: " 🗺";
-                font-style: normal;
-            }
-        }
-
-        :nth-child(2) {
-            position: relative;
-            a:hover::before {
-                content: "🖈";
-                font-style: normal;
-                position: absolute;
-                left: -1.2em;
-                top: 0.1em;
-            }
-
-            a:hover::after {
-                content: "🏶";
-                font-style: normal;
-                position: absolute;
-                right: -1.2em;
-                top: 0.05em;
-            }
-        }
-
         :last-child {
-            position: relative;
             text-align: right;
-            a:hover::before {
-                content: "🗲 ";
-                font-style: normal;
-            }
         }
     }
 

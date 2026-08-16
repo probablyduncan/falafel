@@ -20,8 +20,9 @@
     --comic: "Comic Sans MS", "Comic Sans", cursive;
 
     font-family: var(--sans);
-
     font-size: clamp(1rem, 2.5vw, 1.5rem);
+    
+    scroll-behavior: smooth;
 }
 
 body {

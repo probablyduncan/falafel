@@ -1,6 +1,6 @@
 ---
 import getFalafel from "../lib/falafelLoader";
-import { getDateEatenText, toShortDateString } from "../lib/dateHelpers";
+import { getDateEatenText } from "../lib/dateHelpers";
 import { truncateText, countWords } from "../lib/textHelpers";
 import "../styles/global.css";
 import Hero from "../components/hero.astro";
@@ -36,28 +36,30 @@ const falafel = getFalafel();
     </head>
     <body>
         <Hero />
-        <main>
+        <main id="falafel">
             <ul>
                 {
                     falafel.entryArr.map((entry) => {
                         const truncatedReview = truncateText(entry.review, 55);
+                        const location = entry.address?.split(" ").at(-1);
 
                         return (
                             <li>
                                 <div class="header">
                                     <div>
-                                        <h2>{entry.name}</h2>
+                                        <h2><b>{entry.name}</b></h2>
                                         {entry.address && (
                                             <i>
                                                 <a
                                                     href={entry.googleMapsUri}
-                                                    title={entry.googleMapsUri}
+                                                    title="View in Google Maps"
                                                     target="_blank"
                                                 >
-                                                    {truncateText(
+                                                    {/* {truncateText(
                                                         entry.address,
                                                         50,
-                                                    )}
+                                                    )} */}
+                                                    {location} ↝
                                                 </a>
                                             </i>
                                         )}
@@ -113,6 +115,11 @@ const falafel = getFalafel();
 </html>
 
 <style>
+
+    #falafel {
+        scroll-margin-top: 80px;
+    }
+
     ul {
         width: 55ch;
         max-width: 90vw;

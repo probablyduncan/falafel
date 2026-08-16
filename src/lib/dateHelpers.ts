@@ -44,7 +44,7 @@ export function toShortDateString(date: Date | undefined): string {
     }
     return new Intl.DateTimeFormat("en-US", {
         year: "numeric",
-        day: "2-digit",
+        day: "numeric",
         month: "short",
     }).format(date);
 }
