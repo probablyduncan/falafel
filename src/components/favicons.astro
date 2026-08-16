@@ -1,0 +1,36 @@
+---
+
+---
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link
+    id="icon32"
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/favicon-frames/a32-3.png"
+/>
+<link
+    id="icon16"
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/favicon-frames/a16-3.png"
+/>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const numFrames = 6;
+        const cycleSeconds = 2;
+
+        const icon16 = document.getElementById("icon16") as HTMLLinkElement;
+        const icon32 = document.getElementById("icon32") as HTMLLinkElement;
+
+        let frame = 3;
+        const timeout = (cycleSeconds * 1000) / numFrames;
+        setInterval(() => {
+            icon16.href = `/favicon-frames/a16-${frame}.png`;
+            icon32.href = `/favicon-frames/a32-${frame}.png`;
+            frame = ((frame + numFrames) % numFrames) + 1;
+        }, timeout);
+    });
+</script>
