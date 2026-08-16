@@ -278,18 +278,6 @@ const stamps = getStampComponents();
 </style>
 
 <script>
-    // so here's the behavior I want
-    // there will already be some stamps placed on page load
-    // there is a little tooltip that prompts you to click to stick or whatever
-    // when you mousedown, it springs in a random stamp (random scale, rotation as well)
-    // you can still move your mouse around and it drags it around (maybe this can be fun?)
-    // when you mouseup, it places it
-
-    // if you mouse over an existing stamp, you can grab it and drag it around
-
-    // you can drag falafel into a mouth?
-    // and it eats it up?
-
     function initStamps() {
         const heroContainer = document.getElementById("hero")!;
         const templates = document.querySelectorAll(
@@ -310,6 +298,7 @@ const stamps = getStampComponents();
             currentTransform: Transform;
             targetTransform: Transform;
             isAnimating: boolean;
+            deactivateTimeoutId?: ReturnType<typeof setTimeout>;
         }
 
         const stamps: Record<string, StampState> = {};
@@ -466,6 +455,26 @@ const stamps = getStampComponents();
                 return delta;
             }
 
+            function onAnimationStop() {
+                clearTimeout(state.deactivateTimeoutId);
+                state.deactivateTimeoutId = setTimeout(() => {
+                    stamp.classList.remove("active");
+                }, 166.6666666667);
+            }
+
+            function onDragStop() {
+                abortController.abort();
+                prevFrameTimestamp = 0;
+                state.isAnimating = false;
+            }
+
+            function onDragStart() {
+                stamp.classList.add("active");
+                state.isAnimating = true;
+                Object.assign(state.targetTransform, state.currentTransform);
+                requestAnimationFrame(animateMove);
+            }
+
             function animateMove(timestamp: DOMHighResTimeStamp) {
                 const lerp = Math.min(1, getDelta(timestamp) * 0.0245);
                 state.currentTransform.x +=
@@ -492,24 +501,13 @@ const stamps = getStampComponents();
                     ) > 1
                 ) {
                     requestAnimationFrame(animateMove);
+                } else {
+                    onAnimationStop();
                 }
             }
 
-            document.addEventListener(
-                "mouseup",
-                () => {
-                    abortController.abort();
-                    stamp.classList.remove("active");
-                    prevFrameTimestamp = 0;
-                    state.isAnimating = false;
-                },
-                { once: true },
-            );
-
-            stamp.classList.add("active");
-            state.isAnimating = true;
-            Object.assign(state.targetTransform, state.currentTransform);
-            requestAnimationFrame(animateMove);
+            document.addEventListener("mouseup", onDragStop, { once: true });
+            onDragStart();
         });
     }
 
