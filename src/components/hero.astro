@@ -46,10 +46,10 @@ const stamps = getStampComponents();
         </span>
     </nav>
     <nav id="bottom-bar"><span>last updated {lastUpdated}</span></nav>
-    <h1 class="kyroh">
+    <div id="title">
         <div>welcome to</div>
-        planet falafel
-    </h1>
+        <h1>planet falafel</h1>
+    </div>
     <img id="planet-falafel" src="planet-falafel.gif" draggable="false" />
     <div id="stamp-templates">
         {stamps.map((Stamp) => <Stamp />)}
@@ -81,6 +81,9 @@ const stamps = getStampComponents();
         overflow: clip;
 
         background: radial-gradient(closest-side, #442a2d, #210c0c);
+
+        --planet-font-size: min(64px, 8vw);
+        --planet-width: calc(var(--planet-font-size) * 8);
     }
 
     #top-bar,
@@ -160,36 +163,12 @@ const stamps = getStampComponents();
         justify-content: center;
     }
 
-    h1 {
-        /* transform: scale(0.9, 1.2); */
-        color: var(--color-yellow);
-        font-family: var(--kyroh);
-        font-weight: normal;
-        font-size: min(64px, 8vw);
-        text-align: center;
-        margin: unset;
-        text-shadow: 0 0 10px var(--color-yellow);
-        filter: blur(1px);
-        line-height: 1;
-
-        &,
-        & * {
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        div {
-            font-size: 0.3em;
-        }
-    }
-
     #planet-falafel {
         position: absolute;
         bottom: 50%;
         left: 50%;
         transform: translate(-50%, 50%);
-        width: 75vw;
-        max-width: 512px;
+        width: var(--planet-width);
         animation: float 2s ease-in-out infinite alternate;
         user-select: none;
         -webkit-user-select: none;
@@ -206,7 +185,29 @@ const stamps = getStampComponents();
         }
     }
 
-    #hero:has(h1:hover) #planet-falafel {
+    #title {
+        color: var(--color-yellow);
+        font-family: var(--kyroh);
+        font-size: var(--planet-font-size);
+        text-shadow: 0 0 10px var(--color-yellow);
+        filter: blur(1px);
+        line-height: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &,
+        & * {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        div {
+            font-size: 0.33333333em;
+        }
+    }
+
+    #hero:has(#title > *:hover) #planet-falafel {
         opacity: 0.5;
     }
 
