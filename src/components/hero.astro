@@ -57,15 +57,15 @@ const stamps = getStampComponents();
     <div id="stamps">
         <StampX top={80} left={90} rotate={-12} />
         <StampX top={20} left={10} rotate={-8} />
-        <StampFalafelKing top="20" left="30" rotate="-10" />
-        <StampFalafelIcon top="30" left="80" />
-        <StampFalafelIcon top="80" left="10" />
+        <StampFalafelKing top={0} left={0} rotate="-10" />
+        <StampFalafelIcon top={0} left={0} />
+        <StampFalafelIcon top={0} left={0} />
         <StampFalafelIcon top="-1" left="30" />
         <StampFalafelIcon top="95" left="98" />
-        <StampTornadoFalafel top="70" left="70" rotate="-6" />
-        <StampContessa top={75} left={30} rotate={18} />
-        <StampLordOfFalafel top={20} left={70} rotate={8} />
-        <StampDepartment top={70} left={-2} />
+        <StampTornadoFalafel top="48" left="51" rotate="-6" />
+        <StampContessa top={65} left={-55} rotate={18} />
+        <StampLordOfFalafel top={-200} left={300} rotate={8} />
+        <StampDepartment top={-50} left={-80} rotate={-10} />
     </div>
 </header>
 
@@ -82,8 +82,18 @@ const stamps = getStampComponents();
 
         background: radial-gradient(closest-side, #442a2d, #210c0c);
 
-        --planet-font-size: min(64px, 8vw);
-        --planet-width: calc(var(--planet-font-size) * 8);
+        /* raw units, shouldn't use these */
+        /* --planet-img-width: min(512px, 64vw); */
+        /* --planet-font-size: min(64px, 8vw); */
+        /* --stamp-position-unit: min(10.24px, 1.28vw); */
+
+        --hero-base-unit: min(64px, 8vw);
+
+        --planet-font-size: var(--hero-base-unit);
+        --planet-img-width: calc(var(--hero-base-unit) * 8);
+
+        /* 0-100 corresponds to 0-512px at 1024px screen width */
+        --stamp-position-unit: calc(var(--hero-base-unit) / 6.25);
     }
 
     #top-bar,
@@ -108,12 +118,13 @@ const stamps = getStampComponents();
 
     #top-bar {
         top: 0;
-        z-index: 1;
+        z-index: 10;
         color: var(--color-white);
         background-color: var(--color-black);
         display: grid;
         grid-template-columns: 1fr auto 1fr;
         padding: 0.4em 0.5em 0.5em;
+        position: fixed;
 
         :first-child {
             position: relative;
@@ -168,7 +179,7 @@ const stamps = getStampComponents();
         bottom: 50%;
         left: 50%;
         transform: translate(-50%, 50%);
-        width: var(--planet-width);
+        width: var(--planet-img-width);
         animation: float 2s ease-in-out infinite alternate;
         user-select: none;
         -webkit-user-select: none;
@@ -214,27 +225,36 @@ const stamps = getStampComponents();
     /* :where() forces lower specificity than stamp component styles */
     :where(#stamps) > :global(*) {
         /* initial position */
-        --yi: 50%;
-        --xi: 50%;
-        --ri: 0deg;
+        --yi: 0;
+        --xi: 0;
+
+        /* initial rotation */
+        --r: 0deg;
 
         /* grab transform position */
         --dx: 0px;
         --dy: 0px;
-        --dr: 0deg;
 
         /* scale */
         --s: 1;
 
         position: absolute;
-        top: var(--yi);
-        left: var(--xi);
+        top: calc(50% + var(--stamp-position-unit) * var(--yi) / 2);
+        left: calc(50% + var(--stamp-position-unit) * var(--xi) / 2);
         z-index: 2;
 
         white-space: pre;
 
+        /*
+            so I need these to be in the context of the hero unit
+            maybe I should lerp it so it's 0-1 from center to edge of planet
+            and then 1+ is to left or right of planet?
+            but then ofc the vertical scale is different, maybe that can also be in terms of the planet
+            the falafel planet is about half the size of the planet image, fyi
+        */
+
         transform: translate(calc(var(--dx) - 50%), calc(var(--dy) - 50%))
-            rotate(calc(var(--dr) + var(--ri))) scale(var(--s));
+            rotate(var(--r)) scale(var(--s));
 
         user-select: none;
         -webkit-user-select: none;
@@ -272,7 +292,9 @@ const stamps = getStampComponents();
 
     function initStamps() {
         const heroContainer = document.getElementById("hero")!;
-        const templates = document.querySelectorAll("#stamp-templates > :is(div, img)");
+        const templates = document.querySelectorAll(
+            "#stamp-templates > :is(div, img)",
+        );
         const stampContainer = document.getElementById("stamps")!;
 
         if (!heroContainer || !stampContainer || !templates?.length) {
@@ -282,7 +304,6 @@ const stamps = getStampComponents();
         interface Transform {
             x: number;
             y: number;
-            r: number;
         }
 
         interface StampState {
@@ -299,13 +320,13 @@ const stamps = getStampComponents();
             }
         }
 
-        function addStampToState(element: HTMLElement) {
+        function addStampToState(element: HTMLElement, x: number = 0, y: number = 0) {
             if (!element.id) {
                 element.id = `stamp-${Object.keys(stamps).length}`;
             }
             stamps[element.id] = {
-                currentTransform: { x: 0, y: 0, r: 0 },
-                targetTransform: { x: 0, y: 0, r: 0 },
+                currentTransform: { x, y },
+                targetTransform: { x, y },
                 isAnimating: false,
             };
         }
@@ -330,9 +351,7 @@ const stamps = getStampComponents();
                 );
             } while (nextTemplateIndex === lastTemplateIndex);
             lastTemplateIndex = nextTemplateIndex;
-            return templates[nextTemplateIndex].cloneNode(
-                true,
-            ) as HTMLElement;
+            return templates[nextTemplateIndex].cloneNode(true) as HTMLElement;
         }
 
         function createNewStamp(e: { clientX: number; clientY: number }) {
@@ -340,12 +359,12 @@ const stamps = getStampComponents();
 
             const rotationRandomComponent = Math.random() * 0.5 - 0.15;
             const vectorFromCenter = [
-                e.clientX - heroContainer.clientWidth / 2,
-                e.clientY - heroContainer.clientHeight / 2,
+                e.clientX + window.scrollX - heroContainer.clientWidth / 2,
+                e.clientY + window.scrollY - heroContainer.clientHeight / 2,
             ];
             const tilt = Math.sign(vectorFromCenter[0] * -vectorFromCenter[1]);
             stamp.style.setProperty(
-                "--ri",
+                "--r",
                 `${tilt * rotationRandomComponent}rad`,
             );
 
@@ -360,17 +379,10 @@ const stamps = getStampComponents();
             //     `${(circleTiltAmount * xCenterLerp + rotationRandomComponent) * tilt}rad`,
             // );
 
-            stamp.style.setProperty(
-                "--xi",
-                `${(100 * (e.clientX + window.scrollX)) / heroContainer.clientWidth}%`,
-            );
-            stamp.style.setProperty(
-                "--yi",
-                `${(100 * (e.clientY + window.scrollY)) / heroContainer.clientHeight}%`,
-            );
-
             stampContainer.appendChild(stamp);
-            addStampToState(stamp);
+            addStampToState(stamp, ...vectorFromCenter);
+            stamp.style.setProperty("--dx", `${vectorFromCenter[0]}px`);
+            stamp.style.setProperty("--dy", `${vectorFromCenter[1]}px`);
             return stamp;
         }
 

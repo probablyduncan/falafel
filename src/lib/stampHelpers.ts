@@ -5,7 +5,7 @@ export interface StampProps {
 }
 
 export function getStampStyle(props?: StampProps, additionalStyle?: string): string {
-    return `--yi: ${props?.top ?? 0}%; --xi: ${props?.left ?? 0}%; --ri: ${props?.rotate ?? "0"}deg; ${additionalStyle ?? ""}`.trim();
+    return `--yi: ${props?.top ?? 0}; --xi: ${props?.left ?? 0}; --r: ${props?.rotate ?? "0"}deg; ${additionalStyle ?? ""}`.trim();
 }
 
 export function getStampComponents() {
