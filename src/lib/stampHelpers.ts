@@ -19,6 +19,5 @@ export function getStampComponents(): {
         component: mod.default,
         name: path.parse(mod.file).name,
     }));
-    console.log(stamps);
     return stamps;
 }
