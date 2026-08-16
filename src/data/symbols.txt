@@ -53,3 +53,13 @@ contessa
 
 falafel
 falls
+
+
+
+B - bird
+C - cross
+E - eye
+F - leg
+S - snake
+W - wind
+* - pyramid
