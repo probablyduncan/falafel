@@ -8,9 +8,6 @@
     --color-green: #549b4b;
     --color-yellow: #FAC96A;
 
-    color: var(--color-black);
-    background-color: var(--color-white);
-
     --serif: "Times New Roman", Times, serif;
     /* --sans: "Arial", sans-serif; */
     --sans: "Atkinson Hyperlegible Soft", "Arial", "Helvetica", sans-serif;
@@ -20,12 +17,15 @@
 
     font-family: var(--sans);
     font-size: clamp(1rem, 2.5vw, 1.5rem);
-    
+
     scroll-behavior: smooth;
+    background-color: #210c0c;
 }
 
 body {
     margin: unset;
+    color: #100f0f;
+    background-color: #fafaff;
 }
 
 * {
@@ -37,7 +37,12 @@ a {
     text-decoration: unset;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: unset;
     font-size: unset;
     font-weight: unset;
@@ -47,7 +52,8 @@ h1, h2, h3, h4, h5, h6 {
     font-family: var(--kyroh);
 }
 
-.kyroh.alts, .kyroh .alts {
+.kyroh.alts,
+.kyroh .alts {
     font-feature-settings: 'ss01';
 }
 
