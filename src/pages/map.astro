@@ -1,0 +1,54 @@
+---
+import "maplibre-gl/dist/maplibre-gl.css";
+import Favicons from "../components/favicons.astro";
+
+// maps.forEach((url) => {
+//     const layer = new WarpedMapLayer({
+//         layerId: url.split("/").at(-1),
+//     });
+//     map.addLayer(layer);
+//     layer.addGeoreferenceAnnotationByUrl(url);
+// });
+// const maps: string[] = [
+//     "https://annotations.allmaps.org/images/8b28724f1eeb607b",
+//     "https://annotations.allmaps.org/images/cc9c9a1c8a01e3c8",
+//     "https://annotations.allmaps.org/images/4300bb0ad959867c",
+//     "https://annotations.allmaps.org/maps/cec4c737055807ed",
+//     "https://annotations.allmaps.org/maps/ae7bf3226a8ee1b6",
+//     "https://annotations.allmaps.org/maps/dca75718777727ad",
+//     "https://annotations.allmaps.org/maps/a70a828caf63933c",
+//     "https://annotations.allmaps.org/maps/8341201a4b8a3313",
+//     "https://annotations.allmaps.org/maps/61684a9db404a58a",
+// ];
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <Favicons />
+        <link rel="manifest" href="/site.webmanifest" />
+
+        <title>Wrap Map (falafel.fyi)</title>
+    </head>
+    <body>
+        <main>
+            <div id="map"></div>
+        </main>
+    </body>
+</html>
+
+<style is:global>
+    body {
+        margin: unset;
+    }
+
+    #map {
+        width: 100vw;
+        height: 100dvh;
+    }
+</style>
+
+<script src="../lib/map.ts"></script>
