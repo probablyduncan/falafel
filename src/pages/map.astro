@@ -87,27 +87,31 @@ const falafel = getFalafel();
 
 <style>
     main {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
     }
 
     .map {
         width: 100%;
-        height: 100vh;
+        height: 50lvh;
         position: sticky;
         top: 0;
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        border: 0.5rem solid var(--color-black);
+        background-color: var(--color-black);
     }
 
     ul {
-        max-width: 100%;
-        margin-inline: 5%;
+        width: 55ch;
+        max-width: 90vw;
+        margin-inline: max(5vw, calc(50vw - 55ch / 2));
         list-style: none;
         padding: unset;
     }
 
     li {
-        max-width: 100%;
-        margin-top: 50px;
+        --margin-top: 2rem;
+        margin-top: var(--margin-top);
+        scroll-margin-top: calc(50lvh + var(--margin-top));
     }
 
     .header {
