@@ -70,7 +70,7 @@ h6 {
     font-weight: 400;
     font-style: normal;
     font-display: swap;
-    src: url("/fonts/ILLEGAL-Kyroh-Regular.woff2") format("woff2");
+    src: url("/fonts/Kyroh-Regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -78,7 +78,7 @@ h6 {
     font-weight: 500;
     font-style: normal;
     font-display: swap;
-    src: url("/fonts/ILLEGAL-Kyroh-Medium.woff2") format("woff2");
+    src: url("/fonts/Kyroh-Medium.woff2") format("woff2");
 }
 
 @font-face {
@@ -86,7 +86,7 @@ h6 {
     font-weight: 600;
     font-style: normal;
     font-display: swap;
-    src: url("/fonts/ILLEGAL-Kyroh-Bold.woff2") format("woff2");
+    src: url("/fonts/Kyroh-Bold.woff2") format("woff2");
 }
 
 
