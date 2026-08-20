@@ -39,6 +39,8 @@ const map = new mapLibreGL.Map({
 });
 
 map.on("load", async () => {
+
+    await document.fonts.load("16px Kyroh");
     map.addSource("falafel", {
         type: "geojson",
         data: "/falafel.geojson",
@@ -140,17 +142,8 @@ map.on("load", async () => {
         });
     });
 
-    addMapFalafelFocusListener(id => {
-        if (id in falafelDict) {
-            map.easeTo({
-                center: falafelDict[id].coordinates,
-                zoom: 15,
-            });
-        }
-    });
-
     map.on("click", "falafel", (e) => {
-        onClickMapFalafel(e.features![0].properties.id);
+        onClickMapFalafel(e.features![0].id as string);
         const coordinates = e.features![0].geometry.coordinates.slice();
         const name = e.features![0].properties.name;
         const address = e.features![0].properties.address;
@@ -168,6 +161,12 @@ map.on("load", async () => {
             .setHTML(`${name}<br>${address}`)
             .addTo(map);
 
+    });
+
+    addMapFalafelFocusListener(id => {
+        if (id in falafelDict) {
+            zoomToFeature(map, "falafel", "wraps", id, falafelDict[id].coordinates);
+        }
     });
 
     let hoverFeatureId: mapLibreGL.GeoJSONFeatureId | null = null;
@@ -233,4 +232,62 @@ export function onClickMapFalafel(id: string) {
 
 export function addMapFalafelClickListener(callback: (id: string) => void) {
     window.addEventListener(MAP_EVENTS.ON_CLICK_MAP_FALAFEL, (e: CustomEventInit<string>) => callback(e.detail ?? ""));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// ============ down here is weird ai code, I think we can do better but it works for now?
+
+async function computeZoomForFeature(source: mapLibreGL.GeoJSONSource, rootClusterId: number, targetId: string) {
+    let clusterId = rootClusterId;
+    let resolvedZoom = null;
+
+    while (true) {
+        const children = await source.getClusterChildren(clusterId);
+
+        // find which child branch contains our target feature
+        let nextChild = null;
+        for (const child of children) {
+            if (!child.properties.cluster) {
+                if (child.id === targetId || child.properties.id === targetId) {
+                    return resolvedZoom; // parent's expansion zoom already reveals it
+                }
+                continue;
+            }
+            const leaves = await source.getClusterLeaves(child.properties.cluster_id, 10000, 0);
+            if (leaves.some(l => l.id === targetId || l.properties.id === targetId)) {
+                nextChild = child;
+                break;
+            }
+        }
+
+        if (!nextChild) throw new Error('feature not found under this cluster');
+
+        resolvedZoom = await source.getClusterExpansionZoom(nextChild.properties.cluster_id);
+        clusterId = nextChild.properties.cluster_id;
+    }
+}
+
+async function zoomToFeature(map: mapLibreGL.Map, sourceId: string, clusterLayerId: string, targetId: string, coordinates: [number, number], minZoom = 10) {
+    const source = map.getSource(sourceId) as mapLibreGL.GeoJSONSource;
+    const hits = map.queryRenderedFeatures(map.project(coordinates), { layers: [clusterLayerId] });
+
+    if (!hits.length) {
+        map.flyTo({ center: coordinates, zoom: Math.max(map.getZoom(), minZoom) });
+        return;
+    }
+
+    const rootClusterId = hits[0].properties.cluster_id;
+    const zoom = await computeZoomForFeature(source, rootClusterId, targetId);
+
+    map.flyTo({ center: coordinates, zoom: Math.max(zoom ?? minZoom, minZoom) });
 }

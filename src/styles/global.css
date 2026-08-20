@@ -67,26 +67,26 @@ h6 {
 
 @font-face {
     font-family: "Kyroh";
-    font-weight: normal;
+    font-weight: 400;
     font-style: normal;
     font-display: swap;
-    src: url("fonts/ILLEGAL-Kyroh-Regular.woff2") format("woff2");
+    src: url("/fonts/ILLEGAL-Kyroh-Regular.woff2") format("woff2");
 }
 
 @font-face {
     font-family: "Kyroh";
-    font-weight: bold;
+    font-weight: 500;
     font-style: normal;
     font-display: swap;
-    src: url("fonts/ILLEGAL-Kyroh-Medium.woff2") format("woff2");
+    src: url("/fonts/ILLEGAL-Kyroh-Medium.woff2") format("woff2");
 }
 
 @font-face {
     font-family: "Kyroh";
-    font-weight: bolder;
+    font-weight: 600;
     font-style: normal;
     font-display: swap;
-    src: url("fonts/ILLEGAL-Kyroh-Bold.woff2") format("woff2");
+    src: url("/fonts/ILLEGAL-Kyroh-Bold.woff2") format("woff2");
 }
 
 
@@ -95,7 +95,7 @@ h6 {
     font-weight: 200;
     font-style: normal;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-ExtraLight.woff2") format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-ExtraLight.woff2") format("woff2");
 }
 
 @font-face {
@@ -103,7 +103,7 @@ h6 {
     font-weight: 200;
     font-style: italic;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-ExtraLightItalic.woff2") format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-ExtraLightItalic.woff2") format("woff2");
 }
 
 @font-face {
@@ -111,7 +111,7 @@ h6 {
     font-weight: 300;
     font-style: normal;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-Light.woff2") format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-Light.woff2") format("woff2");
 }
 
 @font-face {
@@ -119,7 +119,7 @@ h6 {
     font-weight: 300;
     font-style: italic;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-LightItalic.woff2") format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-LightItalic.woff2") format("woff2");
 }
 
 @font-face {
@@ -127,7 +127,7 @@ h6 {
     font-weight: 400;
     font-style: normal;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-Regular.woff2") format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-Regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -135,7 +135,7 @@ h6 {
     font-weight: 400;
     font-style: italic;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-RegularItalic.woff2") format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-RegularItalic.woff2") format("woff2");
 }
 
 @font-face {
@@ -143,7 +143,7 @@ h6 {
     font-weight: 500;
     font-style: normal;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-Medium.woff2") format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-Medium.woff2") format("woff2");
 }
 
 @font-face {
@@ -151,7 +151,7 @@ h6 {
     font-weight: 500;
     font-style: italic;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-MediumItalic.woff2") format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-MediumItalic.woff2") format("woff2");
 }
 
 @font-face {
@@ -159,7 +159,7 @@ h6 {
     font-weight: 600;
     font-style: normal;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-SemiBold.woff2") format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-SemiBold.woff2") format("woff2");
 }
 
 @font-face {
@@ -167,7 +167,7 @@ h6 {
     font-weight: 600;
     font-style: italic;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-SemiBoldItalic.woff2") format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-SemiBoldItalic.woff2") format("woff2");
 }
 
 @font-face {
@@ -175,7 +175,7 @@ h6 {
     font-weight: 700;
     font-style: normal;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-Bold.woff2") format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-Bold.woff2") format("woff2");
 }
 
 @font-face {
@@ -183,7 +183,7 @@ h6 {
     font-weight: 700;
     font-style: italic;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-BoldItalic.woff2")format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-BoldItalic.woff2")format("woff2");
 }
 
 @font-face {
@@ -191,7 +191,7 @@ h6 {
     font-weight: 800;
     font-style: normal;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-ExtraBold.woff2") format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-ExtraBold.woff2") format("woff2");
 }
 
 @font-face {
@@ -199,7 +199,7 @@ h6 {
     font-weight: 800;
     font-style: italic;
     font-display: swap;
-    src: url("fonts/AtkinsonHyperlegibleSoft-ExtraBoldItalic.woff2")format("woff2");
+    src: url("/fonts/AtkinsonHyperlegibleSoft-ExtraBoldItalic.woff2")format("woff2");
 }
 
 @font-face {
@@ -207,7 +207,7 @@ h6 {
     font-style: normal;
     font-weight: 300 700;
     font-display: swap;
-    src: url("fonts/JunicodeVF-Roman.woff2");
+    src: url("/fonts/JunicodeVF-Roman.woff2");
 }
 
 @font-face {
@@ -215,5 +215,5 @@ h6 {
     font-style: italic;
     font-weight: 300 700;
     font-display: swap;
-    src: url("fonts/JunicodeVF-Italic.woff2");
+    src: url("/fonts/JunicodeVF-Italic.woff2");
 }

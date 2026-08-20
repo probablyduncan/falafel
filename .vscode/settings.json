@@ -6,6 +6,7 @@
         "googlemaps",
         "junicode",
         "kyroh",
+        "maplibre",
         "maplibregl",
         "rkey"
     ]
