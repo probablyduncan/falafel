@@ -1,7 +1,7 @@
 import type { FalafelPlace } from "../lib/falafelFetcher";
 import getFalafel from "../lib/falafelLoader";
 
-export type GeoJSONFalafelFeature = Pick<maplibregl.GeoJSONFeature, "geometry" | "type"> & {
+export type GeoJSONFalafelFeature = Pick<maplibregl.GeoJSONFeature, "id" | "type" | "geometry"> & {
     properties: {
         id: string;
         name: string;
@@ -22,6 +22,7 @@ export function GET() {
 
 function toGeoJSONFeature(entry: FalafelPlace): GeoJSONFalafelFeature {
     return {
+        id: entry.cacheKey,
         type: "Feature",
         geometry: {
             type: "Point",
