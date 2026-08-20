@@ -1,4 +1,5 @@
 import * as mapLibreGL from "maplibre-gl";
+import type { GeoJSONFalafelFeature } from "../pages/falafel.geojson";
 
 const map = new mapLibreGL.Map({
     container: "map",
@@ -36,41 +37,35 @@ map.addControl(new mapLibreGL.GlobeControl());
 map.on("load", async () => {
     map.addSource("falafel", {
         type: "geojson",
-        data: "./falafel.geojson",
+        data: "falafel.geojson",
         cluster: true,
-        clusterMaxZoom: 20, // Max zoom to cluster points on
+        clusterMaxZoom: 16, // Max zoom to cluster points on
         clusterRadius: 60, // Radius of each cluster when clustering points (defaults to 50)
     });
 
-    type FalafelEntryDict = Record<string, {
-        id: string;
-        name: string;
-        address: string;
-        coordinates: [number, number];
-    }>;
+    type FalafelEntryDict = Record<string, GeoJSONFalafelFeature["properties"] & { coordinates: [number, number] }>;
 
     const falafelSource = map.getSource("falafel") as mapLibreGL.GeoJSONSource;
-    const falafelFeatures = (await falafelSource.getData()).features as mapLibreGL.GeoJSONFeature[];
+    const falafelFeatures = (await falafelSource.getData()).features as GeoJSONFalafelFeature[];
     const falafelDict: FalafelEntryDict = {};
     for (let i = 0; i < falafelFeatures.length; i++) {
         const feature = falafelFeatures[i];
         falafelDict[feature.properties.id] = {
-            id: feature.properties.id,
-            name: feature.properties.name,
-            address: feature.properties.address,
+            ...feature.properties,
             coordinates: feature.geometry.coordinates,
         }
     }
 
     const falafelIcon = await map.loadImage(
-        `./favicon-frames/a32-${Math.floor(Math.random() * 6) + 1}.png`,
+        `favicon-frames/a32-${Math.floor(Math.random() * 6) + 1}.png`,
     );
     map.addImage("falafel-icon", falafelIcon.data);
-    const wrapIcon = await map.loadImage(`./wrap_32.png`);
+    const wrapIcon = await map.loadImage(`wrap_32.png`);
     map.addImage("wrap-icon", wrapIcon.data);
 
     // const font = ["Noto Sans Italic"]//, "Kyroh", "sans-serif"];
-    const font = ["Kyroh", "sans-serif"];
+    const font = ["Noto Sans Bold"];
+    const kyroh = ["Kyroh"];
 
     map.addLayer({
         id: "falafel",
@@ -80,11 +75,19 @@ map.on("load", async () => {
         layout: {
             "icon-image": "falafel-icon",
             "text-field": ["get", "shortName"],
-            // "text-font": font,
+            "text-font": font,
             "text-offset": [0, 1.25],
             "text-anchor": "top",
             "icon-size": 0.8,
         },
+        paint: {
+            "icon-opacity": [
+                'case',
+                ['boolean', ['feature-state', 'hover'], false],
+                0.5,
+                1,
+            ]
+        }
     });
 
     map.addLayer({
@@ -96,7 +99,7 @@ map.on("load", async () => {
             "icon-image": "wrap-icon",
             "icon-rotate": 18,
             "text-field": ["get", "point_count_abbreviated"],
-            // "text-font": font,
+            "text-font": ["Noto Sans Bold"],
             "text-offset": [-0.2, 0.9],
             "icon-size": 1.2,
         },
@@ -146,6 +149,20 @@ map.on("load", async () => {
             .setHTML(`${name}<br>${address}`)
             .addTo(map);
 
+    });
+
+    map.on("mouseenter", "falafel", (e) => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on("mouseleave", "falafel", () => {
+        map.getCanvas().style.cursor = '';
+    });
+
+    map.on("mouseenter", "wraps", (e) => {
+        map.getCanvas().style.cursor = 'zoom-in';
+    });
+    map.on("mouseleave", "wraps", () => {
+        map.getCanvas().style.cursor = '';
     });
 });
 

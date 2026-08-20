@@ -1,21 +1,17 @@
+import type { FalafelPlace } from "../lib/falafelFetcher";
 import getFalafel from "../lib/falafelLoader";
-import { truncateText } from "../lib/textHelpers";
+
+export type GeoJSONFalafelFeature = Pick<maplibregl.GeoJSONFeature, "geometry" | "type"> & {
+    properties: {
+        id: string;
+        name: string;
+        shortName: string;
+        address: string;
+    };
+}
 
 export function GET() {
-    const features = getFalafel().entryArr.map(f => ({
-        type: "Feature",
-        geometry: {
-            type: "Point",
-            coordinates: [f.lng, f.lat],
-        },
-        properties: {
-            id: f.cacheKey,
-            name: f.name,
-            shortName: f.name.length > 15 ? (f.name.substring(0, 12) + "...") : f.name,
-            address: f.address,
-        }
-    }));
-    
+    const features: GeoJSONFalafelFeature[] = getFalafel().entryArr.map(toGeoJSONFeature);
     return new Response(
         JSON.stringify({
             type: "FeatureCollection",
@@ -23,3 +19,19 @@ export function GET() {
         }),
     );
 };
+
+function toGeoJSONFeature(entry: FalafelPlace): GeoJSONFalafelFeature {
+    return {
+        type: "Feature",
+        geometry: {
+            type: "Point",
+            coordinates: [entry.lng, entry.lat],
+        },
+        properties: {
+            id: entry.cacheKey,
+            name: entry.name,
+            shortName: entry.name.length > 15 ? (entry.name.substring(0, 12) + "...") : entry.name,
+            address: entry.address ?? "",
+        },
+    };
+}
