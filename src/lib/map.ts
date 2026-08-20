@@ -37,7 +37,7 @@ map.addControl(new mapLibreGL.GlobeControl());
 map.on("load", async () => {
     map.addSource("falafel", {
         type: "geojson",
-        data: "falafel.geojson",
+        data: "/falafel.geojson",
         cluster: true,
         clusterMaxZoom: 16, // Max zoom to cluster points on
         clusterRadius: 60, // Radius of each cluster when clustering points (defaults to 50)
@@ -57,10 +57,10 @@ map.on("load", async () => {
     }
 
     const falafelIcon = await map.loadImage(
-        `favicon-frames/a32-${Math.floor(Math.random() * 6) + 1}.png`,
+        `/favicon-frames/a32-${Math.floor(Math.random() * 6) + 1}.png`,
     );
     map.addImage("falafel-icon", falafelIcon.data);
-    const wrapIcon = await map.loadImage(`wrap_32.png`);
+    const wrapIcon = await map.loadImage(`/wrap_32.png`);
     map.addImage("wrap-icon", wrapIcon.data);
 
     // const font = ["Noto Sans Italic"]//, "Kyroh", "sans-serif"];

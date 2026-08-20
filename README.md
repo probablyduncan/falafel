@@ -19,3 +19,8 @@ fonts:
 - kyroh https://simplebits.shop/products/kyroh
 - atkinson hyper soft https://github.com/namesakefyi/atkinson-hyperlegible-soft
 - junicode https://psb1558.github.io/Junicode-font/
+
+photograph sources:
+https://digital.humanities.ox.ac.uk/project/egyptian-mirage-database-19th-century-studio-photographs
+https://www.1854.photography/2025/01/studio-shehrazade-arab-photo-studio-akram-zaatari-hashem-el-madani-lebanon/
+https://www.theatlasgroup1989.org/digholes
