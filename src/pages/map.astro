@@ -2,7 +2,6 @@
 import "maplibre-gl/dist/maplibre-gl.css";
 import Favicons from "../components/favicons.astro";
 import WrapMap from "../components/wrap-map.astro";
-import { countWords, truncateText } from "../lib/textHelpers";
 import { getDateEatenText } from "../lib/dateHelpers";
 import getFalafel from "../lib/falafelLoader";
 import "../styles/global.css";
@@ -27,12 +26,7 @@ const falafel = getFalafel();
                 <ul>
                     {
                         falafel.entryArr.map((entry) => {
-                            const truncatedReview = truncateText(
-                                entry.review,
-                                55,
-                            );
                             const location = entry.address?.split(" ").at(-1);
-
                             return (
                                 <li id={entry.cacheKey}>
                                     <div class="header">

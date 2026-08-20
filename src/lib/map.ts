@@ -38,6 +38,10 @@ const map = new mapLibreGL.Map({
     attributionControl: false,
 });
 
+map.addControl(new mapLibreGL.NavigationControl({
+    showCompass: false,
+}));
+
 map.on("load", async () => {
 
     await document.fonts.load("16px Kyroh");
@@ -156,7 +160,9 @@ map.on("load", async () => {
                 e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
-        new mapLibreGL.Popup()
+        new mapLibreGL.Popup({
+            offset: offsetAroundSquare(24),
+        })
             .setLngLat(coordinates)
             .setHTML(`${name}<br>${address}`)
             .addTo(map);
@@ -236,7 +242,20 @@ export function addMapFalafelClickListener(callback: (id: string) => void) {
 
 
 
-
+function offsetAroundSquare(offsetLength: number): maplibregl.Offset {
+    const cornerOffset = offsetLength * 2 / 3;
+    return {
+        "bottom": [0, -offsetLength],
+        "top": [0, offsetLength],
+        "left": [offsetLength, 0],
+        "right": [-offsetLength, 0],
+        "top-left": [cornerOffset, cornerOffset],
+        "top-right": [-cornerOffset, cornerOffset],
+        "bottom-left": [cornerOffset, -cornerOffset],
+        "bottom-right": [-cornerOffset, -cornerOffset],
+        center: [0, 0],
+    }
+}
 
 
 
