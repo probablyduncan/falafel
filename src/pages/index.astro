@@ -25,15 +25,20 @@ const falafel = getFalafel();
         <main id="falafel">
             <ul>
                 {
-                    falafel.entryArr.map((entry) => {
+                    falafel.entryArr.map((entry, index) => {
                         const truncatedReview = truncateText(entry.review, 55);
                         const location = entry.address?.split(" ").at(-1);
+                        const number = (falafel.length - index)
+                            .toString()
+                            .padStart(3, "0");
 
                         return (
                             <li>
                                 <div class="header">
                                     <div>
-                                        <h2><b>{entry.name}</b></h2>
+                                        <h2>
+                                            <b>{entry.name}</b> [{number}]
+                                        </h2>
                                         {entry.address && (
                                             <i>
                                                 <a
@@ -60,8 +65,9 @@ const falafel = getFalafel();
                                         </b>
                                     </i>
                                 </div>
-                                {true || truncatedReview.length ===
-                                entry.review.length ? (
+                                {true ||
+                                truncatedReview.length ===
+                                    entry.review.length ? (
                                     entry.review
                                         .split("\n")
                                         .filter(Boolean)
@@ -71,11 +77,12 @@ const falafel = getFalafel();
                                         <summary title="expand review...">
                                             <span>
                                                 <span>
-                                                    {
-                                                        truncateText(entry.review.split(
+                                                    {truncateText(
+                                                        entry.review.split(
                                                             "\n",
-                                                        )[0], 40)
-                                                    }
+                                                        )[0],
+                                                        40,
+                                                    )}
                                                 </span>
                                                 <span>
                                                     ({countWords(entry.review)}{" "}
@@ -101,7 +108,6 @@ const falafel = getFalafel();
 </html>
 
 <style>
-
     #falafel {
         scroll-margin-top: 80px;
     }
@@ -174,5 +180,6 @@ const falafel = getFalafel();
 
     h2 {
         margin: unset;
+        position: relative;
     }
 </style>

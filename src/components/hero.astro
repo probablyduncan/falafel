@@ -30,21 +30,21 @@ const stamps = getStampComponents();
                 target="_blank"
             >
                 <!-- <span>by </span> -->
-                <em>duncan</em>
-                <span> made this</span>
+                <em>duncan’s</em>
+                <!-- <span>’s</span> -->
             </a>
         </span>
         <span>
-            <a href="#falafel" title="you are already here!"> wrap/map </a>
+            <a href="#" title="you are already here!"> wrap/map </a>
         </span>
         <span>
             <a
-                target="_blank"
-                href={falafel.googleMapsUri}
-                title={falafel.googleMapsUri}
+                href="#falafel"
+                title="See the falafel!"
             >
-                <span>updated </span>
-                <em>{lastUpdated}</em>
+                <span>(</span>
+                <em>{falafel.length}</em>
+                <span>) of them</span>
             </a>
         </span>
     </nav>
