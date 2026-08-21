@@ -1,36 +1,114 @@
 ---
+import fs from "fs";
+import path from "path";
+type FaviconFrameCollection = Record<number, string[]>;
+const FAVICON_FRAME_DIR = path.join(
+    process.cwd(),
+    "src",
+    "data",
+    "favicon-frames",
+);
+const BASE_64_URI_PREFIX = "data:image/png;base64," as const;
+function getFaviconFrames() {
+    const files = fs.readdirSync(FAVICON_FRAME_DIR);
+    if (!files.length) {
+        return null;
+    }
 
+    const result: FaviconFrameCollection = {};
+    for (let i = 0; i < files.length; i++) {
+        const favicon = getFaviconData(files[i]);
+        if (!favicon) {
+            continue;
+        }
+
+        const fullPath = path.join(FAVICON_FRAME_DIR, files[i]);
+        const buffer = fs.readFileSync(fullPath);
+        const dataUri = BASE_64_URI_PREFIX + buffer.toString("base64");
+
+        result[favicon.size] ??= [];
+        result[favicon.size][favicon.index - 1] = dataUri;
+    }
+
+    return result;
+}
+
+const FILENAME_REGEX = new RegExp(/^(\d*)_(\d*)\.png$/);
+function getFaviconData(
+    filename: string,
+): { size: number; index: number } | null {
+    const matchResult = FILENAME_REGEX.exec(filename);
+    if (!matchResult || matchResult.length !== 3) {
+        return null;
+    }
+
+    return {
+        size: parseInt(matchResult[1]),
+        index: parseInt(matchResult[2]),
+    };
+}
+
+const favicons = getFaviconFrames();
 ---
 
+{
+    !favicons ? (
+        // if no favicon frames, use .ico
+        <link rel="icon" href="favicon.ico" />
+    ) : (
+        <>
+            {/* one per size to hold the current frame */}
+            {Object.entries(favicons).map(([size, uris]) => (
+                <link
+                    rel="icon"
+                    type="image/png"
+                    sizes={`${size}x${size}`}
+                    href={uris[3]}
+                    data-frames={JSON.stringify(uris)}
+                />
+            ))}
+        </>
+    )
+}
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link
-    id="icon32"
-    rel="icon"
-    type="image/png"
-    sizes="32x32"
-    href="/favicon-frames/a32-3.png"
-/>
-<link
-    id="icon16"
-    rel="icon"
-    type="image/png"
-    sizes="16x16"
-    href="/favicon-frames/a16-3.png"
-/>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const numFrames = 6;
-        const cycleSeconds = 2;
+        const worker = new Worker(
+            URL.createObjectURL(
+                new Blob(
+                    [
+                        `addEventListener("message", ({ data }) => {data.forEach((t, i) => setInterval(() => postMessage(i), t));})`,
+                    ],
+                    { type: "application/javascript" },
+                ),
+            ),
+        );
 
-        const icon16 = document.getElementById("icon16") as HTMLLinkElement;
-        const icon32 = document.getElementById("icon32") as HTMLLinkElement;
+        const CYCLE_SECONDS = 8 as const;
+        const animations: {
+            icon: HTMLLinkElement;
+            uris: string[];
+            timeout: number;
+            frame: number;
+        }[] = [];
 
-        let frame = 3;
-        const timeout = (cycleSeconds * 1000) / numFrames;
-        setInterval(() => {
-            icon16.href = `/favicon-frames/a16-${frame}.png`;
-            icon32.href = `/favicon-frames/a32-${frame}.png`;
-            frame = ((frame + numFrames) % numFrames) + 1;
-        }, timeout);
+        document
+            .querySelectorAll(`link[rel="icon"][data-frames]`)
+            .forEach((_e) => {
+                const icon = _e as HTMLLinkElement;
+                const uris = JSON.parse(icon.dataset.frames!) as string[];
+                const timeout = (CYCLE_SECONDS * 1000) / uris.length;
+                const frame = uris.findIndex((href) => href === icon.href);
+                animations.push({ icon, uris, timeout, frame });
+            });
+
+        worker.postMessage(animations.map((a) => a.timeout));
+        worker.addEventListener("message", ({ data: i }: { data: number }) => {
+            const a = animations[i];
+            a.icon.href = a.uris[a.frame++];
+            if (a.frame >= a.uris.length) {
+                a.frame = 0;
+            }
+        });
     });
 </script>
