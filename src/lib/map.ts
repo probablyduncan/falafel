@@ -66,7 +66,7 @@ map.on("load", async () => {
         }
     }
 
-    const falafelIcon = await map.loadImage(`/favicon-frames/a32-5.png`);
+    const falafelIcon = await map.loadImage(`/falafel_stamp.png`);
     map.addImage("falafel-icon", falafelIcon.data);
     const wrapIcon = await map.loadImage(`/wrap_32.png`);
     map.addImage("wrap-icon", wrapIcon.data);
