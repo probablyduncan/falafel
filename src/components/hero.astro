@@ -1,6 +1,4 @@
 ---
-import { toShortDateString } from "../lib/dateHelpers";
-import getFalafel from "../lib/falafelLoader";
 import { getStampComponents, getStampStyle } from "../lib/stampHelpers";
 import StampContessa from "./stamps/stamp-contessa.astro";
 import StampFalafelIcon from "./stamps/stamp-falafel-icon.astro";
@@ -10,45 +8,10 @@ import StampDepartment from "./stamps/stamp-department.astro";
 import StampSaintFalafel from "./stamps/stamp-saint-falafel.astro";
 import StampBeholderFalafel from "./stamps/stamp-beholder-falafel.astro";
 
-const falafel = getFalafel();
-const lastUpdated = toShortDateString(
-    falafel.entryArr.reduce((latest, entry) => {
-        const dateUpdated = new Date(entry.dateUpdated);
-        return dateUpdated > latest ? dateUpdated : latest;
-    }, new Date(0)),
-).toLowerCase();
-
 const stamps = getStampComponents();
 ---
 
 <header id="hero">
-    <nav id="top-bar">
-        <span>
-            <a
-                href="https://duncanpetrie.com"
-                title="https://duncanpetrie.com"
-                target="_blank"
-            >
-                <!-- <span>by </span> -->
-                <em>duncan’s</em>
-                <!-- <span>’s</span> -->
-            </a>
-        </span>
-        <span>
-            <a href="#" title="you are already here!"> wrap/map </a>
-        </span>
-        <span>
-            <a
-                href="#falafel"
-                title="See the falafel!"
-            >
-                <span>(</span>
-                <em>{falafel.length}</em>
-                <span>) of them</span>
-            </a>
-        </span>
-    </nav>
-    <nav id="bottom-bar">~ ~ ~</nav>
     <div id="title">
         <div>welcome to</div>
         <h1>planet falafel</h1>
@@ -266,59 +229,6 @@ const stamps = getStampComponents();
 
         /* 0-100 corresponds to 0-512px at 1024px screen width */
         --stamp-position-unit: calc(var(--hero-base-unit) / 6.25);
-    }
-
-    #top-bar,
-    #bottom-bar {
-        position: absolute;
-        left: 0;
-        right: 0;
-
-        font-family: var(--sans);
-        font-weight: 600;
-        font-style: italic;
-        line-height: 1;
-
-        user-select: none;
-        -webkit-user-select: none;
-
-        a:hover em,
-        a:not(:has(em)):hover {
-            text-decoration: underline;
-        }
-
-        a :not(em) {
-            opacity: 0.5;
-            @media (max-width: 480px) {
-                display: none;
-            }
-        }
-    }
-
-    #top-bar {
-        top: 0;
-        z-index: 10;
-        color: var(--color-white);
-        background-color: var(--color-black);
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        padding: 0.4em 0.5em 0.5em;
-        position: fixed;
-
-        :last-child {
-            text-align: right;
-        }
-    }
-
-    #bottom-bar {
-        bottom: 0;
-        z-index: 3;
-        color: var(--color-white);
-        background-color: var(--color-green);
-        padding: 0.4em 0;
-        filter: drop-shadow(0 8px 12px var(--color-green));
-        display: flex;
-        justify-content: center;
     }
 
     #planet-falafel {

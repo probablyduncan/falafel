@@ -1,5 +1,4 @@
 ---
-import "maplibre-gl/dist/maplibre-gl.css";
 import Favicons from "../components/favicons.astro";
 import WrapMap from "../components/wrap-map.astro";
 import { getDateEatenText } from "../lib/dateHelpers";
@@ -13,11 +12,11 @@ const falafel = getFalafel();
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="generator" content={Astro.generator} />
-        <Favicons />
         <link rel="manifest" href="/site.webmanifest" />
-        <title>Wrap Map (falafel.fyi)</title>
+        <title>duncan’s wrap map</title>
+        <Favicons />
     </head>
     <body>
         <main>

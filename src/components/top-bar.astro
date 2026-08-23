@@ -1,0 +1,83 @@
+---
+import { toShortDateString } from "../lib/dateHelpers";
+import getFalafel from "../lib/falafelLoader";
+
+const falafel = getFalafel();
+const lastUpdated = toShortDateString(
+    falafel.entryArr.reduce((latest, entry) => {
+        const dateUpdated = new Date(entry.dateUpdated);
+        return dateUpdated > latest ? dateUpdated : latest;
+    }, new Date(0)),
+).toLowerCase();
+---
+
+<nav>
+    <!-- <span>
+        <a
+            href="https://duncanpetrie.com"
+            title="https://duncanpetrie.com"
+            target="_blank"
+        >
+            <em>duncan’s</em>
+        </a>
+    </span> -->
+    <span>
+        <a href="#" title="you are already here!">
+            <span>this is the </span>
+            <em>wrap/map</em>
+        </a>
+    </span>
+    <!-- <span>
+        <a href="#falafel" title="See the falafel!">
+            <span>(</span>
+            <em>{falafel.length}</em>
+            <span>) of them</span>
+        </a>
+    </span> -->
+    <span>
+        <a href="/about" title="About the falafel!">
+            <em>about</em>
+            <span> the wrap/map</span>
+        </a>
+    </span>
+</nav>
+<style>
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+
+        font-family: var(--sans);
+        font-weight: 600;
+        font-style: italic;
+        line-height: 1;
+
+        user-select: none;
+        -webkit-user-select: none;
+
+        color: var(--color-white);
+        background-color: var(--color-black);
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 0.4em 0.5em 0.5em;
+    }
+
+    a:hover em,
+    a:not(:has(em)):hover {
+        text-decoration: underline;
+    }
+
+    a:has(em) :not(em) {
+        opacity: 0.5;
+        @media (max-width: 480px) {
+            display: none;
+        }
+    }
+
+    nav :last-child {
+        text-align: right;
+    }
+</style>

@@ -83,6 +83,10 @@ map.on("load", async () => {
             "text-offset": [0, 1.25],
             "text-anchor": "top",
             "icon-size": 0.8,
+            // 'icon-allow-overlap': true,
+            // "icon-ignore-placement": true,
+            "text-allow-overlap": true,
+            "text-ignore-placement": true,
         },
         paint: {
             "text-color": [
@@ -114,6 +118,10 @@ map.on("load", async () => {
             "text-font": ["Kyroh"],//["Noto Sans Bold"],
             "text-offset": [-0.3, 1.3],
             "icon-size": 1.2,
+            // 'icon-allow-overlap': true,
+            // "icon-ignore-placement": true,
+            // "text-allow-overlap": true,
+            // "text-ignore-placement": true,
         },
         "paint": {
             "text-color": [
