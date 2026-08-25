@@ -2,25 +2,16 @@
 import getFalafel from "../lib/falafelLoader";
 import { getDateEatenText } from "../lib/dateHelpers";
 import { truncateText, countWords } from "../lib/textHelpers";
-import "../styles/global.css";
 import Hero from "../components/hero.astro";
-import Favicons from "../components/favicons.astro";
 import TopBar from "../components/top-bar.astro";
-import WrapMap from "../components/wrap-map.astro";
+import Head from "../components/head.astro";
 
 const falafel = getFalafel();
 ---
 
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="generator" content={Astro.generator} />
-        <link rel="manifest" href="/site.webmanifest" />
-        <title>duncan’s wrap map</title>
-        <Favicons />
-    </head>
+    <Head />
     <body>
         <TopBar />
         <Hero />

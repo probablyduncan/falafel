@@ -1,23 +1,15 @@
 ---
-import Favicons from "../components/favicons.astro";
+import Head from "../components/head.astro";
 import WrapMap from "../components/wrap-map.astro";
 import { getDateEatenText } from "../lib/dateHelpers";
 import getFalafel from "../lib/falafelLoader";
-import "../styles/global.css";
 
 const falafel = getFalafel();
 ---
 
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="generator" content={Astro.generator} />
-        <link rel="manifest" href="/site.webmanifest" />
-        <title>duncan’s wrap map</title>
-        <Favicons />
-    </head>
+    <Head />
     <body>
         <main>
             <WrapMap class="map" />
