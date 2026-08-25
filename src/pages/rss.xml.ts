@@ -1,6 +1,7 @@
 import rss from '@astrojs/rss';
 import { truncateText } from '../lib/textHelpers';
 import getFalafel from '../lib/falafelLoader';
+import { getDateEatenText } from '../lib/dateHelpers';
 
 export function GET(context: any) {
     const falafel = getFalafel();
@@ -20,6 +21,7 @@ export function GET(context: any) {
                 customData: `
                 <googlemapslink>${p.googleMapsUri}</googlemapslink>
                 <coordinates>${p.lat.toFixed(4)}, ${p.lng.toFixed(4)}</coordinates>
+                <firsteaten>${getDateEatenText(p)}</firsteaten>
                 `,
             }
         }),

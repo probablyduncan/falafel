@@ -190,7 +190,7 @@ export default async function fetchFalafel() {
             lat: entryToSave.lat.toFixed(4),
             lng: entryToSave.lng.toFixed(4),
             googleMapsUri: entryToSave.googleMapsUri,
-            dateEaten: getDateEatenText(entryToSave),
+            dateEaten: "First eaten " + getDateEatenText(entryToSave),
         }
 
         // try fetch existing atproto doc
