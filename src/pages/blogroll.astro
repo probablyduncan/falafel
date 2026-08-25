@@ -6,26 +6,11 @@ import getFalafel from "../lib/falafelLoader";
 
 const falafel = getFalafel();
 
-const m = "••~•";
-const morse = "--—- -— -—-- -— --—- - -—--";
-// ..-. .- .-.. .- ..-. . .-..
-
-const pattern = "ssls sl slss sl ssls s slss";
-const space = " ";
-const short = "-";
-const long = "—";
-const result = pattern
-    .replaceAll(" ", space)
-    .replaceAll("s", short)
-    .replaceAll("l", long);
-
-console.log(
-    pattern.split("").map((char) => {
-        if (char === "s") {
-            return "4,4";
-        }
-    }),
-);
+//             ..-. .- .-.. .- ..-. . .-..
+const morse = "ssls sl slss sl ssls s slss"
+    .replaceAll(" ", " ")
+    .replaceAll("s", "-")
+    .replaceAll("l", "—");
 ---
 
 <!doctype html>
@@ -61,7 +46,7 @@ console.log(
                                 return (
                                     <li>
                                         <div class="morse kyroh" role="presentation">
-                                            {result} {result} {result} {result} {result}
+                                            {morse} {morse} {morse} {morse} {morse}
                                         </div>
                                         <div class="entry-header">
                                             <div class="number">[{number}]</div>
