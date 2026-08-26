@@ -33,6 +33,12 @@ fonts:
 
 photograph sources:
 https://digital.humanities.ox.ac.uk/project/egyptian-mirage-database-19th-century-studio-photographs
+http://www.griffith.ox.ac.uk/gri/mirage/enlargements/cl11-127.html
 https://www.1854.photography/2025/01/studio-shehrazade-arab-photo-studio-akram-zaatari-hashem-el-madani-lebanon/
 https://www.theatlasgroup1989.org/digholes
 https://habibifunkrecords.bandcamp.com/
+https://upload.wikimedia.org/wikipedia/commons/b/b0/Durbar_Port_Said_stopover_1911.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original
+https://www.johnzada.com/iconic-portraits-van-leo-armenian-egyptian-photographer/
+https://www.npg.org.uk/collections/
+https://arabimagefoundation.org
+https://www.loc.gov/pictures/

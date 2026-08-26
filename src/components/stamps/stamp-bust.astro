@@ -1,0 +1,17 @@
+---
+import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+
+interface Props extends StampProps {}
+// from https://node.uchicago.edu/item/90b7ef1e-9134-432f-bd8c-b65c5511704b?collectionUuid=d16f2b3e-0a20-44bc-bfdf-28c56a3cbbc7&returnTo=%252Fcollection%252Fmiddle-east-photograph-archive
+---
+
+<img style={getStampStyle(Astro.props)} src="bust.webp" draggable="false" />
+
+<style>
+    img {
+        width: 80px;
+        max-width: 12vw;
+        image-rendering: pixelated;
+        filter: drop-shadow(2px 6px 6px #0005);
+    }
+</style>
