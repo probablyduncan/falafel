@@ -21,6 +21,21 @@ const stamps = getStampComponents();
     <div id="stamp-templates">
         {stamps.map((stamp) => <stamp.component name={stamp.name} />)}
     </div>
+    <div
+        id="mouth"
+        style="position: absolute; width: 90px; height: 100px; bottom: 15px; right: 10px; --numEaten: 0; --open: 0; transform: scale(calc(1 + var(--numEaten) * 0.05));"
+    >
+        <img
+            class="face"
+            src="mouths/amine_youssef_face.webp"
+            style="position: absolute; width: 100%"
+        />
+        <img
+            class="mouth"
+            src="mouths/amine_youssef_mouth.webp"
+            style="position: absolute; width: 100%; transform: translateY(calc(var(--open) * 4px));"
+        />
+    </div>
     <div id="stamps">
         <div
             class="kyroh"
@@ -349,6 +364,10 @@ const stamps = getStampComponents();
             return;
         }
 
+        const mouth = document.getElementById("mouth");
+        const mouthMouth = mouth?.querySelector(".mouth");
+        let numEaten = 0;
+
         interface Transform {
             x: number;
             y: number;
@@ -520,6 +539,31 @@ const stamps = getStampComponents();
                 state.deactivateTimeoutId = setTimeout(() => {
                     stamp.classList.remove("active");
                 }, 166.6666666667);
+
+                if (stamp.matches(`img[src="/falafel_stamp.png"]`) && isOverMouth()) {
+                    stamp.remove();
+                    mouth!.style.setProperty("--numEaten", (++numEaten).toString());
+                    setTimeout(() => {
+                        (mouthMouth as HTMLElement).style.setProperty("--open", "0");
+                        setTimeout(() => {
+                            (mouthMouth as HTMLElement).style.setProperty("--open", "1");
+                            setTimeout(() => {
+                                (mouthMouth as HTMLElement).style.setProperty("--open", "0");
+                            }, 100);
+                        }, 200);
+                    }, 100);
+                }
+            }
+
+            function isOverMouth() {
+                const stampRect = stamp.getBoundingClientRect();
+                const mouthRect = mouth!.getBoundingClientRect();
+                return (
+                    stampRect.bottom >= mouthRect.top &&
+                    stampRect.top <= mouthRect.bottom &&
+                    stampRect.right >= mouthRect.left &&
+                    stampRect.left <= mouthRect.right
+                );
             }
 
             function onDragStop() {
@@ -551,6 +595,10 @@ const stamps = getStampComponents();
                     "--dy",
                     `${state.currentTransform.y.toFixed(5)}px`,
                 );
+
+                if (stamp.matches(`img[src="/falafel_stamp.png"]`)) {
+                    (mouthMouth as HTMLElement).style.setProperty("--open", isOverMouth() ? "1" : "0");
+                }
 
                 if (
                     state.isAnimating ||
