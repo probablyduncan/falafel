@@ -144,6 +144,7 @@ const aboutHref = new URL("about", Astro.site).toString();
         height: calc(100lvh - 2 * var(--gap));
         border: 4px solid var(--color-black);
         background-color: var(--color-black);
+        background-color: #3B4A33;
         border-radius: calc(var(--gap) / 2);
         position: sticky;
         top: var(--gap);
@@ -282,15 +283,21 @@ const aboutHref = new URL("about", Astro.site).toString();
 <script>
     import {
         addMapFalafelClickListener,
+        addMapFalafelFocusListener,
         focusMapFalafel,
     } from "../lib/mapEvents";
+
+    let shouldRefocusOnScroll = true;
+    let currentScrollFocusId = "";
 
     function initBlogRoll() {
         addMapFalafelClickListener((id: string) => {
             if (window.location.hash?.replace(/^#/, "") == id) {
                 window.location.hash = "falafel";
+                shouldRefocusOnScroll = true;
             } else {
                 window.location.hash = id;
+                shouldRefocusOnScroll = false;
             }
         });
 
@@ -306,4 +313,47 @@ const aboutHref = new URL("about", Astro.site).toString();
     }
 
     document.addEventListener("DOMContentLoaded", initBlogRoll);
+
+    document.addEventListener("scroll", () => {
+        if (!shouldRefocusOnScroll) {
+            return;
+        }
+
+        const allEntries = document.querySelectorAll("#falafel li");
+        const target = {
+            el: allEntries[0],
+            pixelsOnScreen: getPixelsOnScreen(allEntries[0]),
+        };
+
+        function getPixelsOnScreen(el: Element) {
+            if (!el.checkVisibility()) {
+                return 0;
+            }
+
+            const rect = el.getBoundingClientRect();
+            if (rect.bottom < 0 || rect.top > window.innerHeight) {
+                return 0;
+            }
+
+            return (
+                Math.min(rect.bottom, window.innerHeight) -
+                Math.max(rect.top, 0)
+            );
+        }
+
+        for (let i = 1; i < allEntries.length; i++) {
+            const el = allEntries[i];
+            const pixelsOnScreen = getPixelsOnScreen(el);
+            if (pixelsOnScreen > target.pixelsOnScreen) {
+                target.pixelsOnScreen = pixelsOnScreen;
+                target.el = el;
+            }
+        }
+
+        if (currentScrollFocusId != target.el.id) {
+            currentScrollFocusId = target.el.id;
+            focusMapFalafel(currentScrollFocusId);
+        }
+
+    });
 </script>
