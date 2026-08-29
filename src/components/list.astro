@@ -244,13 +244,13 @@ const aboutHref = new URL("about", Astro.site).toString();
             font-weight: normal;
             font-style: normal;
             line-height: 1;
-            text-shadow: 0.04em 0.08em 0 var(--color-yellow);
+            text-shadow: var(--yellow-shadow);
         }
 
         em {
             font-weight: bold;
             font-style: normal;
-            text-shadow: 0.04em 0.08em 0 var(--color-yellow);
+            text-shadow: var(--yellow-shadow);
         }
 
         a {
@@ -324,10 +324,12 @@ const aboutHref = new URL("about", Astro.site).toString();
     .number {
         font-size: 2.4em;
         font-weight: bold;
-        margin-right: 0.1em;
+        margin-right: 0.25em;
+        margin-top: -0.05em;
         font-feature-settings: "tnum";
         grid-row-start: 1;
         grid-row-end: 3;
+        text-shadow: var(--yellow-shadow);
     }
 
     .name {
@@ -360,11 +362,12 @@ const aboutHref = new URL("about", Astro.site).toString();
     }
 
     .entry-body {
-        text-align: justify;
+        text-wrap: pretty;
+        /* text-align: justify;
         -webkit-hyphens: auto;
         -moz-hyphens: auto;
         -ms-hyphens: auto;
-        hyphens: auto;
+        hyphens: auto; */
 
         p:first-of-type::before {
             content: "→";

@@ -1,6 +1,6 @@
 :root {
-    --color-black: #000;
-    --color-white: #fff;
+    --color-black: #0e0e00;
+    --color-white: #fafaff;
     --color-red: #ff4b4b;
     --color-blue: #2026ca;
     --color-blue: rgb(90, 90, 227);
@@ -20,13 +20,15 @@
     font-size: clamp(1rem, 2.5vw, 1.5rem);
 
     scroll-behavior: smooth;
-    background-color: #210c0c;
+    background-color: var(--color-black);
+
+    --yellow-shadow: 0.04em 0.08em 1px var(--color-yellow);
 }
 
 body {
     margin: unset;
-    color: #100f0f;
-    background-color: #fafaff;
+    color: var(--color-black);
+    background-color: var(--color-white);
 }
 
 * {
