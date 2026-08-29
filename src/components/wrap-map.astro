@@ -12,23 +12,45 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
         position: relative;
         width: 100%;
         height: 100%;
-        
-        /* background-color: var(--color-map); */
-        
-        /* background: repeating-linear-gradient(to bottom, var(--color-map) 5px, grey 10px); */
-
-        /* background-color: var(--color-black);
-        background-image: url("/close.webp");
-        background-size: cover;
-        background-repeat: round; */
 
         background-color: var(--color-map);
-        background-image: url("/map_bg-fried-blue.png");
-        background-image: url("/map_bg-palettized.png");
-        background-image: url("/map_bg-fried.webp");
+        background: url("/map_bg-static_3.png");
         image-rendering: pixelated;
-        background-repeat: round;
         background-size: 200px;
+        background-repeat: round;
+        animation: bg-wiggle 0.4s infinite step-start;
+    }
+
+    @keyframes bg-wiggle {
+        0% {
+            background-position: 0%;
+            background-size: 200px;
+            background-repeat: round;
+        }
+        25% {
+            background-position: 60% 10%;
+            background-size: -200px 200px;
+            background-repeat: repeat;
+        }
+        50% {
+            background-position: 20% 80%;
+            background-size: -200px;
+        }
+        75% {
+            background-position: 40% 20%;
+            background-size: 200px -200px;
+        }
+        100% {
+            background-position: 0%;
+            background-size: 200px;
+            background-repeat: round;
+        }
+    }
+
+    @media (prefers-reduced-motion) {
+        div {
+            animation: unset;
+        }
     }
 </style>
 
@@ -176,7 +198,7 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
                 "text-font": ["Kyroh"],
                 "text-offset": [-0.3, 1.3],
                 "icon-size": 1.2,
-                'icon-allow-overlap': true,
+                "icon-allow-overlap": true,
                 "icon-ignore-placement": true,
                 "text-allow-overlap": true,
                 "text-ignore-placement": true,
@@ -218,7 +240,6 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
             //         { focus: false },
             //     );
             // }
-
             // focusedId = focusedId != id ? id : null;
             // if (focusedId) {
             //     map.setFeatureState(
