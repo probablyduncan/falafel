@@ -108,7 +108,19 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
     // );
 
     map.on("load", async () => {
-        await document.fonts.load("16px Kyroh");
+        const promises: Promise<any>[] = [];
+        promises.push(document.fonts.load("16px Kyroh"));
+
+        // prevent scroll zooming until mouse/touch has moved over map
+        map.scrollZoom.disable();
+        ["mousemove", "touchstart"].forEach((type) => {
+            map.getCanvas().addEventListener(
+                type,
+                () => map.scrollZoom.enable(),
+                { once: true },
+            );
+        });
+
         map.addSource("falafel", {
             type: "geojson",
             data: "/falafel.geojson",
@@ -309,5 +321,7 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
             map.getCanvas().style.cursor = "";
             updateHover();
         });
+
+        await Promise.all(promises);
     });
 </script>
