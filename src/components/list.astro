@@ -1,0 +1,361 @@
+---
+import WrapMap from "./wrap-map.astro";
+import { getDateEatenText } from "../lib/dateHelpers";
+import getFalafel from "../lib/falafelLoader";
+
+const falafel = getFalafel();
+
+//             ..-. .- .-.. .- ..-. . .-..
+const morse = "ssls sl slss sl ssls s slss"
+    .replaceAll(" ", " ")
+    .replaceAll("s", "-")
+    .replaceAll("l", "—");
+
+const aboutHref = new URL("about", Astro.site).toString();
+---
+
+<div class="wrapper">
+    <WrapMap class="map" />
+    <div class="list">
+        <div class="grab-bar"></div>
+        <div class="text">
+            <h2>
+                These are all the places that I have <strong
+                    >“Eaten Falafel”</strong
+                >
+            </h2>
+            <p>
+                Welcome to <strong>falafel.fyi</strong>, a weird little
+                microblog about my favorite kind of ball. Every time I order a <em
+                    >falafel wrap</em
+                > from a new cart, cafe, or restaurant, I write a little review, and
+                put it here.
+            </p>
+            <p>
+                For <em>more information</em> about my love of falafel wraps, why
+                they’re all rated five stars, and how I built this website, navigate
+                your <em>internet browser</em> to <a
+                    href="/about"
+                    title={aboutHref}>{aboutHref}</a
+                >.
+            </p>
+            <p>
+                If you prefer Google Maps, these reviews are also available as <span
+                    class="nowrap"
+                    >a <a
+                        href={falafel.googleMapsUri}
+                        title={`view the Wraps / in Google Maps`}
+                        target="_blank">saved list</a
+                    >.</span
+                >
+            </p>
+            <p>Enjoy your stay!</p>
+            <ul>
+                {
+                    falafel.entryArr
+                        .slice(0, falafel.length)
+                        .map((entry, index) => {
+                            const number = (falafel.length - index)
+                                .toString()
+                                .padStart(
+                                    1 + Math.floor(Math.log10(falafel.length)),
+                                    "0",
+                                );
+                            const dateEatenText = getDateEatenText(entry);
+                            return (
+                                <li id={entry.cacheKey} class="entry">
+                                    <div
+                                        class="morse kyroh"
+                                        role="presentation"
+                                    >
+                                        {morse} {morse} {morse} {morse} {morse}
+                                    </div>
+                                    <div class="entry-header">
+                                        <div class="number">[{number}]</div>
+                                        <div class="row">
+                                            <h3 class="name">{entry.name}</h3>
+                                        </div>
+                                        <div class="row">
+                                            <div
+                                                class="address"
+                                                title={entry.address}
+                                            >
+                                                {entry.address
+                                                    ?.split(" ")
+                                                    .at(-1)}
+                                            </div>
+                                            <div
+                                                class="stars"
+                                                title="five stars!"
+                                            >
+                                                ⭐⭐⭐⭐⭐
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="entry-body">
+                                        {entry.review
+                                            .split("\n")
+                                            .filter(Boolean)
+                                            .map((p) => (
+                                                <p>{p}</p>
+                                            ))}
+                                        <p class="date">
+                                            <>
+                                                <span>First eaten: </span>
+                                                <em>{dateEatenText}</em>.
+                                            </>
+                                        </p>
+                                    </div>
+                                </li>
+                            );
+                        })
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+<style>
+    .wrapper {
+        border-top: 2px solid var(--color-black);
+        min-height: 100lvh;
+        position: relative;
+        --map-open: 0;
+        /* --map-top: 1.9rem; */
+        --map-top: 0rem;
+        --map-height: calc(1lvh * (var(--map-open) * 35 + 30) - var(--map-top));
+        --grab-bar-overhang: 1rem;
+        --grab-bar-height: calc(var(--grab-bar-overhang) + 3rem);
+    }
+
+    .map {
+        height: var(--map-height);
+        transition: height 0.2s;
+        width: 100%;
+        position: sticky;
+        top: var(--map-top);
+        z-index: 1;
+        margin-bottom: calc(-1 * var(--grab-bar-overhang));
+        background-color: var(--color-yellow);
+        background-color: var(--color-black);
+    }
+
+    .list {
+        z-index: 3;
+        min-width: 0;
+    }
+
+    .grab-bar {
+        cursor: grab;
+        touch-action: pan-y;
+        z-index: 4;
+        width: 100%;
+        height: var(--grab-bar-height);
+        background: linear-gradient(
+            to bottom,
+            var(--color-white) 50%,
+            transparent 100%
+        );
+        position: sticky;
+        top: calc(
+            var(--map-height) + var(--map-top) - var(--grab-bar-overhang)
+        );
+        transition: top 0.2s;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+    }
+
+    .grab-bar::after {
+        content: "";
+        --bar-width: min(50%, 8rem);
+        width: var(--bar-width);
+        height: 0.5rem;
+        border-radius: 0.5rem;
+        background-color: var(--color-green);
+        position: absolute;
+        top: calc(50% - 0.25rem);
+        left: calc(50% - var(--bar-width) / 2);
+    }
+
+    .text {
+        padding: 1rem;
+    }
+
+    h2 {
+        font-weight: bold;
+        text-wrap: balance;
+
+        font-size: 3.14vw;
+
+        font-size: 10vw;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    h2,
+    h2 ~ p {
+        strong {
+            font-family: var(--kyroh);
+            font-weight: normal;
+            font-style: normal;
+            line-height: 1;
+            text-shadow: 0.04em 0.08em 0 var(--color-yellow);
+        }
+
+        em {
+            font-weight: bold;
+            font-style: normal;
+            text-shadow: 0.04em 0.08em 0 var(--color-yellow);
+        }
+
+        a {
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            /* text-decoration-style: wavy;
+            text-decoration-skip-ink: none; */
+        }
+
+        a:hover {
+            /* text-shadow: 0.04em 0.08em 0 var(--color-yellow); */
+            text-decoration: none;
+        }
+
+        .nowrap {
+            white-space: pre;
+        }
+    }
+
+    h2 + p::before {
+        content: "";
+        background-image: url("/tiny_spin.webp");
+        background-size: contain;
+        image-rendering: pixelated;
+        /* filter: drop-shadow(1px 2px 3px #0004) blur(0.5px); */
+        display: inline-block;
+        width: 0.8em;
+        aspect-ratio: 1;
+        margin-right: 3em;
+        transform: translateY(0.1em);
+    }
+
+    h2 ~ p:last-of-type::after {
+        content: "w";
+        text-align: right;
+        /* float: right; */
+        font-family: var(--kyroh);
+        font-feature-settings: "ss01";
+        margin-left: 1em;
+        text-shadow: 0.04em 0.08em 0 var(--color-yellow);
+    }
+
+    ul {
+        list-style: none;
+        padding: unset;
+    }
+
+    .entry {
+        scroll-margin-top: calc(var(--map-height) + var(--map-top) + var(--grab-bar-height) - var(--grab-bar-overhang));
+    }
+
+    .morse {
+        white-space: pre;
+        overflow-x: clip;
+        text-overflow: clip;
+        margin-top: 2em;
+        margin-bottom: 1em;
+        font-size: 1.2em;
+    }
+
+    .entry-header {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: repeat(2, auto);
+        align-items: end;
+        line-height: 1;
+    }
+
+    .entry-header > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+    }
+
+    .number {
+        font-size: 2.4em;
+        font-weight: bold;
+        margin-right: 0.1em;
+        font-feature-settings: "tnum";
+        grid-row-start: 1;
+        grid-row-end: 3;
+    }
+
+    .name {
+        font-weight: bold;
+        text-wrap: balance;
+        text-wrap: balance;
+    }
+
+    .address {
+        font-style: italic;
+    }
+
+    .stars,
+    .date {
+        text-align: right;
+    }
+
+    .date {
+        opacity: 0.65;
+        span {
+            font-style: italic;
+        }
+        em {
+            font-weight: bold;
+        }
+    }
+
+    /* @media (min-aspect-ratio: 1) {
+        .wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+    } */
+</style>
+
+<script>
+    import {
+        addMapFalafelClickListener,
+        focusMapFalafel,
+    } from "../lib/mapEvents";
+
+    function initDrawer() {
+        const wrapper = document.querySelector(".wrapper") as HTMLElement;
+        const grabBar = document.querySelector(".grab-bar") as HTMLElement;
+
+        function toggleMap(shouldBeOpen?: boolean) {
+            shouldBeOpen ??=
+                wrapper.style.getPropertyValue("--map-open") !== "1";
+            wrapper.style.setProperty("--map-open", shouldBeOpen ? "1" : "0");
+        }
+
+        grabBar.addEventListener("click", () => toggleMap());
+    }
+
+    function initList() {
+        document.querySelectorAll(".entry").forEach((e) => {
+            e.addEventListener("click", () => {
+                focusMapFalafel(e.id);
+            });
+        });
+
+        addMapFalafelClickListener((id: string) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+
+            el.scrollIntoView({ behavior: "instant" });
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", initDrawer);
+    document.addEventListener("DOMContentLoaded", initList);
+</script>
