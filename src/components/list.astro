@@ -70,7 +70,7 @@ const aboutHref = new URL("about", Astro.site).toString();
                                 );
                             const dateEatenText = getDateEatenText(entry);
                             return (
-                                <li id={entry.cacheKey} data-entry={number}>
+                                <li id={entry.cacheKey} data-entry={number} title={`Click to see ${entry.name} on the map!`}>
                                     <div
                                         class="morse kyroh"
                                         role="presentation"
