@@ -1,144 +1,19 @@
 ---
 import Head from "../components/head.astro";
 import WrapMap from "../components/wrap-map.astro";
-import { getDateEatenText } from "../lib/dateHelpers";
-import getFalafel from "../lib/falafelLoader";
-
-const falafel = getFalafel();
 ---
 
 <!doctype html>
 <html lang="en">
     <Head />
     <body>
-        <main>
-            <WrapMap class="map" />
-            <div>
-                <ul>
-                    {
-                        falafel.entryArr.map((entry) => {
-                            const location = entry.address?.split(" ").at(-1);
-                            return (
-                                <li id={entry.cacheKey}>
-                                    <div class="header">
-                                        <div>
-                                            <h2>
-                                                <b>{entry.name}</b>
-                                            </h2>
-                                            {entry.address && (
-                                                <i>
-                                                    <a
-                                                        href={
-                                                            entry.googleMapsUri
-                                                        }
-                                                        title="View in Google Maps"
-                                                        target="_blank"
-                                                    >
-                                                        {/* {truncateText(
-                                                        entry.address,
-                                                        50,
-                                                    )} */}
-                                                        {location} ↝
-                                                    </a>
-                                                </i>
-                                            )}
-                                        </div>
-                                        <i class="date">
-                                            <span>first eaten</span>
-                                            <br />
-                                            <b>
-                                                {getDateEatenText(
-                                                    entry,
-                                                ).toLowerCase()}
-                                            </b>
-                                        </i>
-                                    </div>
-                                    <div>
-                                        <button
-                                            data-falafel-id={entry.cacheKey}
-                                        >
-                                            map
-                                        </button>
-                                    </div>
-                                    {entry.review
-                                        .split("\n")
-                                        .filter(Boolean)
-                                        .map((p) => (
-                                            <p>{p}</p>
-                                        ))}
-                                </li>
-                            );
-                        })
-                    }
-                </ul>
-            </div>
-        </main>
+        <WrapMap class="map" />
     </body>
 </html>
 
 <style>
-    main {
-    }
-
     .map {
         width: 100%;
-        height: 50lvh;
-        position: sticky;
-        top: 0;
-        border-bottom-left-radius: 1rem;
-        border-bottom-right-radius: 1rem;
-        border: 0.5rem solid var(--color-black);
-        background-color: var(--color-black);
-    }
-
-    ul {
-        width: 55ch;
-        max-width: 90vw;
-        margin-inline: max(5vw, calc(50vw - 55ch / 2));
-        list-style: none;
-        padding: unset;
-    }
-
-    li {
-        --margin-top: 2rem;
-        margin-top: var(--margin-top);
-        scroll-margin-top: calc(50lvh + var(--margin-top));
-    }
-
-    .header {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        align-items: end;
-        margin-bottom: 12px;
-        padding-bottom: 12px;
-        border-bottom: 2px dotted black;
-    }
-
-    .date {
-        text-align: right;
-    }
-
-    h2 {
-        margin: unset;
+        height: 100lvh;
     }
 </style>
-
-<script>
-    import { addMapFalafelClickListener, focusMapFalafel } from "../lib/mapEvents";
-
-    function initFalafelButtons() {
-        document.querySelectorAll("button[data-falafel-id]").forEach((_b) => {
-            _b.addEventListener("click", () =>
-                focusMapFalafel(
-                    (_b as HTMLButtonElement).dataset["falafelId"] as string,
-                ),
-            );
-        });
-
-        addMapFalafelClickListener((id) => {
-            window.location.href = "#" + id;
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", initFalafelButtons);
-</script>

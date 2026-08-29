@@ -14,10 +14,17 @@ const morse = "ssls sl slss sl ssls s slss"
 const aboutHref = new URL("about", Astro.site).toString();
 ---
 
+<div class="wide-bar"></div>
 <div class="wrapper">
-    <WrapMap class="map" />
+    <!-- <nav>
+        <button data-top>top</button>
+        <span
+            ><span data-current-number>{falafel.length}</span> of {
+                falafel.length
+            }</span
+        >
+    </nav> -->
     <div class="list">
-        <div class="grab-bar"></div>
         <div class="text">
             <h2>
                 These are all the places that I have <strong
@@ -63,7 +70,7 @@ const aboutHref = new URL("about", Astro.site).toString();
                                 );
                             const dateEatenText = getDateEatenText(entry);
                             return (
-                                <li id={entry.cacheKey} class="entry">
+                                <li id={entry.cacheKey} data-entry={number}>
                                     <div
                                         class="morse kyroh"
                                         role="presentation"
@@ -113,6 +120,8 @@ const aboutHref = new URL("about", Astro.site).toString();
             </ul>
         </div>
     </div>
+    <div class="grab-bar"></div>
+    <WrapMap class="map" />
 </div>
 
 <style>
@@ -121,48 +130,86 @@ const aboutHref = new URL("about", Astro.site).toString();
         min-height: 100lvh;
         position: relative;
         --map-open: 0;
-        /* --map-top: 1.9rem; */
-        --map-top: 0rem;
+        --map-top: 1.9rem;
+        /* --map-top: 0rem; */
         --map-height: calc(1lvh * (var(--map-open) * 35 + 30) - var(--map-top));
         --grab-bar-overhang: 1rem;
         --grab-bar-height: calc(var(--grab-bar-overhang) + 3rem);
     }
+
+    /* nav {
+        position: sticky;
+        top: 0;
+        color: var(--color-white);
+        background-color: var(--color-black);
+        padding: 0.5rem 0.5rem 0.4rem;
+        z-index: 5;
+        display: flex;
+        justify-content: space-between;
+        font-feature-settings: "tnum";
+
+        font-style: italic;
+        font-weight: bold;
+
+        button {
+            background-color: unset;
+            border-radius: unset;
+            border: unset;
+            font-family: unset;
+            font-size: unset;
+            font-weight: unset;
+            font-style: unset;
+            color: unset;
+        }
+    } */
 
     .map {
         height: var(--map-height);
         transition: height 0.2s;
         width: 100%;
         position: sticky;
-        top: var(--map-top);
-        z-index: 1;
-        margin-bottom: calc(-1 * var(--grab-bar-overhang));
-        background-color: var(--color-yellow);
-        background-color: var(--color-black);
+        bottom: 1.9rem;
+        z-index: 4;
+        margin-top: calc(-1 * var(--grab-bar-overhang));
+        margin-top: calc(100lvh - var(--map-height) - var(--grab-bar-overhang));
     }
 
     .list {
         z-index: 3;
         min-width: 0;
+        position: relative;
+        margin-bottom: -1rem;
+        overflow-x: clip;
+    }
+
+    .wide-bar {
+        width: 100%;
+        position: fixed;
+        height: 1.9rem;
+        background-color: var(--color-black);
+        bottom: 0;
+        z-index: 10;
     }
 
     .grab-bar {
         cursor: grab;
         touch-action: pan-y;
-        z-index: 4;
+        z-index: 5;
         width: 100%;
         height: var(--grab-bar-height);
         background: linear-gradient(
-            to bottom,
+            to top,
             var(--color-white) 50%,
             transparent 100%
         );
         position: sticky;
-        top: calc(
+        bottom: calc(
             var(--map-height) + var(--map-top) - var(--grab-bar-overhang)
         );
-        transition: top 0.2s;
-        border-top-left-radius: 1rem;
-        border-top-right-radius: 1rem;
+        transition: bottom 0.2s;
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        margin-top: calc(100lvh - var(--map-height) - var(--grab-bar-height));
     }
 
     .grab-bar::after {
@@ -185,11 +232,9 @@ const aboutHref = new URL("about", Astro.site).toString();
         font-weight: bold;
         text-wrap: balance;
 
-        font-size: 3.14vw;
-
         font-size: 10vw;
         text-align: center;
-        margin-bottom: 2rem;
+        margin-block: 2rem;
     }
 
     h2,
@@ -253,10 +298,6 @@ const aboutHref = new URL("about", Astro.site).toString();
         padding: unset;
     }
 
-    .entry {
-        scroll-margin-top: calc(var(--map-height) + var(--map-top) + var(--grab-bar-height) - var(--grab-bar-overhang));
-    }
-
     .morse {
         white-space: pre;
         overflow-x: clip;
@@ -299,6 +340,10 @@ const aboutHref = new URL("about", Astro.site).toString();
         font-style: italic;
     }
 
+    .stars {
+        display: none;
+    }
+
     .stars,
     .date {
         text-align: right;
@@ -314,12 +359,71 @@ const aboutHref = new URL("about", Astro.site).toString();
         }
     }
 
-    /* @media (min-aspect-ratio: 1) {
+    .entry-body {
+        text-align: justify;
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        hyphens: auto;
+
+        p:first-of-type::before {
+            content: "→";
+            font-family: var(--kyroh);
+            margin-right: 1.4em;
+        }
+    }
+
+    @media (min-aspect-ratio: 1) {
         .wrapper {
+            --padding: 1rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
+            gap: var(--padding);
+            padding: var(--padding);
+            --map-height: 100%;
+            --grab-bar-overhang: 0rem;
+            --grab-bar-height: 0rem;
         }
-    } */
+
+        h2 {
+            font-size: 3.14vw;
+            text-align: left;
+        }
+
+        .grab-bar {
+            display: none;
+        }
+
+        nav {
+            display: none;
+        }
+
+        .map {
+            grid-column: 1;
+            grid-row: 1;
+            bottom: unset;
+            top: 2.9rem;
+            height: calc(100lvh - 2 * var(--padding) - 1.9rem);
+            border-radius: var(--padding);
+            box-shadow:
+                4px 4px 20px #0002,
+                -2px 2px 12px #0002,
+                0 0 4px #0002;
+            margin-top: unset;
+        }
+
+        .list {
+            grid-column: 2;
+        }
+
+        .text {
+            padding: unset;
+        }
+
+        .wide-bar {
+            display: none;
+        }
+    }
 </style>
 
 <script>
@@ -328,7 +432,7 @@ const aboutHref = new URL("about", Astro.site).toString();
         focusMapFalafel,
     } from "../lib/mapEvents";
 
-    function initDrawer() {
+    function initList() {
         const wrapper = document.querySelector(".wrapper") as HTMLElement;
         const grabBar = document.querySelector(".grab-bar") as HTMLElement;
 
@@ -338,24 +442,66 @@ const aboutHref = new URL("about", Astro.site).toString();
             wrapper.style.setProperty("--map-open", shouldBeOpen ? "1" : "0");
         }
 
+        // change map size on grab bar click
         grabBar.addEventListener("click", () => toggleMap());
-    }
 
-    function initList() {
-        document.querySelectorAll(".entry").forEach((e) => {
+        // focus map on falafel when an entry is clicked
+        document.querySelectorAll("[data-entry]").forEach((e) => {
             e.addEventListener("click", () => {
                 focusMapFalafel(e.id);
             });
         });
 
+        // scroll to entry when map falafel is clicked
         addMapFalafelClickListener((id: string) => {
             const el = document.getElementById(id);
             if (!el) return;
 
             el.scrollIntoView({ behavior: "instant" });
+            toggleMap(false);
         });
+
+        // scroll to top when top button is clicked
+        document.querySelectorAll("[data-top]").forEach((e) => {
+            e.addEventListener("click", () => {
+                wrapper.scrollIntoView();
+            });
+        });
+
+        // let visibleEntries = new Set<number>();
+        // const currentNumberContainers = document.querySelectorAll(
+        //     "[data-current-number]",
+        // );
+        // const observer = new IntersectionObserver(
+        //     (entries) => {
+        //         entries.forEach((entry) => {
+        //             const target = entry.target as HTMLElement;
+        //             const num = parseInt(
+        //                 (target.closest("[data-entry]") as HTMLElement).dataset
+        //                     .entry ?? "0",
+        //             );
+        //             if (entry.isIntersecting && target.checkVisibility()) {
+        //                 visibleEntries.add(num);
+        //             } else {
+        //                 visibleEntries.delete(num);
+        //             }
+        //         });
+
+        //         if (visibleEntries.size > 0) {
+        //             const max = Math.max(...visibleEntries).toString();
+        //             currentNumberContainers.forEach((c) => {
+        //                 (c as HTMLElement).innerText = max;
+        //             });
+        //         }
+        //     },
+        //     {
+        //         threshold: 0.5,
+        //     },
+        // );
+        // document
+        //     .querySelectorAll("[data-entry] .number")
+        //     .forEach((e) => observer.observe(e));
     }
 
-    document.addEventListener("DOMContentLoaded", initDrawer);
     document.addEventListener("DOMContentLoaded", initList);
 </script>
