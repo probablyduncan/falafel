@@ -9,11 +9,11 @@ interface Props {
     image?: string;
 }
 
-const falafel = getFalafel();
+const { length: numWraps } = getFalafel();
 
 const {
     title = "Duncan’s Wrap Map",
-    description = `All of the falafel wraps I have loved. (There are ${falafel.length} of them.) Each is rated on a scale of one (bad) to five (good).`,
+    description = `All of the falafel wraps I have loved (there are ${numWraps} of them). Each is rated on a scale of one (bad) to five (good).`,
     image = "/cover.png",
 } = Astro.props;
 ---
@@ -31,6 +31,7 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
     <meta property="og:url" content={Astro.url} />
+    <meta property="og:site_name" content="falafel.fyi" />
     <meta property="og:logo" content="/falafel_stamp.png" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_GB" />
