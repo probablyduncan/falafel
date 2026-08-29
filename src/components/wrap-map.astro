@@ -65,7 +65,7 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
     map.addControl(
         new mapLibreGL.NavigationControl({
             showCompass: false,
-        }),
+        }), "bottom-right"
     );
 
     map.on("load", async () => {
@@ -227,7 +227,7 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
                         lng: falafelDict[id].coordinates[0],
                     },
                     zoom: falafelDict[id].minZoom + extraZoom,
-                })
+                });
             }
         });
 
