@@ -17,7 +17,12 @@ const stamps = getStampComponents();
         <div>welcome to</div>
         <h1>planet falafel</h1>
     </div>
-    <img id="planet-falafel" src="/planet-falafel.gif" draggable="false" />
+    <img
+        id="planet-falafel"
+        src="/planet-falafel.gif"
+        draggable="false"
+        alt="An animated 3d render of a large ball of falafel being orbited by sesame seeds and other pink, red, and green ingredients."
+    />
     <div id="stamp-templates">
         {stamps.map((stamp) => <stamp.component name={stamp.name} />)}
     </div>
