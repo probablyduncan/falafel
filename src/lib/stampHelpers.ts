@@ -1,13 +1,13 @@
 import path from "path";
 
 export interface StampProps {
-    top?: number | string;
-    left?: number | string;
-    rotate?: number | string;
+    y?: number | string;
+    x?: number | string;
+    r?: number | string;
 }
 
 export function getStampStyle(props?: StampProps, additionalStyle?: string): string {
-    return `--yi: ${props?.top ?? 0}; --xi: ${props?.left ?? 0}; --r: ${props?.rotate ?? "0"}deg; ${additionalStyle ?? ""}`.trim();
+    return `--yi: ${props?.y ?? 0}; --xi: ${props?.x ?? 0}; --r: ${props?.r ?? "0"}deg; ${additionalStyle ?? ""}`.trim();
 }
 
 export function getStampComponents(): {
