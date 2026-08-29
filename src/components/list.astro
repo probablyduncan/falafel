@@ -70,7 +70,11 @@ const aboutHref = new URL("about", Astro.site).toString();
                                 );
                             const dateEatenText = getDateEatenText(entry);
                             return (
-                                <li id={entry.cacheKey} data-entry={number} title={`Click to see ${entry.name} on the map!`}>
+                                <li
+                                    id={entry.cacheKey}
+                                    data-entry={number}
+                                    title={`Click to see ${entry.name} on the map!`}
+                                >
                                     <div
                                         class="morse kyroh"
                                         role="presentation"
@@ -126,7 +130,7 @@ const aboutHref = new URL("about", Astro.site).toString();
 
 <style>
     .wrapper {
-        border-top: 2px solid var(--color-black);
+        border-top: 2px solid var(--color-map);
         min-height: 100lvh;
         position: relative;
         --map-open: 0;

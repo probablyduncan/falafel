@@ -217,7 +217,15 @@ const stamps = getStampComponents();
         align-items: center;
         overflow: clip;
 
-        background: radial-gradient(closest-side, #442a2d, #210c0c);
+        /* background: url("/map_bg-static_3.png"), radial-gradient(closest-side, #442a2d, #210c0c); */
+        /* background-blend-mode: hard-light; */
+        background:
+            radial-gradient(closest-side, #442a2d, #210c0c),
+            url("/map_bg-static_3.png");
+        background-blend-mode: overlay;
+        image-rendering: pixelated;
+
+        border-bottom: 0.25rem groove var(--color-yellow);
 
         /* raw units, shouldn't use these */
         /* --planet-img-width: min(512px, 64vw); */

@@ -1,4 +1,5 @@
 ---
+import getFalafel from "../lib/falafelLoader";
 import "../styles/global.css";
 import Favicons from "./favicons.astro";
 
@@ -8,10 +9,12 @@ interface Props {
     image?: string;
 }
 
+const falafel = getFalafel();
+
 const {
-    title = "duncan’s wrap map",
-    description = "All of the falafel wraps I have loved. Each is rated on a scale of one (bad) to five (good).",
-    image = "/cover.jpg",
+    title = "Duncan’s Wrap Map",
+    description = `All of the falafel wraps I have loved. (There are ${falafel.length} of them.) Each is rated on a scale of one (bad) to five (good).`,
+    image = "/cover.png",
 } = Astro.props;
 ---
 
