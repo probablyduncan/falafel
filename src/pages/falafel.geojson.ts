@@ -1,4 +1,4 @@
-import { getClosest, getMinZoom } from "../lib/distanceCache";
+import { getClosest, getMinZoom } from "../lib/zoomHelpers";
 import type { FalafelPlace } from "../lib/falafelFetcher";
 import getFalafel from "../lib/falafelLoader";
 import { type GeoJSONFeature } from "maplibre-gl";

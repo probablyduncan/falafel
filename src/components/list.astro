@@ -111,7 +111,9 @@ const aboutHref = new URL("about", Astro.site).toString();
                                             .split("\n")
                                             .filter(Boolean)
                                             .map((p) => (
-                                                <p>{p}</p>
+                                                <p>{p.split(entry.name).filter(Boolean).map((p, i) => <>
+                                                    {i > 0 && <strong>{entry.name}</strong>}{p}
+                                                </>)}</p>
                                             ))}
                                         <p class="date">
                                             <>
@@ -243,8 +245,7 @@ const aboutHref = new URL("about", Astro.site).toString();
         margin-block: 2rem;
     }
 
-    h2,
-    h2 ~ p {
+    h2, p {
         strong {
             font-family: var(--kyroh);
             font-weight: normal;

@@ -6,6 +6,7 @@ import { getAtprotoClient, getDuncanContributor, getPublicationUri, rkeyFromUri 
 import * as site from "../lexicons/site.ts";
 import type { DatetimeString } from '@atproto/lex';
 import { truncateText } from "./textHelpers.ts";
+import { formatQuotes } from "./quoteFormatter.ts";
 
 export type FalafelStore = {
     /** list title */
@@ -92,7 +93,16 @@ export default async function fetchFalafel() {
         }
 
         let entryToSave: FalafelPlace;
-        
+
+        // this stuff should be updated every time this process runs
+        const alwaysUpdateEntryData = {
+            name: formatQuotes(fetchedListEntry.name),
+            review: formatQuotes(fetchedListEntry.notes),
+            lat: fetchedListEntry.lat,
+            lng: fetchedListEntry.lng,
+            dateUpdated: fetchedListEntry.dateModified.toISOString(),
+        } as const;
+
         // already set, just update
         if (unmatchedEntryKeys.delete(fetchedListEntry.cacheKey)) {
             entryToSave = store.entries[fetchedListEntry.cacheKey];
@@ -101,34 +111,25 @@ export default async function fetchFalafel() {
                 console.log(`\nupdated: ${fetchedListEntry.name}`);
             }
 
-            entryToSave.name = fetchedListEntry.name;
-            entryToSave.review = fetchedListEntry.notes;
-            entryToSave.lat = fetchedListEntry.lat;
-            entryToSave.lng = fetchedListEntry.lng;
-            entryToSave.dateUpdated = fetchedListEntry.dateModified.toISOString();
-            entryToSave.cacheKey = fetchedListEntry.cacheKey;
+            Object.assign(entryToSave, alwaysUpdateEntryData);
         }
         // create new entry
         else {
             entryToSave = store.entries[fetchedListEntry.cacheKey] ??= {
                 cacheKey: fetchedListEntry.cacheKey,
                 atprotoKey: null,
-                name: fetchedListEntry.name,
-                review: fetchedListEntry.notes,
-                lat: fetchedListEntry.lat,
-                lng: fetchedListEntry.lng,
-                placeId: null,
-                dateUpdated: fetchedListEntry.dateModified.toISOString(),
+                ...alwaysUpdateEntryData,
                 dateSaved: fetchedListEntry.dateAdded.toISOString(),
                 dateEaten: null,
                 dateEatenText: null,
                 address: null,
+                placeId: null,
                 googleMapsUri: null,
             };
         }
 
         // if not already done, query for url/address/etc
-        if (!entryToSave.googleMapsUri) {
+        if (entryToSave.googleMapsUri === null) {
             try {
                 const textSearchResult = await placesClient.searchText({
                     textQuery: fetchedListEntry.searchString,
@@ -248,7 +249,7 @@ export default async function fetchFalafel() {
             try {
                 await atprotoClient.delete(site.standard.document, { rkey: unmatchedEntry.atprotoKey });
             }
-            catch {}
+            catch { }
         }
 
         delete store.entries[unmatchedKey];
