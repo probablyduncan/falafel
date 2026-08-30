@@ -13,7 +13,6 @@
     /* --sans: "Arial", sans-serif; */
     --sans: "Atkinson Hyperlegible Soft", "Arial", "Helvetica", sans-serif;
     --kyroh: "Kyroh", var(--sans);
-    --junicode: "Junicode", var(--serif);
     --comic: "Comic Sans MS", "Comic Sans", cursive;
 
     font-family: var(--sans);
@@ -58,10 +57,6 @@ h6 {
 .kyroh.alts,
 .kyroh .alts {
     font-feature-settings: 'ss01';
-}
-
-.junicode {
-    font-family: var(--junicode);
 }
 
 .comic {
@@ -203,20 +198,4 @@ h6 {
     font-style: italic;
     font-display: swap;
     src: url("/fonts/AtkinsonHyperlegibleSoft-ExtraBoldItalic.woff2")format("woff2");
-}
-
-@font-face {
-    font-family: "Junicode";
-    font-style: normal;
-    font-weight: 300 700;
-    font-display: swap;
-    src: url("/fonts/JunicodeVF-Roman.woff2");
-}
-
-@font-face {
-    font-family: "Junicode";
-    font-style: italic;
-    font-weight: 300 700;
-    font-display: swap;
-    src: url("/fonts/JunicodeVF-Italic.woff2");
 }

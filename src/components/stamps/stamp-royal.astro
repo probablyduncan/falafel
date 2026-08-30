@@ -4,25 +4,24 @@ import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
 interface Props extends StampProps {}
 ---
 
-<div style={getStampStyle(Astro.props)}>
-    ROYAL FALAFEL
-</div>
+<img
+    style={getStampStyle(Astro.props)}
+    src="/stamps/royal.webp"
+    alt="An image of black text over a yellow background, which reads: LORD OF FALAFEL."
+    draggable="false"
+/>
 
 <style>
-    div {
-        font-family: var(--junicode);
-        font-style: italic;
-        font-size: 1rem;
-        font-weight: 500;
-        line-height: 1;
-        color: white;
-        background-color: blue;
-        padding: 0.6em 0.5em 0.4em;
+    img {
+        image-rendering: pixelated;
         border: 0.1em solid #fff;
         box-shadow:
             0.05em 0.05em #fff,
             0.1em 0.1em #fff,
             0.15em 0.15em #fff,
             inset 0 0 0.1em #fff;
+
+        width: 200px;
+        max-width: 30vw;
     }
 </style>
