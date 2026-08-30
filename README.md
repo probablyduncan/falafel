@@ -20,6 +20,7 @@ things to do:
 - remove junicode (use images for stamps)
 - remove atkinson extra fonts (use images for stamps, semibold for bold)
 
+optimize junicode and use instead of images?? https://github.com/zachleat/glyphhanger
 
 colophon notes:
 https://fraunces.undercase.xyz/ inspiration or hero section
