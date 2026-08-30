@@ -111,9 +111,23 @@ const aboutHref = new URL("about", Astro.site).toString();
                                             .split("\n")
                                             .filter(Boolean)
                                             .map((p) => (
-                                                <p>{p.split(entry.name).filter(Boolean).map((p, i) => <>
-                                                    {i > 0 && <strong>{entry.name}</strong>}{p}
-                                                </>)}</p>
+                                                <p>
+                                                    {p
+                                                        .split(entry.name)
+                                                        .filter(Boolean)
+                                                        .map((p, i) => (
+                                                            <>
+                                                                {i > 0 && (
+                                                                    <strong>
+                                                                        {
+                                                                            entry.name
+                                                                        }
+                                                                    </strong>
+                                                                )}
+                                                                {p}
+                                                            </>
+                                                        ))}
+                                                </p>
                                             ))}
                                         <p class="date">
                                             <>
@@ -245,7 +259,8 @@ const aboutHref = new URL("about", Astro.site).toString();
         margin-block: 2rem;
     }
 
-    h2, p {
+    h2,
+    p {
         strong {
             font-family: var(--kyroh);
             font-weight: normal;
@@ -264,7 +279,8 @@ const aboutHref = new URL("about", Astro.site).toString();
             text-decoration-thickness: 2px;
         }
 
-        a:hover, a:focus-visible {
+        a:hover,
+        a:focus-visible {
             text-decoration: none;
             background-color: var(--color-black);
             color: var(--color-white);
