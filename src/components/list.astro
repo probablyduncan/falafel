@@ -39,6 +39,9 @@ const aboutHref = new URL("about", Astro.site).toString();
                 put it here.
             </p>
             <p>
+                There are currently <strong>{falafel.length} (!)</strong> of them.
+            </p>
+            <p>
                 For <em>more information</em> about my love of falafel wraps, why
                 they’re all rated five stars, and how I built this website, navigate
                 your <em>internet browser</em> to <a
@@ -183,7 +186,6 @@ const aboutHref = new URL("about", Astro.site).toString();
         min-width: 0;
         position: relative;
         margin-bottom: -1rem;
-        overflow-x: clip;
     }
 
     .wide-bar {
@@ -254,19 +256,30 @@ const aboutHref = new URL("about", Astro.site).toString();
         em {
             font-weight: bold;
             font-style: normal;
-            text-shadow: var(--yellow-shadow);
         }
 
         a {
             text-decoration: underline;
             text-decoration-thickness: 2px;
-            /* text-decoration-style: wavy;
-            text-decoration-skip-ink: none; */
         }
 
-        a:hover {
-            /* text-shadow: 0.04em 0.08em 0 var(--color-yellow); */
+        a:hover, a:focus-visible {
             text-decoration: none;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            outline: auto var(--color-black);
+            border-radius: 0.1em;
+        }
+
+        &:has(a:hover, a:focus-visible)::after {
+            content: "→";
+            font-family: var(--kyroh);
+            font-size: 1.5em;
+            display: inline-block;
+            transform: translate(0.14em, 0.27em) rotate(-30deg);
+            line-height: 0;
+            width: 0;
+            height: 0;
         }
 
         .nowrap {
@@ -276,15 +289,16 @@ const aboutHref = new URL("about", Astro.site).toString();
 
     h2 + p::before {
         content: "";
-        background-image: url("/tiny_spin.webp");
+        background-image: url("/falafel_stamp.png");
         background-size: contain;
         image-rendering: pixelated;
-        /* filter: drop-shadow(1px 2px 3px #0004) blur(0.5px); */
+        filter: drop-shadow(0.05em 0.1em 0 #0004) drop-shadow(0 0.1em 2px #0004)
+            drop-shadow(0.05em 0 2px #0004);
         display: inline-block;
         width: 0.8em;
         aspect-ratio: 1;
         margin-right: 3em;
-        transform: translateY(0.1em);
+        transform: translateY(0.05em);
     }
 
     h2 ~ p:last-of-type::after {

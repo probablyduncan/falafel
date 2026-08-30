@@ -1,6 +1,5 @@
 falafel falafel
 
-
 this is a small-batch website, made with love and human hands
 
 blender
@@ -16,8 +15,10 @@ things to do:
 - tooltip on hero hover that prompts you to place a stamp?
 - mouth to drag falafel into?
 - submission! if you have a falafel place, let me know!!
-- subset fonts (esp junicode)
 - maybe turn stamps from html into images? unsure
+- refine entry cards - google maps link, click to navigate on map, etc
+- remove junicode (use images for stamps)
+- remove atkinson extra fonts (use images for stamps, semibold for bold)
 
 
 colophon notes:
