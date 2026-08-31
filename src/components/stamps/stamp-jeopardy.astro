@@ -1,14 +1,14 @@
 ---
-import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+import { getStampStyle, getStandardImgAttributes, type StampProps } from "../../lib/stampHelpers";
 
 interface Props extends StampProps {}
 ---
 
 <img
     style={getStampStyle(Astro.props)}
+    {...getStandardImgAttributes()}
     src="/stamps/jeopardy.webp"
     alt={`A jeopardy clue card which reads: "a deep-fried ball or patty-shaped fritter of Egyptian origin".`}
-    draggable="false"
 />
 
 <style>

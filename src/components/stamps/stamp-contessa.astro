@@ -1,13 +1,13 @@
 ---
-import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+import { getStampStyle, getStandardImgAttributes, type StampProps } from "../../lib/stampHelpers";
 
 interface Props extends StampProps {}
 ---
 
 <img
+    {...getStandardImgAttributes()}
     style={getStampStyle(Astro.props)}
     src="/stamps/contessa.png"
-    draggable="false"
     alt="An image of white text over a red background, which reads: Falafel Contessa."
 />
 

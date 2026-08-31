@@ -1,3 +1,4 @@
+import type { HTMLAttributes } from "astro/types";
 import path from "path";
 
 export interface StampProps {
@@ -20,4 +21,11 @@ export function getStampComponents(): {
         name: path.parse(mod.file).name,
     }));
     return stamps;
+}
+
+export function getStandardImgAttributes(): HTMLAttributes<"img"> {
+    return {
+        draggable: false,
+        fetchpriority: "low",
+    }
 }

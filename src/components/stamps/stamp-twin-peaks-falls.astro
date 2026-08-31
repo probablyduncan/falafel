@@ -1,5 +1,5 @@
 ---
-import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+import { getStampStyle, getStandardImgAttributes, type StampProps } from "../../lib/stampHelpers";
 
 interface Props extends StampProps {}
 ---
@@ -7,7 +7,7 @@ interface Props extends StampProps {}
 <img
     style={getStampStyle(Astro.props)}
     src="/stamps/twin_peaks-falls.png"
-    draggable="false"
+    {...getStandardImgAttributes()}
     alt={`"A frame of the Twin Peaks opening credits, showing the word "Falafel" in Arabic instead of an actor's name.`}
 />
 

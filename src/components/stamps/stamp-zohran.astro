@@ -1,13 +1,13 @@
 ---
-import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+import { getStampStyle, getStandardImgAttributes, type StampProps } from "../../lib/stampHelpers";
 
 interface Props extends StampProps {}
 ---
 
 <img
     style={getStampStyle(Astro.props)}
+    {...getStandardImgAttributes()}
     src="/stamps/zohran.png"
-    draggable="false"
     alt="An image of text which reads: Falafel for my hungry guys, in the style of Zohran Mamdani's campaign posters."
 />
 
