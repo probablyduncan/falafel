@@ -1,0 +1,21 @@
+---
+import { getStampStyle, type StampProps } from "../../lib/stampHelpers";
+
+interface Props extends StampProps {}
+---
+
+<img
+    style={getStampStyle(Astro.props)}
+    src="/stamps/twin_peaks-sign.png"
+    draggable="false"
+    alt={`"A frame of the Twin Peaks opening credits, showing the word "Falafel" instead of "Twin Peaks".`}
+/>
+
+<style>
+    img {
+        width: 200px;
+        max-width: 30vw;
+        image-rendering: pixelated;
+        box-shadow: 2px 2px 10px #0006;
+    }
+</style>
