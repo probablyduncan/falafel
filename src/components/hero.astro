@@ -316,12 +316,12 @@ const stamps = getStampComponents();
 <script>
     function initStamps() {
         const heroContainer = document.getElementById("hero")!;
-        const templates = document.querySelectorAll(
-            "#stamp-templates > :is(div, img)",
+        const stampTemplates = document.querySelectorAll(
+            "#stamp-templates > :not(script, style)",
         );
         const stampContainer = document.getElementById("stamps")!;
 
-        if (!heroContainer || !stampContainer || !templates?.length) {
+        if (!heroContainer || !stampContainer || !stampTemplates?.length) {
             return;
         }
 
@@ -371,16 +371,24 @@ const stamps = getStampComponents();
             }
         }
 
-        let lastTemplateIndex = -1;
+        let recentStampTemplateIndices = Array(
+            Math.floor(stampTemplates.length / 2),
+        ).fill(-1);
+        
         function getRandomStamp() {
-            let nextTemplateIndex;
+            let nextStampTemplateIndex;
             do {
-                nextTemplateIndex = Math.floor(
-                    Math.random() * templates.length,
+                nextStampTemplateIndex = Math.floor(
+                    Math.random() * stampTemplates.length,
                 );
-            } while (nextTemplateIndex === lastTemplateIndex);
-            lastTemplateIndex = nextTemplateIndex;
-            return templates[nextTemplateIndex].cloneNode(true) as HTMLElement;
+            } while (
+                !recentStampTemplateIndices.includes(nextStampTemplateIndex)
+            );
+            recentStampTemplateIndices.shift();
+            recentStampTemplateIndices.push(nextStampTemplateIndex);
+            return stampTemplates[nextStampTemplateIndex].cloneNode(
+                true,
+            ) as HTMLElement;
         }
 
         function createNewStamp(e: { clientX: number; clientY: number }) {
