@@ -55,7 +55,12 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
 </style>
 
 <script>
-    import * as mapLibreGL from "maplibre-gl";
+    import type {
+        GeoJSONSource,
+        GeoJSONFeatureId,
+        MapGeoJSONFeature,
+    } from "maplibre-gl";
+    import { Map as MapLibre } from "maplibre-gl";
     import type { GeoJSONFalafelFeature } from "../pages/falafel.geojson";
     import {
         addMapFalafelFocusListener,
@@ -64,12 +69,8 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
 
     const minZoom = 2;
     const maxZoom = 18;
-    const initialPosition: Pick<mapLibreGL.MapOptions, "center" | "zoom"> = {
-        center: [-0.1, 51.5],
-        zoom: 10,
-    };
 
-    const map = new mapLibreGL.Map({
+    const map = new MapLibre({
         container: "map",
         // style: "https://tiles.versatiles.org/assets/styles/colorful/style.json",
         // style: "https://demotiles.maplibre.org/style.json",
@@ -96,7 +97,8 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
 
         maxZoom,
         minZoom,
-        ...initialPosition,
+        center: [-0.1, 51.5],
+        zoom: 10,
         fadeDuration: 0,
         attributionControl: false,
     });
@@ -136,9 +138,7 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
             }
         >;
 
-        const falafelSource = map.getSource(
-            "falafel",
-        ) as mapLibreGL.GeoJSONSource;
+        const falafelSource = map.getSource("falafel") as GeoJSONSource;
         const falafelFeatures = (await falafelSource.getData())
             .features as GeoJSONFalafelFeature[];
         const falafelDict: FalafelEntryDict = {};
@@ -234,7 +234,7 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
                 layers: ["wraps"],
             });
             const clusterId = features[0].properties.cluster_id;
-            const source = map.getSource("falafel") as mapLibreGL.GeoJSONSource;
+            const source = map.getSource("falafel") as GeoJSONSource;
 
             const zoom = await source.getClusterExpansionZoom(clusterId);
             const extraZoom = (maxZoom - zoom) * 0.2;
@@ -282,10 +282,8 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
             }
         });
 
-        let hoverFeatureId: mapLibreGL.GeoJSONFeatureId | null = null;
-        function updateHover(e?: {
-            features?: mapLibreGL.MapGeoJSONFeature[];
-        }) {
+        let hoverFeatureId: GeoJSONFeatureId | null = null;
+        function updateHover(e?: { features?: MapGeoJSONFeature[] }) {
             if (hoverFeatureId) {
                 map.setFeatureState(
                     { source: "falafel", id: hoverFeatureId },
