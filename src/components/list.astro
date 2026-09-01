@@ -109,7 +109,6 @@ const aboutHref = new URL("about", Astro.site).toString();
                                                 <p>
                                                     {p
                                                         .split(entry.name)
-                                                        .filter(Boolean)
                                                         .map((p, i) => (
                                                             <>
                                                                 {i > 0 && (

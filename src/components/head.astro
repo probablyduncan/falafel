@@ -4,7 +4,7 @@ import "../styles/global.css";
 import Favicons from "./favicons.astro";
 
 interface Props {
-    title?: string;
+    title: string;
     description?: string;
     image?: string;
 }
@@ -12,7 +12,7 @@ interface Props {
 const { length: numWraps } = getFalafel();
 
 const {
-    title = "Duncan’s Wrap Map",
+    title,
     description = `All of the falafel wraps I have loved (there are ${numWraps} of them). Each is rated on a scale of one (bad) to five (good).`,
     image = "/cover.png",
 } = Astro.props;
