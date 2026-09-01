@@ -2,6 +2,7 @@
 import WrapMap from "./wrap-map.astro";
 import { getDateEatenText } from "../lib/dateHelpers";
 import getFalafel from "../lib/falafelLoader";
+import { getOrdinal } from "../lib/textHelpers";
 
 const falafel = getFalafel();
 
@@ -16,14 +17,6 @@ const aboutHref = new URL("about", Astro.site).toString();
 
 <div class="wide-bar"></div>
 <main class="wrapper">
-    <!-- <nav>
-        <button data-top>top</button>
-        <span
-            ><span data-current-number>{falafel.length}</span> of {
-                falafel.length
-            }</span
-        >
-    </nav> -->
     <div class="list">
         <div class="text">
             <h2>
@@ -65,18 +58,20 @@ const aboutHref = new URL("about", Astro.site).toString();
                     falafel.entryArr
                         .slice(0, falafel.length)
                         .map((entry, index) => {
-                            const number = (falafel.length - index)
+                            const number = falafel.length - index;
+                            const numberText = (falafel.length - index)
                                 .toString()
                                 .padStart(
                                     1 + Math.floor(Math.log10(falafel.length)),
                                     "0",
                                 );
+                            const ordinalText = getOrdinal(number);
                             const dateEatenText = getDateEatenText(entry);
                             return (
                                 <li
                                     id={entry.cacheKey}
                                     data-entry={number}
-                                    title={`Click to see ${entry.name} on the map!`}
+                                    title={`click to see ${entry.name} on the map!`}
                                 >
                                     <div
                                         class="morse kyroh"
@@ -85,7 +80,7 @@ const aboutHref = new URL("about", Astro.site).toString();
                                         {morse} {morse} {morse} {morse} {morse}
                                     </div>
                                     <div class="entry-header">
-                                        <div class="number">[{number}]</div>
+                                        <div class="number" title={`the ${number}${ordinalText} wrap!`}>[{numberText}]</div>
                                         <div class="row">
                                             <h3 class="name">{entry.name}</h3>
                                         </div>
@@ -159,32 +154,6 @@ const aboutHref = new URL("about", Astro.site).toString();
         --grab-bar-overhang: 1rem;
         --grab-bar-height: calc(var(--grab-bar-overhang) + 3rem);
     }
-
-    /* nav {
-        position: sticky;
-        top: 0;
-        color: var(--color-white);
-        background-color: var(--color-black);
-        padding: 0.5rem 0.5rem 0.4rem;
-        z-index: 5;
-        display: flex;
-        justify-content: space-between;
-        font-feature-settings: "tnum";
-
-        font-style: italic;
-        font-weight: bold;
-
-        button {
-            background-color: unset;
-            border-radius: unset;
-            border: unset;
-            font-family: unset;
-            font-size: unset;
-            font-weight: unset;
-            font-style: unset;
-            color: unset;
-        }
-    } */
 
     .map {
         height: var(--map-height);
@@ -365,6 +334,11 @@ const aboutHref = new URL("about", Astro.site).toString();
         grid-row-start: 1;
         grid-row-end: 3;
         text-shadow: var(--yellow-shadow);
+
+        sup {
+            margin-bottom: 1em;
+            font-size: 0.5em;
+        }
     }
 
     .name {
@@ -505,40 +479,6 @@ const aboutHref = new URL("about", Astro.site).toString();
                 wrapper.scrollIntoView();
             });
         });
-
-        // let visibleEntries = new Set<number>();
-        // const currentNumberContainers = document.querySelectorAll(
-        //     "[data-current-number]",
-        // );
-        // const observer = new IntersectionObserver(
-        //     (entries) => {
-        //         entries.forEach((entry) => {
-        //             const target = entry.target as HTMLElement;
-        //             const num = parseInt(
-        //                 (target.closest("[data-entry]") as HTMLElement).dataset
-        //                     .entry ?? "0",
-        //             );
-        //             if (entry.isIntersecting && target.checkVisibility()) {
-        //                 visibleEntries.add(num);
-        //             } else {
-        //                 visibleEntries.delete(num);
-        //             }
-        //         });
-
-        //         if (visibleEntries.size > 0) {
-        //             const max = Math.max(...visibleEntries).toString();
-        //             currentNumberContainers.forEach((c) => {
-        //                 (c as HTMLElement).innerText = max;
-        //             });
-        //         }
-        //     },
-        //     {
-        //         threshold: 0.5,
-        //     },
-        // );
-        // document
-        //     .querySelectorAll("[data-entry] .number")
-        //     .forEach((e) => observer.observe(e));
     }
 
     document.addEventListener("DOMContentLoaded", initList);

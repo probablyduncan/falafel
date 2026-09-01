@@ -371,19 +371,17 @@ const stamps = getStampComponents();
             }
         }
 
-        let recentStampTemplateIndices = Array(
+        let recentStampTemplateIndices: number[] = Array(
             Math.floor(stampTemplates.length / 2),
         ).fill(-1);
-        
+
         function getRandomStamp() {
-            let nextStampTemplateIndex;
+            let nextStampTemplateIndex: number;
             do {
                 nextStampTemplateIndex = Math.floor(
                     Math.random() * stampTemplates.length,
                 );
-            } while (
-                !recentStampTemplateIndices.includes(nextStampTemplateIndex)
-            );
+            } while (recentStampTemplateIndices.includes(nextStampTemplateIndex));
             recentStampTemplateIndices.shift();
             recentStampTemplateIndices.push(nextStampTemplateIndex);
             return stampTemplates[nextStampTemplateIndex].cloneNode(

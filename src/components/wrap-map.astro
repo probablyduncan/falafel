@@ -17,7 +17,7 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
         background: url("/map_bg-static_3.png");
         image-rendering: pixelated;
         background-size: 200px;
-        background-repeat: round;
+        background-repeat: repeat;
         animation: bg-wiggle 0.4s infinite step-start;
     }
 
@@ -25,12 +25,10 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
         0% {
             background-position: 0%;
             background-size: 200px;
-            background-repeat: round;
         }
         25% {
             background-position: 60% 10%;
             background-size: -200px 200px;
-            background-repeat: repeat;
         }
         50% {
             background-position: 20% 80%;
@@ -43,7 +41,6 @@ interface Props extends Omit<HTMLAttributes<"div">, "id"> {}
         100% {
             background-position: 0%;
             background-size: 200px;
-            background-repeat: round;
         }
     }
 
