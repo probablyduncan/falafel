@@ -183,13 +183,10 @@ const stamps = getStampComponents();
         justify-content: center;
         align-items: center;
         overflow: clip;
-
-        /* background: url("/map_bg-static_3.png"), radial-gradient(closest-side, #442a2d, #210c0c); */
-        /* background-blend-mode: hard-light; */
         background:
             radial-gradient(closest-side, #442a2d, #210c0c),
             url("/map_bg-static_3.png");
-        background-blend-mode: overlay;
+        background-blend-mode: hard-light;
         image-rendering: pixelated;
 
         border-bottom: 0.25rem groove var(--color-yellow);
