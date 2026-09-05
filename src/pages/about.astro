@@ -1,0 +1,355 @@
+---
+import Head from "../components/head.astro";
+import getFalafel from "../lib/falafelLoader";
+
+const falafel = getFalafel();
+
+const writeDateString = "4 Sep 2026";
+---
+
+<!doctype html>
+<html lang="en">
+    <Head title="About Duncan’s Wrap Map" />
+    <body>
+        <main class="text-container">
+            <header>
+                <nav>
+                    <span>
+                        <a href="/" title="back! to the home page"
+                            >https://falafel.fyi</a
+                        >
+                        &nbsp;/&nbsp;
+                        <h1>
+                            <a
+                                href={"/about"}
+                                title={"about falafel.fyi (you're already here!)"}
+                                >about</a
+                            >
+                        </h1>
+                    </span>
+                    <span title={writeDateString}
+                        >{writeDateString.replaceAll("0", "o")}</span
+                    >
+                </nav>
+            </header>
+            <article>
+                <p>
+                    This is a list of all the places I’ve eaten falafel wraps.
+                    There are <strong>{falafel.length}</strong> of them. Just one
+                    more and then I’ll be happy, right?
+                </p>
+                <p>
+                    I’ve eaten a lot of falafel in my time. I’ve done other
+                    things, too. I’ve picked gooseberries in the summer sun,
+                    climbed mountains in the driving rain, and seen whales
+                    breach the surface of the desperate North Atlantic. I’ve
+                    laughed, and cried, and loved, and lost. I’ve even made
+                    websites. But if nothing else, I’ve eaten a <strong
+                        >lot</strong
+                    > of falafel wraps. And I’ve enjoyed almost every one.
+                </p>
+                <p>
+                    I haven’t been to Egypt, or Palestine, or Lebanon, or Yemen,
+                    or Israel. I probably haven’t had real falafel. Critics will
+                    denounce me for a falafel map that’s mostly set in England.
+                    And they’ll be right. I’m a faux-falafel philistine, a
+                    Levantine lout, a Coptic cheat. I’m eating fake falafel, fib
+                    falafel, fraud falafel. My falafel is pantomime falafel,
+                    costume falafel. I’m watching shadows of falafel on the wall
+                    of Plato’s cave, and I have the audacity to make a website
+                    called <a href="/" title="https://falafel.fyi"
+                        >https://falafel.fyi</a
+                    >.
+                </p>
+                <h2>How to use this website</h2>
+                <p>
+                    I’ve had people (friends, even) tell me this map is useless.
+                    What’s the point of falafel reviews if they’re all Five
+                    Stars?
+                </p>
+                <p>
+                    That’s the conceit of the map, of course. Every falafel wrap
+                    is a good falafel wrap.
+                </p>
+                <p>
+                    This isn’t a selective list. Some of the falafel here is
+                    better, and some of it is worse. If I eat a falafel wrap, it
+                    goes on the falafel map.
+                </p>
+                <p>
+                    It’s not a checklist, or a best-of, or a watch mojo top 10.
+                    It’s a map. If you’re somewhere on Earth and you’re feeling
+                    peckish, check the map! There might be falafel nearby.
+                </p>
+                <p>
+                    You can read the review! If it’s really bad, I probably say
+                    that. If it’s really good, I probably say that too.
+                </p>
+                <p>
+                    Best-of lists are a false promise, I think. A shortcut
+                    without a view. You think you can just eat the best falafel
+                    and be done with it? Here’s a horrible fact: most falafel
+                    wraps are pretty good. If you stick to street vendors, food
+                    trucks, and family restaurants, chances are you’ll like your
+                    falafel. And what if you don’t? Who cares? There are joys in
+                    every soggy crevice. You’ve tried, you’ve learned, you’ve
+                    lived.
+                </p>
+                <p>
+                    Imagine: it is the incandescent underbelly of the night. You
+                    are hungry, or, rather, you could eat, and you find yourself
+                    in the womblike embrace of a midnight falafel shop. The
+                    people inside are arguing about stamp duty and football and
+                    how on earth they'll get home now that the trains aren’t
+                    running. You pay for a falafel wrap, off a menu where
+                    falafel is clearly an afterthought. Everyone else is eating
+                    lamb. It’s not nuanced falafel, and if it was noon you’d be
+                    more critical. But it’s salty and fatty and acidic and hot,
+                    and you could knock someone unconscious with the heft of it,
+                    and it’s exactly what you’ve needed ever since you forgot to
+                    eat dinner eight hours ago. Sounds like five stars to you.
+                </p>
+                <p>
+                    Imagine: you’ve just run home from the falafel shop, wrap in
+                    hand like a relay baton, and when you tear open the paper
+                    you find that the force of your stride, the momentum of your
+                    pumping arms, has upset the wrap’s delicate ecosystem, and
+                    that the wrap is now dry, drained of tahini, that all the
+                    sauce has filtered down through falafel and pooled at the
+                    buckled-up bottom of the wrap. You smile at the fluid
+                    dynamics of it, the gravity of the situation, the laws of
+                    physics made real, and when you’re done eating your dry wrap
+                    you drink the sauce like broth from folds of the soggy wax
+                    paper, content in the knowledge that the meal will be whole
+                    once more in your stomach.
+                </p>
+                <p>
+                    Imagine you're sitting on the edge of the quay, and the sun
+                    has almost set. You had lunch hours ago, and you meant to
+                    have dinner, really, you did, but here you are, a few pints
+                    deep in a city you don't know, and you've just left the
+                    meet-and-greet. On the way back to the hostel you saw
+                    Falafel King, or Count Falafel, or Falafel Czar, or
+                    something like that, and it did not look good, you remember
+                    thinking, but the smell was so warm and the sign was so
+                    flashing and you were so hungry. So now here you are, at the
+                    edge of the quay, encircled by gulls in a city you do not
+                    know, and you're trying to peel the wrapping paper from the
+                    pitta bread, and it's not going well. Despite your
+                    scientific precision, your gymnastic understanding of the
+                    eating of the wrap, you can't do anything to prevent the
+                    bread from tearing. You knew it was too long on the grill.
+                    The man wrapped up your wrap in wax paper and threw it on
+                    the grill, and you knew it was too long when the card reader
+                    stuttered, and the seconds ticked by, and you had to shuffle
+                    through your pockets for cash, and the paper browned, fusing
+                    inwards, sealing itself against the bread, sealing your
+                    untoward fate. Sometimes you have the patience, or the desk
+                    space, to carefully extract a too-grilled wrap from its
+                    too-grilled paper wrapping, but now you have neither, and
+                    the gulls are getting closer, and your hands slip again,
+                    tear, and the hummus starts oozing, and you have to act
+                    fast. There is no other way.
+                </p>
+                <p>
+                    And then you are done. Falafel inhaled. You are picking bits
+                    of wax paper from your gums, and you are licking tahini from
+                    your lips, and despite yourself, you are smiling.
+                </p>
+                <p>
+                    Imagine you’ve just walked fifteen miles, a much noisier
+                    hike than you bargained for. The ramblers’ guide you found
+                    online didn’t mention that the route followed the M25. The
+                    pictures all faced outwards, to Hertfordshire, and not
+                    inwards, to the exhaust and the dust and the screaming
+                    lorries. There was fox-piss on the pavement, and cans of
+                    nitrous in the weeds, and nettles waist-high leaning into
+                    the trail. The blackberries you saw in the pictures, so
+                    plump, so ripe, were actually shriveled, all covered in
+                    soot. But now it is the end of the walk, and you have come
+                    to a town, spilled out from that harrowing path and into a
+                    public park where children are running in circles on the
+                    grass and a four-piece band is playing oldies. And of course
+                    they are - they’re oldies themselves. The singer is a
+                    grandpa, the pianist is a grandma, the drummer is an uncle’s
+                    uncle. You are so charmed, and the stress of the day, all
+                    the cortisol welled up in the cracks of your mind, starts to
+                    thin, and you exhale, and imagine yourself laying down in
+                    the grass. But you are hungry. Fifteen miles hungry. The
+                    blackberries you were promised were all covered in fumes,
+                    and the nuts you brought were gone by midmorning, and you
+                    must eat now, because if you don’t, you never will; you’ll
+                    sink into the earth and the grass will cover you whole and
+                    you’ll never get the train, then, you’ll never get home. And
+                    falafel, says Google Maps, falafel is only a hundred meters
+                    away. So you gather yourself. You scoop up your heart and
+                    your weary, pumping lungs, and you drag yourself to *Burger
+                    Inn Cafe Kebab & Restaurant*, which probably has pretty good
+                    food.
+                </p>
+                <p>
+                    It does not. The wrap is a dry, cold Tesco tortilla, filled
+                    with shredded carrot, a few balls of microwave falafel,
+                    sweet chili sauce, and more shredded carrot. Somehow, it is
+                    mostly air.
+                </p>
+                <p>
+                    But when you bite into it, you are in the grass, legs
+                    splayed out like pick-up-sticks, swept up by the breeze and
+                    the birdsong and the septuagenarian rock and roll, and you
+                    hardly notice how bad it is.
+                </p>
+                <hr />
+                <p>
+                    When you’re pushing the boundaries of what it means to be
+                    alive, how could anything <i>not</i> be five stars? There is beauty
+                    everywhere, if only you have the eyes to see. If only you have
+                    the tongue to taste. As Voltaire would say, this truly is the
+                    best of all possible worlds.
+                </p>
+            </article>
+        </main>
+    </body>
+</html>
+
+<style>
+    :root {
+        /* font-size: clamp(1.3125rem, 1.1951rem + 0.5872vi, 1.75rem); */
+    }
+
+    body {
+        display: grid;
+        grid-template-columns: 1fr auto 1.618fr;
+    }
+
+    main {
+        max-width: 45ch;
+        margin-bottom: 50svh;
+        grid-column: 2;
+        margin-inline: 1rem;
+        box-sizing: border-box;
+    }
+
+    header {
+        min-height: 50svh;
+
+        nav {
+            position: sticky;
+            top: 0;
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            @media screen and (max-width: 58ch) {
+                flex-direction: column;
+            }
+
+            h1 {
+                display: inline;
+            }
+
+            a:hover,
+            a:focus-visible {
+                text-decoration: underline;
+                text-decoration-thickness: 0.0875em;
+                text-underline-offset: 0.125em;
+            }
+
+            a:focus-visible,
+            a:active {
+                outline: none;
+                background-color: var(--color-yellow);
+            }
+        }
+    }
+
+    article {
+        h2 {
+            font-size: 1.618rem;
+            font-weight: 500;
+            margin-top: 50svh;
+        }
+
+        hr {
+            border: none;
+            height: 30svh;
+        }
+
+        p {
+            /* text-align: justify; */
+            hyphens: auto;
+            -ms-hyphens: auto;
+            -moz-hyphens: auto;
+            -webkit-hyphens: auto;
+
+            line-height: 1.5;
+            text-wrap: pretty;
+        }
+
+        :not(p) + p,
+        p:first-of-type {
+            text-indent: 4em;
+        }
+
+        p:last-of-type {
+            &::after {
+                content: "✴︎";
+                margin-left: 0.5ch;
+            }
+        }
+
+        strong {
+            font-family: var(--kyroh);
+            font-weight: normal;
+            font-style: normal;
+            line-height: 1;
+            text-shadow: var(--yellow-shadow);
+        }
+
+        em {
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        a:not(sup a) {
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+        }
+
+        a:not(sup a):hover,
+        a:not(sup a):focus-visible {
+            text-decoration: none;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            outline-color: var(--color-black);
+            outline-width: 0.1em;
+            outline-style: solid;
+            outline-offset: 0;
+            border-radius: 0.1em;
+        }
+
+        p:has(a:not(sup a):hover, a:not(sup a):focus-visible)::after {
+            content: "→";
+            font-family: var(--kyroh);
+            font-size: 1.5em;
+            display: inline-block;
+            transform: translate(0.14em, 0.27em) rotate(-30deg);
+            line-height: 0;
+            width: 0;
+            height: 0;
+        }
+
+        sup {
+            line-height: 0.5;
+            font-weight: 500;
+
+            a:hover,
+            a:focus-visible {
+                background-color: var(--color-yellow);
+                outline: none;
+                text-decoration: underline;
+            }
+        }
+    }
+</style>
