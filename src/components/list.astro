@@ -92,7 +92,10 @@ const aboutHref = new URL("about", Astro.site).toString();
                                             <a
                                                 href={entry.googleMapsUri}
                                                 class="address"
-                                                title={entry.address + " (Google Maps)"}
+                                                title={
+                                                    entry.address +
+                                                    " (Google Maps)"
+                                                }
                                                 target="_blank"
                                             >
                                                 {entry.address
@@ -163,7 +166,7 @@ const aboutHref = new URL("about", Astro.site).toString();
          * The value here is the initial resting position.
          */
         --map-open: 0.5;
-        --map-min: 12;
+        --map-min: 15;
         --map-max: 85;
         --map-height: calc(
             (
@@ -515,8 +518,9 @@ const aboutHref = new URL("about", Astro.site).toString();
         const mapOpen = new Lerp(SETTLE_HALF_LIFE_MS);
         mapOpen.reset(cssNumber("--map-open"));
 
-        const render = () =>
+        function render() {
             wrapper.style.setProperty("--map-open", mapOpen.current.toFixed(4));
+        }
 
         const animationController = new AnimationController(({ delta }) => {
             mapOpen.step(delta);
@@ -531,8 +535,11 @@ const aboutHref = new URL("about", Astro.site).toString();
             return mapOpen.current !== mapOpen.target;
         });
 
-        function settleAt(target: number) {
+        function settleAt(target: number, instant: boolean = false) {
             mapOpen.target = target;
+            if (instant) {
+                mapOpen.current = mapOpen.target;
+            }
             animationController.playIfPaused();
         }
 
@@ -613,10 +620,11 @@ const aboutHref = new URL("about", Astro.site).toString();
         // focus map on falafel when an entry is clicked
         document.querySelectorAll("[data-entry]").forEach((e) => {
             e.addEventListener("click", () => {
-                settleAt(Math.max(mapOpen.target, READING_POSITION));
+                settleAt(Math.max(mapOpen.target, READING_POSITION), true);
+                e.scrollIntoView({ behavior: "instant" });
                 setTimeout(() => {
                     focusMapFalafel(e.id);
-                }, 100);
+                }, 166.6666666667);
             });
         });
 
@@ -628,7 +636,7 @@ const aboutHref = new URL("about", Astro.site).toString();
             el.scrollIntoView({ behavior: "instant" });
 
             // shrink the map (never grow it) so the entry can be read
-            settleAt(Math.min(mapOpen.target, READING_POSITION));
+            settleAt(Math.min(mapOpen.target, READING_POSITION), true);
         });
     }
 
