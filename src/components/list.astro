@@ -17,8 +17,6 @@ const aboutHref = new URL("about", Astro.site).toString();
 
 <div class="wide-bar"></div>
 <main class="wrapper">
-    <WrapMap class="map" />
-    <div class="grab-bar"></div>
     <div class="list">
         <div class="text">
             <h2>
@@ -82,19 +80,21 @@ const aboutHref = new URL("about", Astro.site).toString();
                                         {morse} {morse} {morse} {morse} {morse}
                                     </div>
                                     <div class="entry-header">
-                                        <div class="number" title={`the ${number}${ordinalText} wrap!`}>[{numberText}]</div>
+                                        <div class="number" title={`the ${number}${ordinalText} wrap!`}>#{numberText}</div>
                                         <div class="row">
                                             <h3 class="name">{entry.name}</h3>
                                         </div>
                                         <div class="row">
-                                            <div
+                                            <a
+                                                href={entry.googleMapsUri}
                                                 class="address"
                                                 title={entry.address}
+                                                target="_blank"
                                             >
                                                 {entry.address
                                                     ?.split(" ")
                                                     .at(-1)}
-                                            </div>
+                                            </a>
                                             <div
                                                 class="stars"
                                                 title="five stars!"
@@ -139,6 +139,8 @@ const aboutHref = new URL("about", Astro.site).toString();
             </ul>
         </div>
     </div>
+    <div class="grab-bar"></div>
+    <WrapMap class="map" />
 </main>
 
 <style>
@@ -158,29 +160,19 @@ const aboutHref = new URL("about", Astro.site).toString();
         transition: height 0.2s;
         width: 100%;
         position: sticky;
-        top: 0;
+        bottom: 0;
+        margin-top: calc(100vh - var(--map-height) - 2rem);
         z-index: 4;
     }
 
     .list {
         z-index: 3;
         min-width: 0;
-        position: sticky;
-        top: var(--map-height);
     }
 
     li {
         scroll-margin-top: var(--map-height);
     }
-
-    /* .wide-bar {
-        width: 100%;
-        position: fixed;
-        height: 1.9rem;
-        background-color: var(--color-black);
-        bottom: 0;
-        z-index: 10;
-    } */
 
     .grab-bar {
         cursor: grab;
@@ -189,16 +181,16 @@ const aboutHref = new URL("about", Astro.site).toString();
         width: 100%;
         height: var(--grab-bar-height);
         background: linear-gradient(
-            to bottom,
+            to top,
             var(--color-white) 50%,
             transparent 100%
         );
         position: sticky;
-        top: calc(var(--map-height) - var(--grab-bar-overhang));
+        bottom: calc(var(--map-height) - var(--grab-bar-overhang));
         transition: top 0.2s;
-        border-top-left-radius: 1rem;
-        border-top-right-radius: 1rem;
-        margin-top: calc(-1 * var(--grab-bar-overhang));
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        margin-top: calc(100vh - var(--map-height) - 4rem - var(--grab-bar-overhang));
     }
 
     .grab-bar::after {
@@ -373,12 +365,6 @@ const aboutHref = new URL("about", Astro.site).toString();
 
     .entry-body {
         text-wrap: pretty;
-        /* text-align: justify;
-        -webkit-hyphens: auto;
-        -moz-hyphens: auto;
-        -ms-hyphens: auto;
-        hyphens: auto; */
-
         p:first-of-type::before {
             content: "→";
             font-family: var(--kyroh);
