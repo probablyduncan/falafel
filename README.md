@@ -2,13 +2,13 @@ falafel falafel
 
 this is a small-batch website, made with love and human hands
 
-blender
-falafel signs
-archive photographs? if I use them
-fonts
-google maps, reviews
-process
-atproto
+- blender
+- falafel signs
+- archive photographs? if I use them
+- fonts
+- google maps, reviews
+- process
+- atproto
 
 
 things to do:

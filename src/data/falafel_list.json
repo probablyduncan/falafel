@@ -1441,9 +1441,9 @@
       "dateSaved": "2026-08-25T17:55:25.000Z",
       "dateEaten": null,
       "dateEatenText": null,
-      "address": null,
-      "placeId": null,
-      "googleMapsUri": null
+      "address": "95 Lower Marsh, London",
+      "placeId": "places/ChIJI4bTp0sFdkgRCWBmxDHzgzk",
+      "googleMapsUri": "https://maps.google.com/?cid=4144423477184978953&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
     "1788468407": {
       "cacheKey": "1788468407",
@@ -1456,9 +1456,9 @@
       "dateSaved": "2026-09-03T20:46:47.000Z",
       "dateEaten": "2025-04-09",
       "dateEatenText": null,
-      "address": null,
-      "placeId": null,
-      "googleMapsUri": null
+      "address": "C. Mármoles, 10, Málaga",
+      "placeId": "places/ChIJowRNNUv3cg0RTp2RxMe2sU4",
+      "googleMapsUri": "https://maps.google.com/?cid=5670514374948789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     },
     "1791575022": {
       "cacheKey": "1791575022",
@@ -1471,9 +1471,9 @@
       "dateSaved": "2026-10-09T19:43:42.000Z",
       "dateEaten": null,
       "dateEatenText": null,
-      "address": null,
-      "placeId": null,
-      "googleMapsUri": null
+      "address": "8 St Augustine's Parade, Bristol",
+      "placeId": "places/ChIJxZvJxcONcUgR6fDp9rrgjEk",
+      "googleMapsUri": "https://maps.google.com/?cid=5299857955119296745&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     }
   }
 }
