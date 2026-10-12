@@ -79,7 +79,12 @@ const aboutHref = new URL("about", Astro.site).toString();
                                         {morse} {morse} {morse} {morse} {morse}
                                     </div>
                                     <div class="entry-header">
-                                        <div class="number" title={`the ${number}${ordinalText} wrap!`}>#{numberText}</div>
+                                        <div
+                                            class="number"
+                                            title={`the ${number}${ordinalText} wrap!`}
+                                        >
+                                            #{numberText}
+                                        </div>
                                         <div class="row">
                                             <h3 class="name">{entry.name}</h3>
                                         </div>
