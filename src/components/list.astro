@@ -92,7 +92,7 @@ const aboutHref = new URL("about", Astro.site).toString();
                                             <a
                                                 href={entry.googleMapsUri}
                                                 class="address"
-                                                title={entry.address}
+                                                title={entry.address + " (Google Maps)"}
                                                 target="_blank"
                                             >
                                                 {entry.address
@@ -349,6 +349,33 @@ const aboutHref = new URL("about", Astro.site).toString();
 
     .address {
         font-style: italic;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        position: relative;
+
+        &:hover,
+        &:focus-visible {
+            text-decoration: none;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            outline: 0.1em solid var(--color-black);
+            outline-offset: 0;
+            border-radius: 0.1em;
+
+            &::after {
+                content: "→";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                font-family: var(--kyroh);
+                font-size: 1.5em;
+                right: -1.125ch;
+                color: var(--color-black);
+                display: inline-block;
+                transform: translate(0.14em, 0.27em) rotate(-30deg);
+                line-height: 0;
+            }
+        }
     }
 
     .stars {
