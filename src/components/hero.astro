@@ -293,6 +293,10 @@ const stamps = getStampComponents();
         -webkit-user-select: none;
 
         cursor: grab;
+
+        /* touches that start on a stamp drag it instead of scrolling the page */
+        touch-action: none;
+        -webkit-touch-callout: none;
     }
 
     #stamps > :global(.active) {
@@ -311,6 +315,12 @@ const stamps = getStampComponents();
 </style>
 
 <script>
+    import { AnimationController } from "../lib/animationController";
+    import { Lerp } from "../lib/lerp";
+
+    /** touch/pen movement under this (px) still counts as a tap */
+    const TAP_SLOP_PX = 10;
+
     function initStamps() {
         const heroContainer = document.getElementById("hero")!;
         const stampTemplates = document.querySelectorAll(
@@ -322,24 +332,54 @@ const stamps = getStampComponents();
             return;
         }
 
-        interface Transform {
-            x: number;
-            y: number;
-        }
-
         interface StampState {
-            currentTransform: Transform;
-            targetTransform: Transform;
-            isAnimating: boolean;
+            element: HTMLElement;
+            x: Lerp;
+            y: Lerp;
+            isDragging: boolean;
             deactivateTimeoutId?: ReturnType<typeof setTimeout>;
         }
 
         const stamps: Record<string, StampState> = {};
+
+        // stamps that are being dragged, or are still catching up to the pointer
+        const animating = new Set<StampState>();
+
+        const animationController = new AnimationController(({ delta }) => {
+            for (const state of animating) {
+                state.x.step(delta);
+                state.y.step(delta);
+
+                state.element.style.setProperty(
+                    "--dx",
+                    `${state.x.current.toFixed(5)}px`,
+                );
+                state.element.style.setProperty(
+                    "--dy",
+                    `${state.y.current.toFixed(5)}px`,
+                );
+
+                if (!state.isDragging && state.x.isAtRest() && state.y.isAtRest()) {
+                    animating.delete(state);
+                    onAnimationStop(state);
+                }
+            }
+
+            // keep running until every stamp has settled
+            return animating.size > 0;
+        });
+
         for (let i = 0; i < stampContainer.children.length; i++) {
             const stamp = stampContainer.children[i] as HTMLElement;
             if (stamp) {
                 addStampToState(stamp);
             }
+        }
+
+        function createLerp(value: number) {
+            const lerp = new Lerp(50);
+            lerp.reset(value);
+            return lerp;
         }
 
         function addStampToState(
@@ -351,10 +391,18 @@ const stamps = getStampComponents();
                 element.id = `stamp-${Object.keys(stamps).length}`;
             }
             stamps[element.id] = {
-                currentTransform: { x, y },
-                targetTransform: { x, y },
-                isAnimating: false,
+                element,
+                x: createLerp(x),
+                y: createLerp(y),
+                isDragging: false,
             };
+        }
+
+        function onAnimationStop(state: StampState) {
+            clearTimeout(state.deactivateTimeoutId);
+            state.deactivateTimeoutId = setTimeout(() => {
+                state.element.classList.remove("active");
+            }, 166.6666666667);
         }
 
         function moveToFront(el: Node) {
@@ -418,8 +466,54 @@ const stamps = getStampComponents();
             return stamp;
         }
 
-        heroContainer.addEventListener("mousedown", (eDown) => {
-            if (eDown.button !== 0) {
+        /**
+         * A press on empty space with touch or pen might be the start of a page
+         * scroll, so those spawn a stamp on tap instead of on press: the stamp
+         * appears on release, unless the browser took over for a scroll
+         * (pointercancel) or the pointer moved too far to be a tap.
+         */
+        function spawnStampOnTap(eDown: PointerEvent) {
+            const abortController = new AbortController();
+            const { signal } = abortController;
+
+            document.addEventListener(
+                "pointermove",
+                (eMove) => {
+                    if (eMove.pointerId !== eDown.pointerId) return;
+                    if (
+                        Math.hypot(
+                            eMove.clientX - eDown.clientX,
+                            eMove.clientY - eDown.clientY,
+                        ) > TAP_SLOP_PX
+                    ) {
+                        abortController.abort();
+                    }
+                },
+                { signal },
+            );
+
+            function onPointerEnd(eEnd: PointerEvent) {
+                if (eEnd.pointerId !== eDown.pointerId) return;
+                abortController.abort();
+
+                if (eEnd.type === "pointerup") {
+                    const stamp = createNewStamp(eDown);
+
+                    // same little pop as a mouse press, then settle
+                    stamp.classList.add("active");
+                    onAnimationStop(stamps[stamp.id]);
+                }
+            }
+
+            document.addEventListener("pointerup", onPointerEnd, { signal });
+            document.addEventListener("pointercancel", onPointerEnd, {
+                signal,
+            });
+        }
+
+        heroContainer.addEventListener("pointerdown", (eDown) => {
+            // left mouse button, or a touch/pen contact (ignores extra fingers)
+            if (eDown.button !== 0 || !eDown.isPrimary) {
                 return;
             }
 
@@ -434,9 +528,6 @@ const stamps = getStampComponents();
                 return;
             }
 
-            // for cancelling listeners and raf
-            const abortController = new AbortController();
-
             // get or create stamp
             if (stamp) {
                 moveToFront(stamp);
@@ -445,108 +536,86 @@ const stamps = getStampComponents();
                 if (!document.hasFocus()) {
                     return;
                 }
+
+                if (eDown.pointerType !== "mouse") {
+                    spawnStampOnTap(eDown);
+                    return;
+                }
                 stamp = createNewStamp(eDown);
             }
             const state = stamps[stamp.id];
 
+            // for cancelling listeners
+            const abortController = new AbortController();
+            const { signal } = abortController;
+
             // prevent dragging, etc
             eDown.preventDefault();
+            document.addEventListener("selectstart", (e) => e.preventDefault(), {
+                signal,
+            });
+            document.addEventListener("dragstart", (e) => e.preventDefault(), {
+                signal,
+            });
+
+            // keep receiving move/up events if the pointer leaves the window
+            heroContainer.setPointerCapture(eDown.pointerId);
 
             // state things
             const lastScroll = [window.scrollX, window.scrollY];
             const dragStart = [
-                eDown.clientX + window.scrollX - state.currentTransform.x,
-                eDown.clientY + window.scrollY - state.currentTransform.y,
+                eDown.clientX + window.scrollX - state.x.current,
+                eDown.clientY + window.scrollY - state.y.current,
             ];
 
             document.addEventListener(
-                "mousemove",
+                "pointermove",
                 (eMove) => {
-                    state.targetTransform.x =
+                    if (eMove.pointerId !== eDown.pointerId) return;
+
+                    state.x.target =
                         eMove.clientX + window.scrollX - dragStart[0];
-                    state.targetTransform.y =
+                    state.y.target =
                         eMove.clientY + window.scrollY - dragStart[1];
                 },
-                {
-                    signal: abortController.signal,
-                },
+                { signal },
             );
 
             document.addEventListener(
                 "scroll",
                 () => {
-                    state.targetTransform.x += window.scrollX - lastScroll[0];
-                    state.targetTransform.y += window.scrollY - lastScroll[1];
+                    state.x.target += window.scrollX - lastScroll[0];
+                    state.y.target += window.scrollY - lastScroll[1];
                     lastScroll[0] = window.scrollX;
                     lastScroll[1] = window.scrollY;
                 },
-                {
-                    signal: abortController.signal,
-                },
+                { signal },
             );
-
-            let prevFrameTimestamp = 0;
-            function getDelta(timestamp: DOMHighResTimeStamp) {
-                const delta =
-                    timestamp -
-                    (prevFrameTimestamp ? prevFrameTimestamp : timestamp);
-                prevFrameTimestamp = timestamp;
-                return delta;
-            }
-
-            function onAnimationStop() {
-                clearTimeout(state.deactivateTimeoutId);
-                state.deactivateTimeoutId = setTimeout(() => {
-                    stamp.classList.remove("active");
-                }, 166.6666666667);
-            }
-
-            function onDragStop() {
-                abortController.abort();
-                prevFrameTimestamp = 0;
-                state.isAnimating = false;
-            }
 
             function onDragStart() {
                 clearTimeout(state.deactivateTimeoutId);
-                stamp.classList.add("active");
-                state.isAnimating = true;
-                Object.assign(state.targetTransform, state.currentTransform);
-                requestAnimationFrame(animateMove);
+                state.element.classList.add("active");
+                state.isDragging = true;
+
+                // grabbing a stamp mid-glide stops it where it is
+                state.x.target = state.x.current;
+                state.y.target = state.y.current;
+
+                animating.add(state);
+                animationController.playIfPaused();
             }
 
-            function animateMove(timestamp: DOMHighResTimeStamp) {
-                const lerp = Math.min(1, getDelta(timestamp) * 0.0245);
-                state.currentTransform.x +=
-                    (state.targetTransform.x - state.currentTransform.x) * lerp;
-                state.currentTransform.y +=
-                    (state.targetTransform.y - state.currentTransform.y) * lerp;
+            function onDragStop(eEnd: PointerEvent) {
+                if (eEnd.pointerId !== eDown.pointerId) return;
+                abortController.abort();
 
-                stamp.style.setProperty(
-                    "--dx",
-                    `${state.currentTransform.x.toFixed(5)}px`,
-                );
-                stamp.style.setProperty(
-                    "--dy",
-                    `${state.currentTransform.y.toFixed(5)}px`,
-                );
-
-                if (
-                    state.isAnimating ||
-                    Math.abs(
-                        state.targetTransform.x - state.currentTransform.x,
-                    ) > 1 ||
-                    Math.abs(
-                        state.targetTransform.y - state.currentTransform.y,
-                    ) > 1
-                ) {
-                    requestAnimationFrame(animateMove);
-                } else {
-                    onAnimationStop();
-                }
+                // the stamp keeps gliding until it reaches the last target,
+                // then the animation loop removes it
+                state.isDragging = false;
             }
 
-            document.addEventListener("mouseup", onDragStop, { once: true });
+            document.addEventListener("pointerup", onDragStop, { signal });
+            document.addEventListener("pointercancel", onDragStop, { signal });
             onDragStart();
         });
     }
