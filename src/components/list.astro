@@ -156,8 +156,22 @@ const aboutHref = new URL("about", Astro.site).toString();
         min-height: 100lvh;
         border-top: 2px solid var(--color-map);
 
-        --map-open: 0;
-        --map-height: calc((30 + 35 * var(--map-open)) * 1lvh);
+        /*
+         * Map size. --map-open is 0 when the map is --map-min tall and 1 when
+         * it is --map-max tall (both in lvh, unitless). The script owns
+         * --map-open; while dragging it can briefly go below 0 or above 1.
+         * The value here is the initial resting position.
+         */
+        --map-open: 0.5;
+        --map-min: 12;
+        --map-max: 85;
+        --map-height: calc(
+            (
+                    var(--map-min) + (var(--map-max) - var(--map-min)) *
+                        var(--map-open)
+                ) *
+                1lvh
+        );
     }
 
     .list {
@@ -165,7 +179,7 @@ const aboutHref = new URL("about", Astro.site).toString();
     }
 
     li {
-        scroll-margin-top: var(--pad);
+        scroll-margin-top: var(--pad, 0);
     }
 
     .panel {
@@ -174,7 +188,6 @@ const aboutHref = new URL("about", Astro.site).toString();
         z-index: 4;
         margin-top: 60vw;
         height: var(--map-height);
-        transition: height 0.2s;
     }
 
     .map {
@@ -192,12 +205,17 @@ const aboutHref = new URL("about", Astro.site).toString();
         place-items: center;
         cursor: grab;
         touch-action: none;
+        user-select: none;
         background: linear-gradient(
             to top,
             var(--color-white) 50%,
             transparent 100%
         );
         border-radius: 0 0 1rem 1rem;
+    }
+
+    .grab-bar:active {
+        cursor: grabbing;
     }
 
     .grab-bar::after {
@@ -405,28 +423,173 @@ const aboutHref = new URL("about", Astro.site).toString();
 </style>
 
 <script>
+    import { AnimationController } from "../lib/animationController";
+    import { Lerp } from "../lib/lerp";
     import {
         addMapFalafelClickListener,
         focusMapFalafel,
     } from "../lib/mapEvents";
 
+    /*
+     * --map-open runs from 0 (map at its smallest, --map-min in the css) to
+     * 1 (map at its largest, --map-max). Releasing the grab bar snaps to one
+     * of these, so add, remove, or nudge values to taste. Keep them ascending.
+     * 0 = sliver of map, 1 = almost all map, in between = both visible.
+     */
+    const REST_POSITIONS = [0, 0.5, 1];
+
+    /** when jumping to an entry from the map, the map shrinks to at most this */
+    const READING_POSITION = REST_POSITIONS[1];
+
+    /** time to get halfway to the rest position after release */
+    const SETTLE_HALF_LIFE_MS = 80;
+
+    /** a release is thrown this far ahead (velocity * time) before picking the nearest rest position */
+    const FLING_PROJECTION_MS = 200;
+
+    /** past 0 or 1 the map follows the finger at this fraction, up to MAX_OVERSHOOT */
+    const OVERSHOOT_RESISTANCE = 0.25;
+    const MAX_OVERSHOOT = 0.1;
+
+    /** pointer movement under this (px) on release counts as a tap, not a drag */
+    const TAP_SLOP_PX = 6;
+
+    function resist(open: number) {
+        const resisted =
+            open < 0
+                ? open * OVERSHOOT_RESISTANCE
+                : open > 1
+                  ? 1 + (open - 1) * OVERSHOOT_RESISTANCE
+                  : open;
+        return Math.min(1 + MAX_OVERSHOOT, Math.max(-MAX_OVERSHOOT, resisted));
+    }
+
+    function nearestRest(open: number) {
+        return REST_POSITIONS.reduce((best, p) =>
+            Math.abs(p - open) < Math.abs(best - open) ? p : best,
+        );
+    }
+
+    function nextRest(open: number) {
+        const i = REST_POSITIONS.indexOf(nearestRest(open));
+        return REST_POSITIONS[(i + 1) % REST_POSITIONS.length];
+    }
+
     function initList() {
         const wrapper = document.querySelector(".wrapper") as HTMLElement;
+        const panel = document.querySelector(".panel") as HTMLElement;
         const grabBar = document.querySelector(".grab-bar") as HTMLElement;
 
-        function toggleMap(shouldBeOpen?: boolean) {
-            shouldBeOpen ??=
-                wrapper.style.getPropertyValue("--map-open") !== "1";
-            wrapper.style.setProperty("--map-open", shouldBeOpen ? "1" : "0");
+        const css = getComputedStyle(wrapper);
+        const cssNumber = (name: string) =>
+            parseFloat(css.getPropertyValue(name));
+
+        // start wherever the css says, so there's no jump on load
+        const mapOpen = new Lerp(SETTLE_HALF_LIFE_MS);
+        mapOpen.reset(cssNumber("--map-open"));
+
+        const render = () =>
+            wrapper.style.setProperty("--map-open", mapOpen.current.toFixed(4));
+
+        const animationController = new AnimationController(({ delta }) => {
+            mapOpen.step(delta);
+
+            // Lerp.isAtRest() uses a fixed 0.1 tolerance, which is far too
+            // coarse for a 0-1 range, so check here instead
+            if (Math.abs(mapOpen.target - mapOpen.current) < 0.001) {
+                mapOpen.fastForward();
+            }
+
+            render();
+            return mapOpen.current !== mapOpen.target;
+        });
+
+        function settleAt(target: number) {
+            mapOpen.target = target;
+            animationController.playIfPaused();
         }
 
-        // change map size on grab bar click
-        grabBar.addEventListener("click", () => toggleMap());
+        grabBar.addEventListener("pointerdown", (down) => {
+            if (down.button !== 0) return;
+
+            // pointer capture keeps move/up events coming even when the
+            // pointer leaves the grab bar or the window
+            grabBar.setPointerCapture(down.pointerId);
+
+            // grabbing the map mid-animation freezes it
+            mapOpen.target = mapOpen.current;
+
+            // lvh isn't a fixed number of px (mobile toolbars), so work out how
+            // many px of dragging equal 1.0 of --map-open from the rendered height
+            const min = cssNumber("--map-min");
+            const range = cssNumber("--map-max") - min;
+            const lvhPx =
+                panel.getBoundingClientRect().height /
+                (min + range * mapOpen.current);
+            const pxPerUnit = range * lvhPx;
+
+            const startY = down.clientY;
+            const startOpen = mapOpen.current;
+            let lastY = startY;
+            let lastT = down.timeStamp;
+            let velocity = 0; // --map-open units per ms
+            let moved = false;
+
+            const abort = new AbortController();
+            const { signal } = abort;
+
+            grabBar.addEventListener(
+                "pointermove",
+                (move) => {
+                    if (Math.abs(move.clientY - startY) > TAP_SLOP_PX) {
+                        moved = true;
+                    }
+
+                    const dt = move.timeStamp - lastT;
+                    if (dt > 0) {
+                        const v = (lastY - move.clientY) / pxPerUnit / dt;
+                        velocity = 0.5 * velocity + 0.5 * v;
+                        lastY = move.clientY;
+                        lastT = move.timeStamp;
+                    }
+
+                    // dragging up (smaller clientY) opens the map
+                    mapOpen.target = resist(
+                        startOpen + (startY - move.clientY) / pxPerUnit,
+                    );
+                    mapOpen.fastForward(); // follow the pointer exactly
+                    render();
+                },
+                { signal },
+            );
+
+            function end(up: PointerEvent) {
+                abort.abort();
+
+                if (!moved && up.type === "pointerup") {
+                    settleAt(nextRest(mapOpen.current));
+                    return;
+                }
+
+                // a pointer that stopped before release has no momentum
+                const idle = up.timeStamp - lastT > 100;
+                const projected =
+                    mapOpen.current +
+                    (idle ? 0 : velocity) * FLING_PROJECTION_MS;
+                settleAt(nearestRest(projected));
+            }
+
+            grabBar.addEventListener("pointerup", end, { signal });
+            grabBar.addEventListener("pointercancel", end, { signal });
+        });
 
         // focus map on falafel when an entry is clicked
         document.querySelectorAll("[data-entry]").forEach((e) => {
             e.addEventListener("click", () => {
-                focusMapFalafel(e.id);
+                settleAt(Math.max(mapOpen.target, READING_POSITION));
+                setTimeout(() => {
+                    focusMapFalafel(e.id);
+                }, 100);
             });
         });
 
@@ -436,14 +599,9 @@ const aboutHref = new URL("about", Astro.site).toString();
             if (!el) return;
 
             el.scrollIntoView({ behavior: "instant" });
-            toggleMap(false);
-        });
 
-        // scroll to top when top button is clicked
-        document.querySelectorAll("[data-top]").forEach((e) => {
-            e.addEventListener("click", () => {
-                wrapper.scrollIntoView();
-            });
+            // shrink the map (never grow it) so the entry can be read
+            settleAt(Math.min(mapOpen.target, READING_POSITION));
         });
     }
 
