@@ -3,7 +3,7 @@
   "description": "All of the falafel wraps I have loved. Each is rated on a scale of one (bad) to five (good).",
   "icon": "🧆",
   "googleMapsUri": "https://www.google.com/maps/placelists/list/44mcllfeROZvxnmw4BonXg",
-  "length": 98,
+  "length": 99,
   "entries": {
     "1771501038": {
       "cacheKey": "1771501038",
@@ -1474,6 +1474,21 @@
       "address": "8 St Augustine's Parade, Bristol",
       "placeId": "places/ChIJxZvJxcONcUgR6fDp9rrgjEk",
       "googleMapsUri": "https://maps.google.com/?cid=5299857955119296745&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+    },
+    "1791909777": {
+      "cacheKey": "1791909777",
+      "atprotoKey": "3mxsjuidzcl25",
+      "name": "Falafel Station",
+      "review": "You can work up an appetite on the way to finishing https://falafel.fyi. Lucky for me, it’s a stopping service, and I could get off at Falafel Station to regain my strength. Five stars.",
+      "lat": 51.5038899,
+      "lng": -0.0950424,
+      "dateUpdated": "2026-10-13T16:58:47.000Z",
+      "dateSaved": "2026-10-13T16:42:57.000Z",
+      "dateEaten": null,
+      "dateEatenText": null,
+      "address": "Union St, London",
+      "placeId": "places/ChIJw-OXImAFdkgRPqaLJAUjJec",
+      "googleMapsUri": "https://maps.google.com/?cid=16655757301894587966&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
     }
   }
 }
