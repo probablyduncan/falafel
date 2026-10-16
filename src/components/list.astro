@@ -3,6 +3,8 @@ import WrapMap from "./wrap-map.astro";
 import { getDateEatenText } from "../lib/dateHelpers";
 import getFalafel from "../lib/falafelLoader";
 import { getOrdinal } from "../lib/textHelpers";
+import { Content as Intro } from "../data/intro.mdx";
+import Link from "./mdx/link.astro";
 
 const falafel = getFalafel();
 
@@ -12,46 +14,12 @@ const morse = "ssls sl slss sl ssls s slss"
     .replaceAll("s", "-")
     .replaceAll("l", "—");
 
-const aboutHref = new URL("about", Astro.site).toString();
 ---
 
 <main class="wrapper">
     <div class="list">
         <div class="text">
-            <h2>
-                These are all the places that I have <strong
-                    >*Eaten Falafel*</strong
-                >
-            </h2>
-            <p>
-                Welcome to <strong>falafel.fyi</strong>, a weird little
-                microblog about my favorite kind of ball. Every time I order a <em
-                    >falafel wrap</em
-                > from a new cart, cafe, or restaurant, I write a little review, and
-                put it here.
-            </p>
-            <p>
-                There are currently <strong>{falafel.length} (!)</strong> of them.
-            </p>
-            <p>
-                For <em>more information</em> about my love of falafel wraps, why
-                they’re all rated five stars, and how I built this website, navigate
-                your <em>internet browser</em> to <a
-                    href="/about"
-                    title={aboutHref}>{aboutHref}</a
-                >.
-            </p>
-            <p>
-                If you prefer Google Maps, these reviews are also available as <span
-                    class="nowrap"
-                    >a <a
-                        href={falafel.googleMapsUri}
-                        title={`view the Wraps / in Google Maps`}
-                        target="_blank">saved list</a
-                    >.</span
-                >
-            </p>
-            <p>Enjoy your stay!</p>
+            <Intro num={falafel.length} about={new URL("about", Astro.site).toString()} components={{ a: Link }} />
             <ul>
                 {
                     falafel.entryArr
@@ -231,19 +199,38 @@ const aboutHref = new URL("about", Astro.site).toString();
 
     .text {
         padding: 1rem;
-    }
 
-    h2 {
-        font-size: 10vw;
-        font-weight: bold;
-        text-align: center;
-        text-wrap: balance;
-        margin-block: 2rem;
-    }
+        :global(h2) {
+            font-size: 10vw;
+            font-weight: bold;
+            text-align: center;
+            text-wrap: balance;
+            margin-block: 2rem;
+        }
 
-    h2,
-    p {
-        strong {
+        :global(h2 + p)::before {
+            content: "";
+            background-image: url("/falafel_stamp.png");
+            background-size: contain;
+            image-rendering: pixelated;
+            filter: drop-shadow(0.05em 0.1em 0 #0004)
+                drop-shadow(0 0.1em 2px #0004) drop-shadow(0.05em 0 2px #0004);
+            display: inline-block;
+            width: 0.8em;
+            aspect-ratio: 1;
+            margin-right: 3em;
+            transform: translateY(0.05em);
+        }
+
+        :global(h2 ~ p:last-of-type)::after {
+            content: "w";
+            font-family: var(--kyroh);
+            font-feature-settings: "ss01";
+            margin-left: 1em;
+            text-shadow: 0.04em 0.08em 0 var(--color-yellow);
+        }
+
+        :global(strong) {
             font-family: var(--kyroh);
             font-weight: normal;
             font-style: normal;
@@ -251,18 +238,17 @@ const aboutHref = new URL("about", Astro.site).toString();
             text-shadow: var(--yellow-shadow);
         }
 
-        em {
+        :global(em) {
             font-weight: bold;
             font-style: normal;
         }
 
-        a {
+        :global(a) {
             text-decoration: underline;
             text-decoration-thickness: 2px;
         }
 
-        a:hover,
-        a:focus-visible {
+        :global(a:hover, a:focus-visible) {
             text-decoration: none;
             background-color: var(--color-black);
             color: var(--color-white);
@@ -271,7 +257,7 @@ const aboutHref = new URL("about", Astro.site).toString();
             border-radius: 0.1em;
         }
 
-        &:has(a:hover, a:focus-visible)::after {
+        :global(p:has(a:hover, a:focus-visible)::after) {
             content: "→";
             font-family: var(--kyroh);
             font-size: 1.5em;
@@ -281,32 +267,6 @@ const aboutHref = new URL("about", Astro.site).toString();
             width: 0;
             height: 0;
         }
-
-        .nowrap {
-            white-space: pre;
-        }
-    }
-
-    h2 + p::before {
-        content: "";
-        background-image: url("/falafel_stamp.png");
-        background-size: contain;
-        image-rendering: pixelated;
-        filter: drop-shadow(0.05em 0.1em 0 #0004) drop-shadow(0 0.1em 2px #0004)
-            drop-shadow(0.05em 0 2px #0004);
-        display: inline-block;
-        width: 0.8em;
-        aspect-ratio: 1;
-        margin-right: 3em;
-        transform: translateY(0.05em);
-    }
-
-    h2 ~ p:last-of-type::after {
-        content: "w";
-        font-family: var(--kyroh);
-        font-feature-settings: "ss01";
-        margin-left: 1em;
-        text-shadow: 0.04em 0.08em 0 var(--color-yellow);
     }
 
     /* Entries */
@@ -443,11 +403,10 @@ const aboutHref = new URL("about", Astro.site).toString();
 
         .text {
             padding: 0;
-        }
-
-        h2 {
-            font-size: 3.14vw;
-            text-align: left;
+            :global(h2) {
+                font-size: 3.14vw;
+                text-align: left;
+            }
         }
     }
 </style>

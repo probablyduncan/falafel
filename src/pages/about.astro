@@ -61,7 +61,7 @@ const writeDateString = "12 Oct 2026";
                         >https://falafel.fyi</a
                     >.
                 </p>
-                <h2>How to use this website</h2>
+                <h2 data-number="2">How to use this website</h2>
                 <p>
                     I’ve had people (friends, even) tell me this map is useless.
                     What’s the point of falafel reviews if they’re all Five
@@ -223,21 +223,18 @@ const writeDateString = "12 Oct 2026";
 </html>
 
 <style>
-    :root {
-        /* font-size: clamp(1.3125rem, 1.1951rem + 0.5872vi, 1.75rem); */
-    }
-
     body {
         display: grid;
         grid-template-columns: 1fr auto 1.618fr;
     }
 
     main {
-        max-width: 45ch;
+        max-width: 55ch;
         margin-bottom: 50svh;
         grid-column: 2;
         margin-inline: 1rem;
         box-sizing: border-box;
+        font-size: 0.618em;
     }
 
     header {
@@ -276,9 +273,15 @@ const writeDateString = "12 Oct 2026";
 
     article {
         h2 {
-            font-size: 1.618rem;
             font-weight: 500;
+            /* font-style: italic; */
             margin-top: 50svh;
+            &::before {
+                font-family: "Kyroh";
+                font-style: normal;
+                content: "(" attr(data-number) ") ";
+                text-shadow: var(--yellow-shadow);
+            }
         }
 
         hr {
@@ -288,13 +291,13 @@ const writeDateString = "12 Oct 2026";
 
         p {
             /* text-align: justify; */
-            hyphens: auto;
+            /* hyphens: auto;
             -ms-hyphens: auto;
             -moz-hyphens: auto;
-            -webkit-hyphens: auto;
+            -webkit-hyphens: auto; */
 
             line-height: 1.5;
-            text-wrap: pretty;
+            /* text-wrap: pretty; */
         }
 
         :not(p) + p,

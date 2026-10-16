@@ -1,0 +1,10 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<"a"> {}
+
+const { href, title } = Astro.props;
+const target = href?.toString().startsWith("http") ? "_blank" : "_self";
+
+---
+<a target={target} href={href} title={title ?? href?.toString() ?? ""}><slot /></a>
