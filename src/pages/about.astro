@@ -134,6 +134,7 @@ const writeDateString = "12 Oct 2026";
         p {
             line-height: 1.618;
             margin-block: 1.618em;
+            text-wrap: pretty;
         }
 
         strong {
@@ -147,6 +148,16 @@ const writeDateString = "12 Oct 2026";
             font-style: normal;
             line-height: 1;
             text-shadow: var(--yellow-shadow);
+        }
+
+        :global(blockquote) {
+            border-inline-start: 0.25em solid var(--color-yellow);
+            margin-inline: 1em;
+            margin-block-end: 2.5em;
+            padding-inline: 2em;
+            font-style: italic;
+            font-size: 0.8em;
+            opacity: 0.8;
         }
 
         :global(sup) {
