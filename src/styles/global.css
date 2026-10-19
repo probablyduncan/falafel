@@ -9,8 +9,6 @@
     --color-yellow: #FAC96A;
     --color-map: #42513a;
 
-    --serif: "Times New Roman", Times, serif;
-    /* --sans: "Arial", sans-serif; */
     --sans: "Atkinson Hyperlegible Soft", "Arial", "Helvetica", sans-serif;
     --kyroh: "Kyroh", var(--sans);
     --comic: "Comic Sans MS", "Comic Sans", cursive;
@@ -19,15 +17,15 @@
     font-size: clamp(1rem, 2.5vw, 1.5rem);
 
     scroll-behavior: smooth;
-    background-color: var(--color-black);
+
+    background-color: var(--color-white);
+    color: var(--color-black);
 
     --yellow-shadow: 0.04em 0.08em 1px var(--color-yellow);
 }
 
 body {
     margin: unset;
-    color: var(--color-black);
-    background-color: var(--color-white);
 }
 
 * {
