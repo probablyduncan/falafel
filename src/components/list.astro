@@ -13,13 +13,16 @@ const morse = "ssls sl slss sl ssls s slss"
     .replaceAll(" ", " ")
     .replaceAll("s", "-")
     .replaceAll("l", "—");
-
 ---
 
 <main class="wrapper">
     <div class="list">
         <div class="text">
-            <Intro num={falafel.length} about={new URL("about", Astro.site).toString()} components={{ a: Link }} />
+            <Intro
+                num={falafel.length}
+                about={new URL("about", Astro.site).toString()}
+                components={{ a: Link }}
+            />
             <ul>
                 {
                     falafel.entryArr
@@ -133,7 +136,7 @@ const morse = "ssls sl slss sl ssls s slss"
          * --map-open; while dragging it can briefly go below 0 or above 1.
          * The value here is the initial resting position.
          */
-        --map-open: 0.5;
+        --map-open: 0;
         --map-min: 15;
         --map-max: 85;
         --map-height: calc(
@@ -346,8 +349,6 @@ const morse = "ssls sl slss sl ssls s slss"
     }
 
     .entry-body {
-        text-wrap: pretty;
-
         p:first-of-type::before {
             content: "→";
             font-family: var(--kyroh);
@@ -469,6 +470,9 @@ const morse = "ssls sl slss sl ssls s slss"
         const panel = document.querySelector(".panel") as HTMLElement;
         const grabBar = document.querySelector(".grab-bar") as HTMLElement;
 
+        const isMobileLayout = () =>
+            !window.matchMedia("(min-aspect-ratio: 1)").matches;
+
         const css = getComputedStyle(wrapper);
         const cssNumber = (name: string) =>
             parseFloat(css.getPropertyValue(name));
@@ -579,11 +583,7 @@ const morse = "ssls sl slss sl ssls s slss"
         // focus map on falafel when an entry is clicked
         document.querySelectorAll("[data-entry]").forEach((e) => {
             e.addEventListener("click", () => {
-                settleAt(Math.max(mapOpen.target, READING_POSITION), true);
-                e.scrollIntoView({ behavior: "instant" });
-                setTimeout(() => {
-                    focusMapFalafel(e.id);
-                }, 166.6666666667);
+                focusMapFalafel(e.id);
             });
         });
 
