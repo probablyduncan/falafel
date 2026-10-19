@@ -1,11 +1,10 @@
 ---
 import Head from "../components/head.astro";
 import getFalafel from "../lib/falafelLoader";
-import { Content, getHeadings } from "../data/about.mdx";
+import { Content } from "../data/about.mdx";
 import Link from "../components/mdx/link.astro";
 
 const falafel = getFalafel();
-const headings = getHeadings();
 ---
 
 <!doctype html>
@@ -20,7 +19,6 @@ const headings = getHeadings();
                 <h1 id="page">
                     <a href="/about" title="you are here!">about</a>
                 </h1>
-                <button id="heading-button" title="table of contents">{headings[0].slug}</button>
             </nav>
             <img id="scrollafel" src="/falafel_stamp.png" draggable="false" />
             <img id="wrap-bg" src="/wrap_menu_bg.webp" draggable="false" />
@@ -47,7 +45,8 @@ const headings = getHeadings();
     main,
     header {
         display: grid;
-        grid-template-columns: 1fr minmax(auto, 50ch) 1.618fr;
+        grid-template-columns: minmax(1rem, 1fr) minmax(auto, 50ch) minmax(1rem, 1.618fr);
+        border-bottom: 0.21em solid var(--color-yellow);
     }
 
     header {
@@ -57,9 +56,8 @@ const headings = getHeadings();
         right: 0;
         z-index: 100;
         background-color: var(--color-white);
-        padding-top: 0.4em;
-        padding-bottom: 0.3em;
-        border-bottom: 0.21em solid var(--color-yellow);
+        padding-top: 0.35em;
+        padding-bottom: 0.35em;
 
         nav {
             display: flex;
@@ -89,37 +87,12 @@ const headings = getHeadings();
             content: "/";
             margin-right: 0.5ch;
         }
-        #page::after {
-            content: "#";
-            margin-left: 0.5ch;
+
+        /* #page a::after {
+            content: attr(href);
             font-weight: normal;
-        }
-
-        #heading-button {
-            appearance: unset;
-            border: unset;
-            background-color: unset;
-            border-radius: unset;
-            font-size: unset;
-            font-family: unset;
-            padding: unset;
-            color: unset;
-
-            cursor: pointer;
             font-style: italic;
-            min-width: 4ch;
-            text-align: left;
-
-            &:hover,
-            &:focus-visible {
-                background-color: var(--color-yellow);
-                text-decoration: underline;
-                text-decoration-thickness: 0.0875em;
-                text-underline-offset: 0.125em;
-                text-decoration-skip-ink: none;
-                outline: none;
-            }
-        }
+        } */
 
         img {
             position: fixed;
@@ -166,7 +139,6 @@ const headings = getHeadings();
     article,
     nav {
         grid-column: 2;
-        margin-inline: 1rem;
     }
 
     article {
@@ -359,35 +331,35 @@ const headings = getHeadings();
 
     document.addEventListener("DOMContentLoaded", initScrollTracker);
 
-    function initHeadings() {
-        const headings =
-            document.querySelectorAll<HTMLHeadingElement>("article h2");
-        const headingDisplay = document.getElementById("heading-button")!;
+    // function initHeadings() {
+    //     const headings =
+    //         document.querySelectorAll<HTMLHeadingElement>("article h2");
+    //     const pageLink = document.querySelector<HTMLAnchorElement>("#page a")!;
 
-        if (headings.length < 2 || !headingDisplay) {
-            return;
-        }
+    //     if (headings.length < 2 || !pageLink) {
+    //         return;
+    //     }
 
-        function onScroll() {
-            const threshold = window.scrollY - window.innerHeight / 5;
-            let sectionIndex = 0;
-            for (let i = 1; i < headings.length; i++) {
-                if (headings[i].offsetTop > threshold) {
-                    break;
-                }
-                sectionIndex = i;
-            }
+    //     function onScroll() {
+    //         const threshold = window.scrollY - window.innerHeight / 5;
+    //         let sectionIndex = 0;
+    //         for (let i = 1; i < headings.length; i++) {
+    //             if (headings[i].offsetTop > threshold) {
+    //                 break;
+    //             }
+    //             sectionIndex = i;
+    //         }
 
-            // if (sectionIndex === 0) {
-            //     headingDisplay.innerText = "";
-            // } else {
-            headingDisplay.innerText = headings[sectionIndex].id;
-            // }
-        }
+    //         if (sectionIndex === 0) {
+    //             pageLink.href = "";
+    //         } else {
+    //             pageLink.href = "#" + headings[sectionIndex].id;
+    //         }
+    //     }
 
-        onScroll();
-        window.addEventListener("scroll", onScroll);
-    }
+    //     onScroll();
+    //     window.addEventListener("scroll", onScroll);
+    // }
 
-    document.addEventListener("DOMContentLoaded", initHeadings);
+    // document.addEventListener("DOMContentLoaded", initHeadings);
 </script>
