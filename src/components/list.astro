@@ -13,7 +13,7 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
     .replaceAll(".", "-");
 ---
 
-<main id="map" class="wrapper">
+<main id="main">
     <div class="list">
         <div class="text">
             <Intro
@@ -23,94 +23,68 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
             />
             <ul>
                 {
-                    falafel.entryArr
-                        .slice(0, falafel.length)
-                        .map((entry, index) => {
-                            const number = falafel.length - index;
-                            const numberText = (falafel.length - index)
-                                .toString()
-                                .padStart(
-                                    1 + Math.floor(Math.log10(falafel.length)),
-                                    "0",
-                                );
-                            const ordinalText = getOrdinal(number);
-                            const dateEatenText = getDateEatenText(entry);
-                            return (
-                                <li
-                                    id={entry.cacheKey}
-                                    data-entry={number}
-                                    title={`click to see ${entry.name} on the map!`}
-                                >
-                                    <div
-                                        class="morse kyroh"
-                                        role="presentation"
-                                    >
-                                        {morse} {morse} {morse} {morse} {morse}
-                                    </div>
-                                    <div class="entry-header">
-                                        <div
-                                            class="number"
-                                            title={`the ${number}${ordinalText} wrap!`}
-                                        >
-                                            #{numberText}
-                                        </div>
-                                        <div class="row">
-                                            <h3 class="name">{entry.name}</h3>
-                                        </div>
-                                        <div class="row">
-                                            <a
-                                                href={entry.googleMapsUri}
-                                                class="address"
-                                                title={
-                                                    entry.address +
-                                                    " (Google Maps)"
-                                                }
-                                                target="_blank"
-                                            >
-                                                {entry.address
-                                                    ?.split(" ")
-                                                    .at(-1)}
-                                            </a>
-                                            <div
-                                                class="stars"
-                                                title="five stars!"
-                                            >
-                                                ⭐⭐⭐⭐⭐
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="entry-body">
-                                        {entry.review
-                                            .split("\n")
-                                            .filter(Boolean)
-                                            .map((p) => (
-                                                <p>
-                                                    {p
-                                                        .split(entry.name)
-                                                        .map((p, i) => (
-                                                            <>
-                                                                {i > 0 && (
-                                                                    <strong>
-                                                                        {
-                                                                            entry.name
-                                                                        }
-                                                                    </strong>
-                                                                )}
-                                                                {p}
-                                                            </>
-                                                        ))}
-                                                </p>
-                                            ))}
-                                        <p class="date">
-                                            <>
-                                                <span>First eaten: </span>
-                                                <em>{dateEatenText}</em>.
-                                            </>
-                                        </p>
-                                    </div>
-                                </li>
+                    falafel.entryArr.map((entry, index) => {
+                        const number = falafel.length - index;
+                        const numberText = (falafel.length - index)
+                            .toString()
+                            .padStart(
+                                1 + Math.floor(Math.log10(falafel.length)),
+                                "0",
                             );
-                        })
+                        const ordinalText = getOrdinal(number);
+                        const dateEatenText = getDateEatenText(entry);
+                        return (
+                            <li
+                                id={entry.cacheKey}
+                                data-entry={number}
+                                title={`click to see ${entry.name} on the map!`}
+                            >
+                                <div class="morse kyroh" role="presentation">
+                                    {morse} {morse} {morse} {morse} {morse}
+                                </div>
+                                <div class="entry-header">
+                                    <div
+                                        class="number"
+                                        title={`the ${number}${ordinalText} wrap!`}
+                                    >
+                                        #{numberText}
+                                    </div>
+                                    <div class="row">
+                                        <h3 class="name">{entry.name}</h3>
+                                    </div>
+                                    <div class="row">
+                                        <a
+                                            href={entry.googleMapsUri}
+                                            class="address"
+                                            title={
+                                                entry.address + " (Google Maps)"
+                                            }
+                                            target="_blank"
+                                        >
+                                            {entry.address?.split(" ").at(-1)}
+                                        </a>
+                                        <div class="stars" title="five stars!">
+                                            ⭐⭐⭐⭐⭐
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="entry-body">
+                                    {entry.review
+                                        .split("\n")
+                                        .filter(Boolean)
+                                        .map((p) => (
+                                            <p>{p}</p>
+                                        ))}
+                                    <p class="date">
+                                        <>
+                                            <span>First eaten: </span>
+                                            <em>{dateEatenText}</em>.
+                                        </>
+                                    </p>
+                                </div>
+                            </li>
+                        );
+                    })
                 }
             </ul>
         </div>
@@ -122,11 +96,12 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
 </main>
 
 <style>
-    .wrapper {
+    #main {
         display: flex;
         flex-direction: column;
         min-height: 100lvh;
         border-top: 2px solid var(--color-map);
+        scroll-margin-top: 1.5rem;
 
         /** initial resting position - 0 is no map, 1 is full map */
         --map-open: 0;
@@ -360,7 +335,7 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
     }
 
     @media (min-aspect-ratio: 1) {
-        .wrapper {
+        #main {
             --pad: 1rem;
             --header-height: 1.9rem;
 
@@ -460,7 +435,7 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
     }
 
     function initList() {
-        const wrapper = document.querySelector(".wrapper") as HTMLElement;
+        const wrapper = document.querySelector("#main") as HTMLElement;
         const panel = document.querySelector(".panel") as HTMLElement;
         const grabBar = document.querySelector(".grab-bar") as HTMLElement;
 
