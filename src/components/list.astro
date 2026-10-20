@@ -101,6 +101,7 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
         <div class="grab-bar"></div>
         <WrapMap class="map" />
     </div>
+    <footer></footer>
 </main>
 
 <style>
@@ -456,6 +457,18 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
                 font-size: 3.14vw;
                 text-align: left;
             }
+        }
+    }
+
+    @media (max-aspect-ratio: 1) {
+        footer {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10000;
+            background-color: black;
+            height: 8px;
         }
     }
 </style>
