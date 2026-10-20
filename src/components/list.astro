@@ -16,11 +16,13 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
 <main id="main">
     <div class="list">
         <div class="text">
-            <Intro
-                num={falafel.length}
-                about={new URL("about", Astro.site).toString()}
-                components={{ a: Link }}
-            />
+            <section class="intro">
+                <Intro
+                    num={falafel.length}
+                    about={new URL("about", Astro.site).toString()}
+                    components={{ a: Link }}
+                />
+            </section>
             <ul>
                 {
                     falafel.entryArr.map((entry, index) => {
@@ -34,38 +36,39 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
                         const ordinalText = getOrdinal(number);
                         const dateEatenText = getDateEatenText(entry);
                         return (
-                            <li
-                                id={entry.cacheKey}
-                                data-entry={number}
-                                title={`click to see ${entry.name} on the map!`}
-                            >
+                            <li id={entry.cacheKey} data-entry={number}>
                                 <div class="morse kyroh" role="presentation">
                                     {morse} {morse} {morse} {morse} {morse}
                                 </div>
                                 <div class="entry-header">
-                                    <div
-                                        class="number"
-                                        title={`the ${number}${ordinalText} wrap!`}
-                                    >
-                                        #{numberText}
-                                    </div>
-                                    <div class="row">
-                                        <h3 class="name">{entry.name}</h3>
-                                    </div>
-                                    <div class="row">
-                                        <a
-                                            href={entry.googleMapsUri}
-                                            class="address"
-                                            title={
-                                                entry.address + " (Google Maps)"
-                                            }
-                                            target="_blank"
+                                    <div class="stars" title="five stars!">
+                                        <span
+                                            role="img"
+                                            aria-label="five stars"
                                         >
-                                            {entry.address?.split(" ").at(-1)}
-                                        </a>
-                                        <div class="stars" title="five stars!">
                                             ⭐⭐⭐⭐⭐
-                                        </div>
+                                            {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M128,189.09l54.72,33.65a8.4,8.4,0,0,0,12.52-9.17l-14.88-62.79,48.7-42A8.46,8.46,0,0,0,224.27,94L160.36,88.8,135.74,29.2a8.36,8.36,0,0,0-15.48,0L95.64,88.8,31.73,94a8.46,8.46,0,0,0-4.79,14.83l48.7,42L60.76,213.57a8.4,8.4,0,0,0,12.52,9.17Z" fill="var(--star-fill)" stroke="var(--star-stroke)" stroke-linecap="round" stroke-linejoin="round" stroke-width="var(--star-stroke-width)"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M128,189.09l54.72,33.65a8.4,8.4,0,0,0,12.52-9.17l-14.88-62.79,48.7-42A8.46,8.46,0,0,0,224.27,94L160.36,88.8,135.74,29.2a8.36,8.36,0,0,0-15.48,0L95.64,88.8,31.73,94a8.46,8.46,0,0,0-4.79,14.83l48.7,42L60.76,213.57a8.4,8.4,0,0,0,12.52,9.17Z" fill="var(--star-fill)" stroke="var(--star-stroke)" stroke-linecap="round" stroke-linejoin="round" stroke-width="var(--star-stroke-width)"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M128,189.09l54.72,33.65a8.4,8.4,0,0,0,12.52-9.17l-14.88-62.79,48.7-42A8.46,8.46,0,0,0,224.27,94L160.36,88.8,135.74,29.2a8.36,8.36,0,0,0-15.48,0L95.64,88.8,31.73,94a8.46,8.46,0,0,0-4.79,14.83l48.7,42L60.76,213.57a8.4,8.4,0,0,0,12.52,9.17Z" fill="var(--star-fill)" stroke="var(--star-stroke)" stroke-linecap="round" stroke-linejoin="round" stroke-width="var(--star-stroke-width)"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M128,189.09l54.72,33.65a8.4,8.4,0,0,0,12.52-9.17l-14.88-62.79,48.7-42A8.46,8.46,0,0,0,224.27,94L160.36,88.8,135.74,29.2a8.36,8.36,0,0,0-15.48,0L95.64,88.8,31.73,94a8.46,8.46,0,0,0-4.79,14.83l48.7,42L60.76,213.57a8.4,8.4,0,0,0,12.52,9.17Z" fill="var(--star-fill)" stroke="var(--star-stroke)" stroke-linecap="round" stroke-linejoin="round" stroke-width="var(--star-stroke-width)"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M128,189.09l54.72,33.65a8.4,8.4,0,0,0,12.52-9.17l-14.88-62.79,48.7-42A8.46,8.46,0,0,0,224.27,94L160.36,88.8,135.74,29.2a8.36,8.36,0,0,0-15.48,0L95.64,88.8,31.73,94a8.46,8.46,0,0,0-4.79,14.83l48.7,42L60.76,213.57a8.4,8.4,0,0,0,12.52,9.17Z" fill="var(--star-fill)" stroke="var(--star-stroke)" stroke-linecap="round" stroke-linejoin="round" stroke-width="var(--star-stroke-width)"/></svg> */}
+                                        </span>
+                                    </div>
+                                    <h3 class="title">
+                                        <>
+                                            <span class="number">
+                                                {number}.{" "}
+                                            </span>
+                                            <span
+                                                class="name"
+                                                title="show it on the map!"
+                                                data-focus-falafel
+                                                role="button"
+                                                tabindex="0"
+                                            >
+                                                {entry.name}
+                                            </span>
+                                        </>
+                                    </h3>
+                                    <div class="subtitle">
+                                        First eaten:{" "}
+                                        <time>{dateEatenText}</time>
                                     </div>
                                 </div>
                                 <div class="entry-body">
@@ -75,12 +78,17 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
                                         .map((p) => (
                                             <p>{p}</p>
                                         ))}
-                                    <p class="date">
-                                        <>
-                                            <span>First eaten: </span>
-                                            <em>{dateEatenText}</em>.
-                                        </>
-                                    </p>
+                                </div>
+                                <div class="entry-footer">
+                                    <a
+                                        class="address"
+                                        href={entry.googleMapsUri}
+                                        target="_blank"
+                                        rel="noopener"
+                                        title="see it in Google Maps!"
+                                    >
+                                        {entry.address}
+                                    </a>
                                 </div>
                             </li>
                         );
@@ -102,6 +110,7 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
         min-height: 100lvh;
         border-top: 2px solid var(--color-map);
         scroll-margin-top: 1.5rem;
+        overflow-x: clip;
 
         /** initial resting position - 0 is no map, 1 is full map */
         --map-open: 0;
@@ -171,8 +180,10 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
 
     .text {
         padding: 1rem;
+    }
 
-        :global(h2) {
+    .intro {
+        h2 {
             font-size: 10vw;
             font-weight: bold;
             text-align: center;
@@ -180,7 +191,7 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
             margin-block: 2rem;
         }
 
-        :global(h2 + p)::before {
+        h2 + :global(p)::before {
             content: "";
             background-image: url("/falafel_stamp.png");
             background-size: contain;
@@ -194,7 +205,7 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
             transform: translateY(0.05em);
         }
 
-        :global(h2 ~ p:last-of-type)::after {
+        h2 ~ :global(p):last-of-type::after {
             content: "w";
             font-family: var(--kyroh);
             font-feature-settings: "ss01";
@@ -202,7 +213,7 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
             text-shadow: 0.04em 0.08em 0 var(--color-yellow);
         }
 
-        :global(strong) {
+        strong {
             font-family: var(--kyroh);
             font-weight: normal;
             font-style: normal;
@@ -210,17 +221,22 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
             text-shadow: var(--yellow-shadow);
         }
 
-        :global(em) {
+        em {
             font-weight: bold;
             font-style: normal;
         }
 
-        :global(a) {
+        a {
             text-decoration: underline;
             text-decoration-thickness: 2px;
+
+            transition-duration: 0.34s;
+            transition-timing-function: steps(4);
+            transition: text-decoration;
         }
 
-        :global(a:hover, a:focus-visible) {
+        a:hover,
+        a:focus-visible {
             text-decoration: none;
             background-color: var(--color-black);
             color: var(--color-white);
@@ -229,19 +245,18 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
             border-radius: 0.1em;
         }
 
-        :global(p:has(a:hover, a:focus-visible)::after) {
+        p:has(a:hover, a:focus-visible)::after {
             content: "→";
             font-family: var(--kyroh);
             font-size: 1.5em;
             display: inline-block;
-            transform: translate(0.14em, 0.27em) rotate(-30deg);
             line-height: 0;
             width: 0;
             height: 0;
+            transform: translate(0.14em, 0.27em) rotate(-30deg);
         }
     }
 
-    /* Entries */
     ul {
         list-style: none;
         padding: unset;
@@ -255,69 +270,82 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
     }
 
     .entry-header {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        align-items: end;
-        line-height: 1;
-    }
-
-    .row {
         display: flex;
-        justify-content: space-between;
-        align-items: end;
+        flex-direction: column;
+        gap: 0.2em;
     }
 
-    .number {
-        grid-row: span 2;
-        margin-top: -0.05em;
-        margin-right: 0.25em;
-        font-size: 2.4em;
-        font-weight: bold;
-        font-feature-settings: "tnum";
-        text-shadow: var(--yellow-shadow);
+    .stars {
+        font-size: 1.2em;
+        line-height: 1;
+        letter-spacing: 0.05em;
+        margin-top: 0.4em;
+
+        /* svg {
+            --star-fill: alpha(from var(--color-yellow) / 0.25);
+            --star-stroke: var(--color-yellow);
+            --star-stroke-width: 20;
+            width: 1em;
+            filter: drop-shadow(var(--yellow-shadow)) sepia(0.2);
+        } */
     }
 
-    .name {
-        font-weight: bold;
+    .title {
+        font-size: 1.4em;
+        line-height: 1.15;
         text-wrap: balance;
-    }
+        overflow-wrap: anywhere;
+        font-weight: bold;
 
-    .address {
-        font-style: italic;
-        text-decoration: underline;
-        text-decoration-thickness: 2px;
-        position: relative;
+        .number {
+            color: alpha(from currentColor / 0.618);
+            text-shadow: var(--yellow-shadow);
+        }
+        .name {
+            text-shadow: var(--yellow-shadow);
+            cursor: pointer;
 
-        &:hover,
-        &:focus-visible {
-            text-decoration: none;
-            background-color: var(--color-black);
-            color: var(--color-white);
-            outline: 0.1em solid var(--color-black);
-            outline-offset: 0;
-            border-radius: 0.1em;
+            &:hover,
+            &:focus-visible {
+                text-decoration: underline;
+                position: relative;
+                color: alpha(from currentColor / 0.85);
+                outline-offset: 0.125em;
+                outline-width: 0.125em;
+                outline-color: currentColor;
 
-            &::after {
-                content: "→";
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                font-family: var(--kyroh);
-                font-size: 1.5em;
-                right: -1.125ch;
-                color: var(--color-black);
-                display: inline-block;
-                transform: translate(0.14em, 0.27em) rotate(-30deg);
-                line-height: 0;
+                &::after {
+                    content: "";
+                    background-image: url("/marker-icon.svg");
+                    filter: drop-shadow(var(--yellow-shadow));
+                    position: absolute;
+                    aspect-ratio: 1;
+                    width: 1.5ch;
+                    right: -1.85ch;
+                    bottom: -0.1ch;
+                }
             }
         }
     }
 
-    .stars {
-        display: none;
+    .subtitle {
+        font-size: 0.85em;
+        font-style: italic;
+        font-weight: bold;
+
+        color: alpha(from currentColor / 0.4);
+        time {
+            color: alpha(from currentColor / 0.5);
+        }
     }
 
     .entry-body {
+        font-size: 0.85rem;
+        p {
+            line-height: 1.618;
+            margin-block: 1.618em;
+        }
+
         p:first-of-type::before {
             content: "→";
             font-family: var(--kyroh);
@@ -325,12 +353,60 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
         }
     }
 
-    .date {
-        text-align: right;
-        opacity: 0.65;
+    .entry-footer {
+        display: grid;
+        grid-template-columns: auto 1fr;
 
-        span {
-            font-style: italic;
+        a.address {
+            grid-column: 1;
+            display: inline-block;
+            overflow-wrap: anywhere;
+            font-size: 0.7rem;
+            font-weight: 500;
+            line-height: 1.5;
+            padding: 0.5em 1em;
+
+            color: alpha(from currentColor / 0.8);
+            background-color: alpha(from var(--color-yellow) / 0.1);
+            border: 0.125em solid alpha(from var(--color-yellow) / 0.25);
+            border-radius: 0.5em;
+
+            &::before {
+                margin-right: 0.4em;
+                margin-left: -0.4em;
+                display: inline-block;
+                background-image: url("/trifold-icon.svg");
+                content: "";
+                aspect-ratio: 1;
+                width: 1.2em;
+                vertical-align: sub;
+            }
+
+            &::after {
+                content: "→";
+                font-family: var(--kyroh);
+                display: inline-block;
+                margin-left: 0.4em;
+                translate: 0.1em 0em;
+                rotate: -30deg;
+                scale: 1.5;
+            }
+
+            &:hover,
+            &:focus-visible {
+                text-decoration: underline;
+                text-decoration-thickness: 0.0875em;
+                text-underline-offset: 0.125em;
+                text-decoration-skip-ink: none;
+                outline: none;
+                border-color: currentColor;
+                &::after {
+                    content: "→";
+                    translate: 0.15em -0.1em;
+                    rotate: -45deg;
+                    scale: 1.8;
+                }
+            }
         }
     }
 
@@ -373,7 +449,10 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
 
         .text {
             padding: 0;
-            :global(h2) {
+        }
+
+        .intro {
+            h2 {
                 font-size: 3.14vw;
                 text-align: left;
             }
@@ -549,11 +628,13 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
             grabBar.addEventListener("pointercancel", end, { signal });
         });
 
-        // focus map on falafel when an entry is clicked
-        document.querySelectorAll("[data-entry]").forEach((e) => {
-            e.addEventListener("click", () => {
-                focusMapFalafel(e.id);
-            });
+        // focus map on falafel when an entry's map button is clicked
+        document.querySelectorAll("[data-entry]").forEach((li) => {
+            li.querySelectorAll("[data-focus-falafel]").forEach((button) =>
+                button.addEventListener("click", () => {
+                    focusMapFalafel(li.id);
+                }),
+            );
         });
 
         // scroll to entry when map falafel is clicked
