@@ -8,14 +8,12 @@ import Link from "./mdx/link.astro";
 
 const falafel = getFalafel();
 
-//             ..-. .- .-.. .- ..-. . .-..
-const morse = "ssls sl slss sl ssls s slss"
-    .replaceAll(" ", " ")
-    .replaceAll("s", "-")
-    .replaceAll("l", "—");
+const morse = "..-. .- .-.. .- ..-. . .-.."
+    .replaceAll("-", "—")
+    .replaceAll(".", "-");
 ---
 
-<main class="wrapper">
+<main id="map" class="wrapper">
     <div class="list">
         <div class="text">
             <Intro
@@ -130,13 +128,9 @@ const morse = "ssls sl slss sl ssls s slss"
         min-height: 100lvh;
         border-top: 2px solid var(--color-map);
 
-        /*
-         * Map size. --map-open is 0 when the map is --map-min tall and 1 when
-         * it is --map-max tall (both in lvh, unitless). The script owns
-         * --map-open; while dragging it can briefly go below 0 or above 1.
-         * The value here is the initial resting position.
-         */
+        /** initial resting position - 0 is no map, 1 is full map */
         --map-open: 0;
+
         --map-min: 15;
         --map-max: 85;
         --map-height: calc(
