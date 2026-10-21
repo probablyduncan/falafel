@@ -400,13 +400,16 @@ const morse = "..-. .- .-.. .- ..-. . .-.."
                 text-underline-offset: 0.125em;
                 text-decoration-skip-ink: none;
                 outline: none;
-                border-color: currentColor;
                 &::after {
                     content: "→";
                     translate: 0.15em -0.1em;
                     rotate: -45deg;
                     scale: 1.8;
                 }
+            }
+
+            &:focus-visible {
+                border-color: currentColor;
             }
         }
     }
